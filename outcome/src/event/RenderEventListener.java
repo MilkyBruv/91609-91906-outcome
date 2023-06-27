@@ -85,6 +85,8 @@ public final class RenderEventListener implements GLEventListener {
 
         windowWidth = width;
         windowHeight = height;
+
+        // Set display viewport to resized window
         gl.glViewport(x, y, width, height);
 
     }

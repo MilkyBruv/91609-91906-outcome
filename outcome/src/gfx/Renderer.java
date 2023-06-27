@@ -99,6 +99,33 @@ public final class Renderer {
 
 
     /**
+     * Sets framebuffer graphics2d colour to supplied hex
+     * @param hex (0x000000)
+     */
+    public static final void setColour(int hex) {
+
+        // Set framebuffer graphics2d colour to hex
+        framebufferGraphics2D.setColor(new Color(hex));
+
+    }
+
+
+
+    /**
+     * @param r
+     * @param g
+     * @param b
+     */
+    public static final void setColour(int r, int g, int b) {
+
+        // Set framebuffer graphics2d colour to rgb values
+        framebufferGraphics2D.setColor(new Color(r, g, b));
+
+    }
+
+
+
+    /**
      * Disposes framebuffer Graphics2D and creates OpenGL Texture
      */
     public static final void disposeGraphics() {
