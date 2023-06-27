@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
@@ -11,6 +12,8 @@ import com.jogamp.opengl.awt.GLCanvas;
 import event.RenderEventListener;
 
 public final class Main implements Runnable {
+
+    public static double delta = 0;
 
     private static final int FPS = 60;
 
@@ -35,7 +38,10 @@ public final class Main implements Runnable {
     private static final void setSystemProperties() {
 
         // Make Java2D use OpenGL for faster rendering
-        System.setProperty("sun.java2d.opengl", "true");
+        // System.setProperty("sun.java2d.opengl", "true");
+
+        // Prevent display from being erased to stop flickering when resizing and rendering
+        System.setProperty("sun.awt.noerasebackground", "true");
 
     }
 
@@ -44,7 +50,7 @@ public final class Main implements Runnable {
     /**
      * Initializes window and thread
      */
-    private static void init() {
+    private static final void init() {
 
         // Set system properties / compiler args
         setSystemProperties();
@@ -62,7 +68,7 @@ public final class Main implements Runnable {
     /**
      * Initializes main thread and starts it
      */
-    private static void initThread() {
+    private static final void initThread() {
 
         // Create and start thread to run game
         thread = new Thread(new Main());
@@ -75,7 +81,7 @@ public final class Main implements Runnable {
     /**
      * Initializes JFrame, GLProfile, GLCapabilities, and GLCanvas
      */
-    private static void initWindow() {
+    private static final void initWindow() {
 
         // Create JFrame
         frame = new JFrame();
@@ -87,7 +93,8 @@ public final class Main implements Runnable {
         glProfile = GLProfile.get(GLProfile.GL2);
         glCapabilities = new GLCapabilities(glProfile);
         glCanvas = new GLCanvas(glCapabilities);
-        glCanvas.setSize(600, 600);
+        glCanvas.setSize(640, 480);
+        glCanvas.setPreferredSize(new Dimension(640, 480));
         glCanvas.setBackground(new Color(0x000000));
         glCanvas.setFocusable(true);
         glCanvas.addGLEventListener(new RenderEventListener());
@@ -130,7 +137,7 @@ public final class Main implements Runnable {
         // 60 FPS game loop cap
         // Calculates time left on update and waits till time is right to update
         double drawInterval = 1000000000 / FPS;
-        double delta = 0;
+        delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
 

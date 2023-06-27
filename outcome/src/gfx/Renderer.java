@@ -4,13 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
+
 public final class Renderer {
+
+    // Framebuffer scaling and positioning variable declarations
+    public static final int FRAMEBUFFER_BASE_WIDTH = 200;
+    public static final int FRAMEBUFFER_BASE_HEIGHT = 200;
+    public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
+    public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
+    public static int framebufferX = 0;
+    public static int framebufferY = 0;
     
-    private static final BufferedImage framebuffer = new BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB);
+    private static final BufferedImage framebuffer = new BufferedImage(FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT, 
+        BufferedImage.TYPE_INT_ARGB);
     private static Graphics2D framebufferGraphics2D = (Graphics2D) framebuffer.getGraphics();
+    private static Texture glTexture = null;
 
     /**
-     * Creates frameBuffer Graphics2D
+     * Creates framebuffer Graphics2D
      */
     public static final void createGraphics() {
 
@@ -26,7 +40,7 @@ public final class Renderer {
 
 
     /**
-     * Clears frameBuffer with hex colour
+     * Clears framebuffer with hex colour
      * @param hex (0x000000)
      */
     public static final void clear(int hex) {
@@ -34,9 +48,9 @@ public final class Renderer {
         // Get current colour
         Color previousColour = framebufferGraphics2D.getColor();
 
-        // Fill frameBuffer with colour
+        // Fill framebuffer with colour
         framebufferGraphics2D.setColor(new Color(hex));
-        framebufferGraphics2D.fillRect(0, 0, framebuffer.getWidth(), framebuffer.getHeight());
+        framebufferGraphics2D.fillRect(0, 0, FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT);
 
         // Set colour back to previous
         framebufferGraphics2D.setColor(previousColour);
@@ -46,14 +60,38 @@ public final class Renderer {
 
 
     /**
-     * Draws image to frameBuffer
+     * Draws line onto frame buffer from (x1, y1) to (x2, y2) with the colour of the supplied hex
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param hex (0x000000)
+     */
+    public static final void drawLine(int x1, int y1, int x2, int y2, int hex) {
+
+        // Get current colour
+        Color previousColour = framebufferGraphics2D.getColor();
+
+        // Draw line with colour
+        framebufferGraphics2D.setColor(new Color(hex));
+        framebufferGraphics2D.drawLine(x1, y1, x2, y2);
+
+        // Set colour back to previous
+        framebufferGraphics2D.setColor(previousColour);
+
+    }
+
+
+
+    /**
+     * Draws image to framebuffer
      * @param imageResource
      * @param x
      * @param y
      */
     public static final void drawImage(ImageResource imageResource, int x, int y) {
 
-        // Draw bufferedImage to frameBuffer
+        // Draw bufferedImage to framebuffer
         framebufferGraphics2D.drawImage(imageResource.getBufferedImage(), x, y, null);
 
     }
@@ -61,12 +99,65 @@ public final class Renderer {
 
 
     /**
-     * Disposes frameBuffer Graphics2D
+     * Disposes framebuffer Graphics2D and creates OpenGL Texture
      */
     public static final void disposeGraphics() {
 
-        // Dispose frameBuffer Graphics2D
+        // Dispose framebuffer Graphics2D
         framebufferGraphics2D.dispose();
+
+    }
+
+
+
+    /**
+     * Scales framebuffer to fit window perfectly, keeping the aspect ratio and resolution the same
+     * @param windowWidth
+     * @param windowHeight
+     */
+    public static final void scaleFramebuffer(int windowWidth, int windowHeight) {
+
+        // Get framebuffer scale factor
+        float scale = Math.min(
+
+            (float) windowWidth / (float) FRAMEBUFFER_BASE_WIDTH,
+            (float) windowHeight / (float) FRAMEBUFFER_BASE_HEIGHT
+
+        );
+
+        // Scale width to fit window
+        framebufferWidth = Math.round((float) FRAMEBUFFER_BASE_WIDTH * scale);
+        framebufferHeight = Math.round((float) FRAMEBUFFER_BASE_HEIGHT * scale);
+
+        System.out.println(framebufferWidth);
+        System.out.println(framebufferHeight);
+
+        // Calculate centre-screen positions
+        framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
+        framebufferY = Math.round(((float) windowHeight / 2) - ((float) framebufferHeight / 2));
+
+    }
+
+
+
+    public static final BufferedImage getFramebuffer() {
+
+        return framebuffer;
+
+    }
+
+
+
+    /**
+     * Creates and returns OpenGL Texture from bufferedImage
+     * @return OpenGL Texture
+     */
+    public static final Texture getFramebufferGlTexture() {
+
+        // Create OpenGL Texture from framebuffer
+        glTexture = AWTTextureIO.newTexture(GLProfile.get(GLProfile.GL2), framebuffer, true);
+
+        return glTexture;
 
     }
 

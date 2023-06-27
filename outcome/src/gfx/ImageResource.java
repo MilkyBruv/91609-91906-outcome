@@ -76,6 +76,7 @@ public final class ImageResource {
         // Creates optimized / more compatible bufferedImage for faster rendering
         this.bufferedImage = graphicsConfig.createCompatibleImage(this.width, this.height, 
             this.bufferedImage.getTransparency());
+        this.bufferedImage.flush();
 
     }
 
@@ -97,10 +98,16 @@ public final class ImageResource {
 
 
 
+    /**
+     * Loads and optimizes and gets dimensions of bufferedImage from file path
+     * @param filePath
+     * @throws IOException
+     */
     public final void setBufferedImage(String filePath) throws IOException {
 
-        // Read image data from File
+        // Read image data from file path and optimize and get dimensions
         this.bufferedImage = ImageIO.read(new File(filePath));
+        this.setImageProperties();
 
     }
 
