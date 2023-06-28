@@ -38,8 +38,8 @@ public final class RenderEventListener implements GLEventListener {
         // Draw onto framebuffer
         Renderer.createGraphics();
 
-            Renderer.clear(0xff00ff);
-            Renderer.drawLine(0, 0, 10, 10, 0xffffff);
+            Renderer.clear(0x000000);
+            Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
 
         Renderer.disposeGraphics();
 
@@ -50,7 +50,7 @@ public final class RenderEventListener implements GLEventListener {
         gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_NEAREST);
         gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
 
-        // Draw framebuffer OpenGL Texture
+        // Draw framebuffer OpenGL Texture to window
         gl.glColor4f(1f, 1f, 1f, 1f);
         gl.glBegin(GL2.GL_QUADS);
 
@@ -82,11 +82,16 @@ public final class RenderEventListener implements GLEventListener {
         
         GL2 gl = drawable.getGL().getGL2();
 
+        System.out.println(width);
+        System.out.println(height);
+
         windowWidth = width;
         windowHeight = height;
 
         // Set display viewport to resized window
         gl.glViewport(x, y, width, height);
+
+        // Scale framebuffer when 
         Renderer.scaleFramebuffer(windowWidth, windowHeight);
 
     }

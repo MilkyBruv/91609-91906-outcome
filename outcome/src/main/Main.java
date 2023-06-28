@@ -1,26 +1,22 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-
-import com.jogamp.opengl.GL;
+import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
-import com.jogamp.opengl.awt.GLCanvas;
 
+import event.KeyEventListener;
+import event.MouseEventListener;
 import event.RenderEventListener;
+import event.WindowEventListener;
 
 public final class Main implements Runnable {
 
     private static final int FPS = 60;
     public static double delta = 0;
 
-    private static final JFrame FRAME = new JFrame();
     private static final GLProfile GL_PROFILE = GLProfile.get(GLProfile.GL2);
     private static final GLCapabilities GL_CAPABILITIES = new GLCapabilities(GL_PROFILE);
-    private static final GLCanvas GL_CANVAS = new GLCanvas(GL_CAPABILITIES);
+    private static final GLWindow GL_WINDOW = GLWindow.create(GL_CAPABILITIES);
     private static Thread thread;
 
     public static void main(String[] args) {
@@ -38,7 +34,7 @@ public final class Main implements Runnable {
     private static final void setSystemProperties() {
 
         // Make Java2D use OpenGL for faster rendering
-        // System.setProperty("sun.java2d.opengl", "true");
+        System.setProperty("sun.java2d.opengl", "true");
 
         // Prevent display from being erased to stop flickering when resizing and rendering
         System.setProperty("sun.awt.noerasebackground", "true");
@@ -79,29 +75,22 @@ public final class Main implements Runnable {
 
 
     /**
-     * Initializes JFrame and GLCanvas properties
+     * Sets up GLWindow
      */
     private static final void initWindow() {
 
-        // Setup JFrame
-        FRAME.setTitle("Window Test");
-        FRAME.getContentPane().setSize(640, 480);
-        FRAME.getContentPane().setPreferredSize(new Dimension(640, 480));
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        FRAME.setResizable(true);
+        // Setup basic properties
+        GL_WINDOW.setSize(640, 480);
+        GL_WINDOW.setTitle("Test GLWindow");
+        GL_WINDOW.setUndecorated(false);
 
-        // Setup OpenGL Swing canvas properties, and GLEventListener
-        GL_CANVAS.setSize(640, 480);
-        GL_CANVAS.setPreferredSize(new Dimension(640, 480));
-        GL_CANVAS.setBackground(new Color(0x000000));
-        GL_CANVAS.addGLEventListener(new RenderEventListener());
-        GL_CANVAS.setFocusable(true);
+        // Add event listeners
+        GL_WINDOW.addGLEventListener(new RenderEventListener());
+        GL_WINDOW.addWindowListener(new WindowEventListener());
+        GL_WINDOW.addKeyListener(new KeyEventListener());
+        GL_WINDOW.addMouseListener(new MouseEventListener());
 
-        // Finish setting up JFrame
-        FRAME.getContentPane().add(GL_CANVAS);
-        FRAME.pack();
-        FRAME.setLocationRelativeTo(null);
-        FRAME.setVisible(true);
+        GL_WINDOW.setVisible(true);
 
     }
 
@@ -119,11 +108,11 @@ public final class Main implements Runnable {
 
 
     /**
-     * Calls Renderer and RenderEventListener drawing methods through GLCanvas
+     * Calls {@link Renderer} and {@link RenderEventListener} drawing methods through GLCanvas
      */
     private static final void draw() {
         
-        GL_CANVAS.display();
+        GL_WINDOW.display();
 
     }
 

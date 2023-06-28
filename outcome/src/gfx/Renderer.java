@@ -61,10 +61,10 @@ public final class Renderer {
 
     /**
      * Draws line onto frame buffer from (x1, y1) to (x2, y2) with the colour of the supplied hex
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
+     * @param x1 start x
+     * @param y1 start y
+     * @param x2 end x
+     * @param y2 end y
      * @param hex (0x000000)
      */
     public static final void drawLine(int x1, int y1, int x2, int y2, int hex) {
@@ -84,10 +84,26 @@ public final class Renderer {
 
 
     /**
-     * Draws image to framebuffer
-     * @param imageResource
-     * @param x
-     * @param y
+     * Draws line onto frame buffer from (x1, y1) to (x2, y2)
+     * @param x1 start x
+     * @param y1 start y
+     * @param x2 end x
+     * @param y2 end y
+     */
+    public static final void drawLine(int x1, int y1, int x2, int y2) {
+
+        // Draw line
+        framebufferGraphics2D.drawLine(x1, y1, x2, y2);
+
+    }
+
+
+
+    /**
+     * Draws image to framebuffer at supplied position
+     * @param imageResource image to draw
+     * @param x pos x
+     * @param y pos y
      */
     public static final void drawImage(ImageResource imageResource, int x, int y) {
 
@@ -113,9 +129,9 @@ public final class Renderer {
 
     /**
      * Sets framebuffer graphics2d colour to supplied rgb values
-     * @param r
-     * @param g
-     * @param b
+     * @param r red 0-255
+     * @param g green 0-255
+     * @param b blue 0-255
      */
     public static final void setColour(int r, int g, int b) {
 
@@ -140,8 +156,8 @@ public final class Renderer {
 
     /**
      * Scales framebuffer to fit window perfectly, keeping the aspect ratio and resolution the same
-     * @param windowWidth
-     * @param windowHeight
+     * @param windowWidth current window width from {@link RenderEventListener}
+     * @param windowHeight current window height from {@link RenderEventListener}
      */
     public static final void scaleFramebuffer(int windowWidth, int windowHeight) {
 
@@ -156,9 +172,6 @@ public final class Renderer {
         // Scale width to fit window
         framebufferWidth = Math.round((float) FRAMEBUFFER_BASE_WIDTH * scale);
         framebufferHeight = Math.round((float) FRAMEBUFFER_BASE_HEIGHT * scale);
-
-        System.out.println("W: " + windowWidth);
-        System.out.println("H: " + windowHeight);
 
         // Calculate centre-screen positions
         framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
