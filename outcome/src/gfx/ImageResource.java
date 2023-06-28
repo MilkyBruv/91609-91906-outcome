@@ -12,7 +12,7 @@ public final class ImageResource {
     
     private BufferedImage bufferedImage = null;
     private int width, height;
-    private final GraphicsConfiguration graphicsConfig = GraphicsEnvironment.getLocalGraphicsEnvironment()
+    private final GraphicsConfiguration GRAPHICS_CONFIG = GraphicsEnvironment.getLocalGraphicsEnvironment()
         .getDefaultScreenDevice().getDefaultConfiguration();
 
     /**
@@ -74,7 +74,7 @@ public final class ImageResource {
     private final void optimizeBufferedImage() {
 
         // Creates optimized / more compatible bufferedImage for faster rendering
-        this.bufferedImage = graphicsConfig.createCompatibleImage(this.width, this.height, 
+        this.bufferedImage = GRAPHICS_CONFIG.createCompatibleImage(this.width, this.height, 
             this.bufferedImage.getTransparency());
         this.bufferedImage.flush();
 

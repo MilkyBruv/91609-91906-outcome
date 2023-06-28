@@ -11,16 +11,16 @@ import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 public final class Renderer {
 
     // Framebuffer scaling and positioning variable declarations
-    public static final int FRAMEBUFFER_BASE_WIDTH = 200;
-    public static final int FRAMEBUFFER_BASE_HEIGHT = 200;
+    public static final int FRAMEBUFFER_BASE_WIDTH = 20;
+    public static final int FRAMEBUFFER_BASE_HEIGHT = 20;
     public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
     public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
     public static int framebufferX = 0;
     public static int framebufferY = 0;
     
-    private static final BufferedImage framebuffer = new BufferedImage(FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT, 
+    private static final BufferedImage FRAMEBUFFER = new BufferedImage(FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT, 
         BufferedImage.TYPE_INT_ARGB);
-    private static Graphics2D framebufferGraphics2D = (Graphics2D) framebuffer.getGraphics();
+    private static Graphics2D framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
     private static Texture glTexture = null;
 
     /**
@@ -31,7 +31,7 @@ public final class Renderer {
         // Create graphics2d if it is null
         if (framebufferGraphics2D == null) {
 
-            framebufferGraphics2D = (Graphics2D) framebuffer.getGraphics();
+            framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
 
         }
 
@@ -112,6 +112,7 @@ public final class Renderer {
 
 
     /**
+     * Sets framebuffer graphics2d colour to supplied rgb values
      * @param r
      * @param g
      * @param b
@@ -156,8 +157,8 @@ public final class Renderer {
         framebufferWidth = Math.round((float) FRAMEBUFFER_BASE_WIDTH * scale);
         framebufferHeight = Math.round((float) FRAMEBUFFER_BASE_HEIGHT * scale);
 
-        System.out.println(framebufferWidth);
-        System.out.println(framebufferHeight);
+        System.out.println("W: " + windowWidth);
+        System.out.println("H: " + windowHeight);
 
         // Calculate centre-screen positions
         framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
@@ -169,7 +170,7 @@ public final class Renderer {
 
     public static final BufferedImage getFramebuffer() {
 
-        return framebuffer;
+        return FRAMEBUFFER;
 
     }
 
@@ -182,7 +183,7 @@ public final class Renderer {
     public static final Texture getFramebufferGlTexture() {
 
         // Create OpenGL Texture from framebuffer
-        glTexture = AWTTextureIO.newTexture(GLProfile.get(GLProfile.GL2), framebuffer, true);
+        glTexture = AWTTextureIO.newTexture(GLProfile.get(GLProfile.GL2), FRAMEBUFFER, true);
 
         return glTexture;
 

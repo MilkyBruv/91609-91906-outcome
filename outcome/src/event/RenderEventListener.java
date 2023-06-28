@@ -8,15 +8,15 @@ import gfx.Renderer;
 
 public final class RenderEventListener implements GLEventListener {
 
-    private int windowWidth = 640;
-    private int windowHeight = 480;
+    private int windowWidth = 10;
+    private int windowHeight = 10;
 
     @Override
     public synchronized void init(GLAutoDrawable drawable) {
         
         GL2 gl = drawable.getGL().getGL2();
 
-        // Set clear colour
+        // Set clear colour and enable images to be draw to the window
         gl.glClearColor(0f, 0f, 0f, 1f);
         gl.glEnable(GL2.GL_TEXTURE_2D);
 
@@ -28,6 +28,12 @@ public final class RenderEventListener implements GLEventListener {
     public synchronized void display(GLAutoDrawable drawable) {
 
         GL2 gl = drawable.getGL().getGL2();
+
+        // Clear display, set matrix mode, and set ortho viewport position to topleft (0, 0)
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+        gl.glMatrixMode(GL2.GL_PROJECTION);
+        gl.glLoadIdentity();
+        gl.glOrtho(0, windowWidth, windowHeight, 0, -1, 1);
         
         // Draw onto framebuffer
         Renderer.createGraphics();
@@ -36,13 +42,6 @@ public final class RenderEventListener implements GLEventListener {
             Renderer.drawLine(0, 0, 10, 10, 0xffffff);
 
         Renderer.disposeGraphics();
-        Renderer.scaleFramebuffer(windowWidth, windowHeight);
-
-        // Clear display, set matrix mode, and set ortho viewport position to topleft (0, 0)
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-        gl.glMatrixMode(GL2.GL_PROJECTION);
-        gl.glLoadIdentity();
-        gl.glOrtho(0, windowWidth, windowHeight, 0, -1, 1);
 
         // Bind OpenGL Texture
         gl.glBindTexture(GL2.GL_TEXTURE_2D, Renderer.getFramebufferGlTexture().getTextureObject());
@@ -55,17 +54,17 @@ public final class RenderEventListener implements GLEventListener {
         gl.glColor4f(1f, 1f, 1f, 1f);
         gl.glBegin(GL2.GL_QUADS);
 
-            gl.glTexCoord2f(0f, 0f);
+            gl.glTexCoord2f(0, 0);
             gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY);
 
-            gl.glTexCoord2f(1f, 0f);
+            gl.glTexCoord2f(1, 0);
             gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, Renderer.framebufferY);
 
-            gl.glTexCoord2f(1f, 1f);
+            gl.glTexCoord2f(1, 1);
             gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, 
                 Renderer.framebufferY + Renderer.framebufferHeight);
 
-            gl.glTexCoord2f(0f, 1f);
+            gl.glTexCoord2f(0, 1);
             gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY + Renderer.framebufferHeight);
 
         gl.glEnd();
@@ -88,6 +87,7 @@ public final class RenderEventListener implements GLEventListener {
 
         // Set display viewport to resized window
         gl.glViewport(x, y, width, height);
+        Renderer.scaleFramebuffer(windowWidth, windowHeight);
 
     }
 
