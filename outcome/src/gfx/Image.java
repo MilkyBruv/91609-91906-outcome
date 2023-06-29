@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public final class ImageResource {
+public final class Image {
     
     private BufferedImage bufferedImage = null;
     private int width, height;
@@ -19,7 +19,7 @@ public final class ImageResource {
      * Creates ImageResource, and loads and optimizes supplied bufferedImage
      * @param bufferedImage 
      */
-    public ImageResource(BufferedImage bufferedImage) {
+    public Image(BufferedImage bufferedImage) {
 
         // Set bufferedImage, then get dimensions and optimize it
         this.bufferedImage = bufferedImage;
@@ -34,7 +34,7 @@ public final class ImageResource {
      * @param filePath
      * @throws IOException
      */
-    public ImageResource(String filePath) throws IOException {
+    public Image(String filePath) throws IOException {
 
         // Read image data from File and get dimensions
         this.bufferedImage = ImageIO.read(new File(filePath));

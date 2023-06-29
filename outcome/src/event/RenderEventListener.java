@@ -4,6 +4,7 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
+import gfx.ImageLoader;
 import gfx.Renderer;
 
 public final class RenderEventListener implements GLEventListener {
@@ -19,6 +20,9 @@ public final class RenderEventListener implements GLEventListener {
         // Set clear colour and enable images to be draw to the window
         gl.glClearColor(0f, 0f, 0f, 1f);
         gl.glEnable(GL2.GL_TEXTURE_2D);
+
+        // Load images from ImageLoader
+        ImageLoader.load();
 
     }
 
@@ -40,6 +44,7 @@ public final class RenderEventListener implements GLEventListener {
 
             Renderer.clear(0x000000);
             Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
+            Renderer.drawImage(ImageLoader.testImage, 0, 0);
 
         Renderer.disposeGraphics();
 
