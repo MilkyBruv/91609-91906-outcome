@@ -1,5 +1,6 @@
 package gfx;
 
+import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
@@ -74,9 +75,12 @@ public final class Image {
     private final void optimizeBufferedImage() {
 
         // Creates optimized / more compatible bufferedImage for faster rendering
-        this.bufferedImage = GRAPHICS_CONFIG.createCompatibleImage(this.width, this.height, 
+        BufferedImage newImage = GRAPHICS_CONFIG.createCompatibleImage(this.bufferedImage.getWidth(), this.bufferedImage.getHeight(), 
             this.bufferedImage.getTransparency());
-        this.bufferedImage.flush();
+        
+        Graphics2D g2d = (Graphics2D) this.bufferedImage.getGraphics();
+        g2d.drawImage(newImage, 0, 0, null);
+        g2d.dispose();
 
     }
 
