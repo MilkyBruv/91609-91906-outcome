@@ -4,7 +4,8 @@
 
         "src/main/*.java",
         "src/event/*.java",
-        "src/gfx/*.java"
+        "src/gfx/*.java",
+        "src/sfx/*.java"
 
     ],
 

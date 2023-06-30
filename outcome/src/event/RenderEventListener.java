@@ -1,16 +1,19 @@
 package event;
 
+import java.io.IOException;
+
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
-import gfx.ImageLoader;
+import gfx.ImageResource;
 import gfx.Renderer;
 
 public final class RenderEventListener implements GLEventListener {
 
     private int windowWidth = 10;
     private int windowHeight = 10;
+    private ImageResource testImage;
 
     @Override
     public synchronized void init(GLAutoDrawable drawable) {
@@ -22,7 +25,15 @@ public final class RenderEventListener implements GLEventListener {
         gl.glEnable(GL2.GL_TEXTURE_2D);
 
         // Load images from ImageLoader
-        ImageLoader.load();
+        try {
+
+            testImage = new ImageResource("image.png");
+
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+            
+        }
 
     }
 
@@ -44,7 +55,7 @@ public final class RenderEventListener implements GLEventListener {
 
             Renderer.clear(0x000000);
             Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
-            Renderer.drawImage(ImageLoader.testImage, 0, 0);
+            Renderer.drawImage(testImage, 0, 0);
 
         Renderer.disposeGraphics();
 
@@ -86,9 +97,6 @@ public final class RenderEventListener implements GLEventListener {
     public synchronized void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
         
         GL2 gl = drawable.getGL().getGL2();
-
-        System.out.println(width);
-        System.out.println(height);
 
         windowWidth = width;
         windowHeight = height;

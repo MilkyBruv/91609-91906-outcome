@@ -4,12 +4,13 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public final class Image {
+import main.Main;
+
+public final class ImageResource {
     
     private BufferedImage bufferedImage = null;
     private int width, height;
@@ -20,7 +21,7 @@ public final class Image {
      * Creates ImageResource, and loads and optimizes supplied bufferedImage
      * @param bufferedImage 
      */
-    public Image(BufferedImage bufferedImage) {
+    public ImageResource(BufferedImage bufferedImage) {
 
         // Set bufferedImage, then get dimensions and optimize it
         this.bufferedImage = bufferedImage;
@@ -35,10 +36,10 @@ public final class Image {
      * @param filePath
      * @throws IOException
      */
-    public Image(String filePath) throws IOException {
+    public ImageResource(String fileName) throws IOException {
 
         // Read image data from File and get dimensions
-        this.bufferedImage = ImageIO.read(new File(filePath));
+        this.bufferedImage = ImageIO.read(Main.class.getResourceAsStream("../res/" + fileName));
         this.setImageProperties();
 
     }
@@ -107,10 +108,10 @@ public final class Image {
      * @param filePath
      * @throws IOException
      */
-    public final void setBufferedImage(String filePath) throws IOException {
+    public final void setBufferedImage(String fileName) throws IOException {
 
         // Read image data from file path and optimize and get dimensions
-        this.bufferedImage = ImageIO.read(new File(filePath));
+        this.bufferedImage = ImageIO.read(Main.class.getResourceAsStream("../res/" + fileName));
         this.setImageProperties();
 
     }

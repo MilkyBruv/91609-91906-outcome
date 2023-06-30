@@ -11,8 +11,8 @@ import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 public abstract class Renderer {
 
     // Framebuffer scaling and positioning variable declarations
-    public static final int FRAMEBUFFER_BASE_WIDTH = 20;
-    public static final int FRAMEBUFFER_BASE_HEIGHT = 20;
+    public static final int FRAMEBUFFER_BASE_WIDTH = 16 * 6;
+    public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 6;
     public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
     public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
     public static int framebufferX = 0;
@@ -105,10 +105,14 @@ public abstract class Renderer {
      * @param x pos x
      * @param y pos y
      */
-    public static final void drawImage(Image image, int x, int y) {
+    public static final void drawImage(ImageResource image, int x, int y) {
 
-        // Draw bufferedImage to framebuffer
-        framebufferGraphics2D.drawImage(image.getBufferedImage(), x, y, null);
+        // Draw bufferedImage to framebuffer if the imaeg is properly loaded
+        if (image != null) {
+
+            framebufferGraphics2D.drawImage(image.getBufferedImage(), x, y, null);
+
+        }
 
     }
 
