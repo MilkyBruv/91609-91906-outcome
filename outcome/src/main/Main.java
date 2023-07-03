@@ -1,13 +1,20 @@
 package main;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 
+import asset.AssetManager;
 import event.KeyEventListener;
 import event.MouseEventListener;
 import event.RenderEventListener;
 import event.WindowEventListener;
+import gfx.Renderer;
 
 public final class Main implements Runnable {
 
@@ -26,8 +33,6 @@ public final class Main implements Runnable {
 
     }
 
-
-
     /**
      * Sets system properties / compiler args
      */
@@ -36,12 +41,11 @@ public final class Main implements Runnable {
         // Make Java2D use OpenGL for faster rendering
         System.setProperty("sun.java2d.opengl", "true");
 
-        // Prevent display from being erased to stop flickering when resizing and rendering
+        // Prevent display from being erased to stop flickering when resizing and
+        // rendering
         System.setProperty("sun.awt.noerasebackground", "true");
 
     }
-
-
 
     /**
      * Initializes window and thread
@@ -51,6 +55,10 @@ public final class Main implements Runnable {
         // Set system properties / compiler args
         setSystemProperties();
 
+        // Load all content before creating window as RenderEventListener needs all
+        // content to be full initialized
+        loadAssets();
+
         // Create window
         initWindow();
 
@@ -58,8 +66,6 @@ public final class Main implements Runnable {
         initThread();
 
     }
-
-
 
     /**
      * Initializes main thread and starts it
@@ -71,8 +77,6 @@ public final class Main implements Runnable {
         thread.start();
 
     }
-
-
 
     /**
      * Sets up GLWindow
@@ -90,34 +94,47 @@ public final class Main implements Runnable {
         GL_WINDOW.addKeyListener(new KeyEventListener());
         GL_WINDOW.addMouseListener(new MouseEventListener());
 
+        // Show window
         GL_WINDOW.setVisible(true);
 
     }
 
+    /**
+     * Load images and sounds from {@link AssetLoader}
+     */
+    private static final void loadAssets() {
 
+        try {
+
+            AssetManager.loadAssets();
+
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
 
     /**
      * Calls all other update methods then gets called in main thread method
      */
     private static final void update() {
 
-        // 
+        //
 
     }
 
-
-
     /**
-     * Calls {@link Renderer} and {@link RenderEventListener} drawing methods through GLCanvas
+     * Calls {@link Renderer} and {@link RenderEventListener} drawing methods
+     * through GLCanvas
      */
     private static final void draw() {
-        
+
         GL_WINDOW.display();
 
     }
 
-
-    
     @Override
     public void run() {
 

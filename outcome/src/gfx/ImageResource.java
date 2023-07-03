@@ -11,15 +11,16 @@ import javax.imageio.ImageIO;
 import main.Main;
 
 public final class ImageResource {
-    
+
     private BufferedImage bufferedImage = null;
     private int width, height;
     private final GraphicsConfiguration GRAPHICS_CONFIG = GraphicsEnvironment.getLocalGraphicsEnvironment()
-        .getDefaultScreenDevice().getDefaultConfiguration();
+            .getDefaultScreenDevice().getDefaultConfiguration();
 
     /**
      * Creates ImageResource, and loads and optimizes supplied bufferedImage
-     * @param bufferedImage 
+     * 
+     * @param bufferedImage
      */
     public ImageResource(BufferedImage bufferedImage) {
 
@@ -29,12 +30,11 @@ public final class ImageResource {
 
     }
 
-
-
     /**
      * Creates ImageResource, and loads and optimizes image from path
-     * @param filePath
-     * @throws IOException
+     * 
+     * @param fileName Name of file
+     * @throws IOException If cannot find specified image
      */
     public ImageResource(String fileName) throws IOException {
 
@@ -43,8 +43,6 @@ public final class ImageResource {
         this.setImageProperties();
 
     }
-
-
 
     /**
      * Optimizes and gets dimensions of bufferedImage
@@ -56,8 +54,6 @@ public final class ImageResource {
 
     }
 
-
-
     /**
      * Sets width and height to bufferedImage dimensions
      */
@@ -68,24 +64,20 @@ public final class ImageResource {
 
     }
 
-
-
     /**
      * Optimizes bufferedImage using current GraphicsConfiguration
      */
     private final void optimizeBufferedImage() {
 
         // Creates optimized / more compatible bufferedImage for faster rendering
-        BufferedImage newImage = GRAPHICS_CONFIG.createCompatibleImage(this.bufferedImage.getWidth(), this.bufferedImage.getHeight(), 
-            this.bufferedImage.getTransparency());
-        
+        BufferedImage newImage = GRAPHICS_CONFIG.createCompatibleImage(this.bufferedImage.getWidth(),
+                this.bufferedImage.getHeight(), this.bufferedImage.getTransparency());
+
         Graphics2D g2d = (Graphics2D) this.bufferedImage.getGraphics();
         g2d.drawImage(newImage, 0, 0, null);
         g2d.dispose();
 
     }
-
-
 
     public final BufferedImage getBufferedImage() {
 
@@ -93,18 +85,15 @@ public final class ImageResource {
 
     }
 
-
-
     public final void setBufferedImage(BufferedImage bufferedImage) {
 
         this.bufferedImage = bufferedImage;
 
     }
 
-
-
     /**
      * Loads and optimizes and gets dimensions of bufferedImage from file path
+     * 
      * @param filePath
      * @throws IOException
      */
@@ -116,15 +105,11 @@ public final class ImageResource {
 
     }
 
-
-
     public final int getWidth() {
 
         return this.width;
 
     }
-
-
 
     public final int getHeight() {
 

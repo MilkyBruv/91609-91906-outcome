@@ -2,60 +2,50 @@ package event;
 
 import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
-import gfx.ImageResource;
+import asset.AssetManager;
 import gfx.Renderer;
 
 public final class RenderEventListener implements GLEventListener {
 
     private int windowWidth = 10;
     private int windowHeight = 10;
-    private ImageResource testImage;
 
     @Override
     public synchronized void init(GLAutoDrawable drawable) {
-        
+
         GL2 gl = drawable.getGL().getGL2();
 
         // Set clear colour and enable images to be draw to the window
         gl.glClearColor(0f, 0f, 0f, 1f);
         gl.glEnable(GL2.GL_TEXTURE_2D);
 
-        // Load images from ImageLoader
-        try {
-
-            testImage = new ImageResource("image.png");
-
-        } catch (IOException e) {
-            
-            e.printStackTrace();
-            
-        }
-
     }
-
-
 
     @Override
     public synchronized void display(GLAutoDrawable drawable) {
 
         GL2 gl = drawable.getGL().getGL2();
 
-        // Clear display, set matrix mode, and set ortho viewport position to topleft (0, 0)
+        // Clear display, set matrix mode, and set ortho viewport position to topleft
+        // (0, 0)
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
         gl.glOrtho(0, windowWidth, windowHeight, 0, -1, 1);
-        
+
         // Draw onto framebuffer
         Renderer.createGraphics();
 
-            Renderer.clear(0x000000);
-            Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
-            Renderer.drawImage(testImage, 0, 0);
+        Renderer.clear(0x000000);
+        Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
+        Renderer.drawImage(AssetManager.images.get("image1"), 0, 0);
 
         Renderer.disposeGraphics();
 
@@ -70,32 +60,30 @@ public final class RenderEventListener implements GLEventListener {
         gl.glColor4f(1f, 1f, 1f, 1f);
         gl.glBegin(GL2.GL_QUADS);
 
-            gl.glTexCoord2f(0, 0);
-            gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY);
+        gl.glTexCoord2f(0, 0);
+        gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY);
 
-            gl.glTexCoord2f(1, 0);
-            gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, Renderer.framebufferY);
+        gl.glTexCoord2f(1, 0);
+        gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, Renderer.framebufferY);
 
-            gl.glTexCoord2f(1, 1);
-            gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, 
+        gl.glTexCoord2f(1, 1);
+        gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth,
                 Renderer.framebufferY + Renderer.framebufferHeight);
 
-            gl.glTexCoord2f(0, 1);
-            gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY + Renderer.framebufferHeight);
+        gl.glTexCoord2f(0, 1);
+        gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY + Renderer.framebufferHeight);
 
         gl.glEnd();
         gl.glFlush();
 
         // Bind to 0 (No OpenGL Texture)
         gl.glBindTexture(GL2.GL_TEXTURE_2D, 0);
-    
+
     }
-
-
 
     @Override
     public synchronized void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-        
+
         GL2 gl = drawable.getGL().getGL2();
 
         windowWidth = width;
@@ -104,17 +92,15 @@ public final class RenderEventListener implements GLEventListener {
         // Set display viewport to resized window
         gl.glViewport(x, y, width, height);
 
-        // Scale framebuffer when 
+        // Scale framebuffer when
         Renderer.scaleFramebuffer(windowWidth, windowHeight);
 
     }
 
-
-
     @Override
     public synchronized void dispose(GLAutoDrawable drawable) {
-        
-        // 
+
+        //
 
     }
 
