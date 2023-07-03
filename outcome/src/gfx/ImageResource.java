@@ -30,6 +30,8 @@ public final class ImageResource {
 
     }
 
+
+
     /**
      * Creates ImageResource, and loads and optimizes image from path
      * 
@@ -44,6 +46,8 @@ public final class ImageResource {
 
     }
 
+
+
     /**
      * Optimizes and gets dimensions of bufferedImage
      */
@@ -54,6 +58,8 @@ public final class ImageResource {
 
     }
 
+
+
     /**
      * Sets width and height to bufferedImage dimensions
      */
@@ -63,6 +69,8 @@ public final class ImageResource {
         this.height = this.bufferedImage.getHeight();
 
     }
+
+
 
     /**
      * Optimizes bufferedImage using current GraphicsConfiguration
@@ -79,17 +87,23 @@ public final class ImageResource {
 
     }
 
+
+
     public final BufferedImage getBufferedImage() {
 
         return this.bufferedImage;
 
     }
 
+
+
     public final void setBufferedImage(BufferedImage bufferedImage) {
 
         this.bufferedImage = bufferedImage;
 
     }
+
+
 
     /**
      * Loads and optimizes and gets dimensions of bufferedImage from file path
@@ -105,12 +119,16 @@ public final class ImageResource {
 
     }
 
+
+
     public final int getWidth() {
 
         return this.width;
 
     }
 
+
+    
     public final int getHeight() {
 
         return this.height;

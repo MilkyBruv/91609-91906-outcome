@@ -1,10 +1,5 @@
 package event;
 
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
@@ -27,6 +22,8 @@ public final class RenderEventListener implements GLEventListener {
         gl.glEnable(GL2.GL_TEXTURE_2D);
 
     }
+
+
 
     @Override
     public synchronized void display(GLAutoDrawable drawable) {
@@ -81,6 +78,8 @@ public final class RenderEventListener implements GLEventListener {
 
     }
 
+
+
     @Override
     public synchronized void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 
@@ -97,6 +96,8 @@ public final class RenderEventListener implements GLEventListener {
 
     }
 
+
+    
     @Override
     public synchronized void dispose(GLAutoDrawable drawable) {
 

@@ -35,6 +35,8 @@ public abstract class Renderer {
 
     }
 
+
+
     /**
      * Clears framebuffer with hex colour
      * 
@@ -53,6 +55,8 @@ public abstract class Renderer {
         framebufferGraphics2D.setColor(previousColour);
 
     }
+
+
 
     /**
      * Draws line onto frame buffer from (x1, y1) to (x2, y2) with the colour of the
@@ -78,6 +82,8 @@ public abstract class Renderer {
 
     }
 
+
+
     /**
      * Draws line onto frame buffer from (x1, y1) to (x2, y2)
      * 
@@ -92,6 +98,8 @@ public abstract class Renderer {
         framebufferGraphics2D.drawLine(x1, y1, x2, y2);
 
     }
+
+
 
     /**
      * Draws image to framebuffer at supplied position
@@ -109,6 +117,8 @@ public abstract class Renderer {
 
     }
 
+
+
     /**
      * Sets framebuffer graphics2d colour to supplied hex
      * 
@@ -121,6 +131,8 @@ public abstract class Renderer {
 
     }
 
+
+
     /**
      * Disposes framebuffer Graphics2D and creates OpenGL Texture
      */
@@ -131,9 +143,10 @@ public abstract class Renderer {
 
     }
 
+
+
     /**
-     * Scales framebuffer to fit window perfectly, keeping the aspect ratio and
-     * resolution the same
+     * Scales framebuffer to fit window perfectly, keeping the aspect ratio and resolution the same
      * 
      * @param windowWidth  current window width from {@link RenderEventListener}
      * @param windowHeight current window height from {@link RenderEventListener}
@@ -158,12 +171,16 @@ public abstract class Renderer {
 
     }
 
+
+
     public static final BufferedImage getFramebuffer() {
 
         return FRAMEBUFFER;
 
     }
 
+
+    
     /**
      * Creates and returns OpenGL Texture from bufferedImage
      * 

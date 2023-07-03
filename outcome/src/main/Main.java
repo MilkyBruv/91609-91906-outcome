@@ -33,6 +33,8 @@ public final class Main implements Runnable {
 
     }
 
+
+
     /**
      * Sets system properties / compiler args
      */
@@ -47,8 +49,10 @@ public final class Main implements Runnable {
 
     }
 
+
+
     /**
-     * Initializes window and thread
+     * Initializes window and thread, and loads all the assets
      */
     private static final void init() {
 
@@ -67,6 +71,8 @@ public final class Main implements Runnable {
 
     }
 
+
+
     /**
      * Initializes main thread and starts it
      */
@@ -78,6 +84,8 @@ public final class Main implements Runnable {
 
     }
 
+
+    
     /**
      * Sets up GLWindow
      */
@@ -99,6 +107,8 @@ public final class Main implements Runnable {
 
     }
 
+
+    
     /**
      * Load images and sounds from {@link AssetLoader}
      */
@@ -116,6 +126,8 @@ public final class Main implements Runnable {
 
     }
 
+
+    
     /**
      * Calls all other update methods then gets called in main thread method
      */
@@ -125,6 +137,8 @@ public final class Main implements Runnable {
 
     }
 
+
+    
     /**
      * Calls {@link Renderer} and {@link RenderEventListener} drawing methods
      * through GLCanvas
@@ -135,6 +149,8 @@ public final class Main implements Runnable {
 
     }
 
+
+    
     @Override
     public void run() {
 

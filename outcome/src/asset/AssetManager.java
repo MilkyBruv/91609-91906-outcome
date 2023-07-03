@@ -1,9 +1,7 @@
 package asset;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -14,14 +12,11 @@ import sfx.SoundResource;
 
 public abstract class AssetManager {
 
-    public static final Map<String, ImageResource> images = new HashMap<String, ImageResource>() {
-    };
-    public static final Map<String, SoundResource> sounds = new HashMap<String, SoundResource>() {
-    };
+    public static final Map<String, ImageResource> images = new HashMap<String, ImageResource>() {};
+    public static final Map<String, SoundResource> sounds = new HashMap<String, SoundResource>() {};
 
     /**
-     * Load all uninitialized declared {@link ImageResource}s and
-     * {@link SoundResource}s
+     * Load all uninitialized declared {@link ImageResource}s and {@link SoundResource}s
      * 
      * @throws IOException
      * @throws UnsupportedAudioFileException
