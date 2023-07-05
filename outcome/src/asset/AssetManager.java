@@ -24,7 +24,8 @@ public abstract class AssetManager {
      */
     public static void loadAssets() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 
-        sounds.put("audio1", new SoundResource("audio.mp3"));
+        sounds.put("audio1", new SoundResource("audio.wav"));
+        sounds.put("audio2", new SoundResource("audio.wav"));
         images.put("image1", new ImageResource("image.png"));
 
     }

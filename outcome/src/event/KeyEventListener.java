@@ -18,6 +18,14 @@ public final class KeyEventListener implements KeyListener {
 
         }
 
+        if (event.getKeyCode() == KeyEvent.VK_S) {
+
+            System.out.println("Key Pressed!");
+
+            AssetManager.sounds.get("audio2").play();
+
+        }
+
     }
 
 

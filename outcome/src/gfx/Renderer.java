@@ -40,7 +40,7 @@ public abstract class Renderer {
     /**
      * Clears framebuffer with hex colour
      * 
-     * @param hex (0x000000)
+     * @param hex - (0x000000)
      */
     public static final void clear(int hex) {
 
@@ -62,11 +62,11 @@ public abstract class Renderer {
      * Draws line onto frame buffer from (x1, y1) to (x2, y2) with the colour of the
      * supplied hex
      * 
-     * @param x1  start x
-     * @param y1  start y
-     * @param x2  end x
-     * @param y2  end y
-     * @param hex (0x000000)
+     * @param x1 - start x
+     * @param y1 - start y
+     * @param x2 - end x
+     * @param y2 - end y
+     * @param hex - (0x000000)
      */
     public static final void drawLine(int x1, int y1, int x2, int y2, int hex) {
 
@@ -87,10 +87,10 @@ public abstract class Renderer {
     /**
      * Draws line onto frame buffer from (x1, y1) to (x2, y2)
      * 
-     * @param x1 start x
-     * @param y1 start y
-     * @param x2 end x
-     * @param y2 end y
+     * @param x1 - start x
+     * @param y1 - start y
+     * @param x2 - end x
+     * @param y2 - end y
      */
     public static final void drawLine(int x1, int y1, int x2, int y2) {
 
@@ -104,9 +104,9 @@ public abstract class Renderer {
     /**
      * Draws image to framebuffer at supplied position
      * 
-     * @param image image to draw
-     * @param x     pos x
-     * @param y     pos y
+     * @param image - image to draw
+     * @param x - pos x
+     * @param y - pos y
      */
     public static final void drawImage(ImageResource image, int x, int y) {
 
@@ -122,7 +122,7 @@ public abstract class Renderer {
     /**
      * Sets framebuffer graphics2d colour to supplied hex
      * 
-     * @param hex (0x000000)
+     * @param hex - (0x000000)
      */
     public static final void setColour(int hex) {
 
@@ -148,16 +148,16 @@ public abstract class Renderer {
     /**
      * Scales framebuffer to fit window perfectly, keeping the aspect ratio and resolution the same
      * 
-     * @param windowWidth  current window width from {@link RenderEventListener}
-     * @param windowHeight current window height from {@link RenderEventListener}
+     * @param windowWidth - current window width from {@link RenderEventListener}
+     * @param windowHeight - current window height from {@link RenderEventListener}
      */
     public static final void scaleFramebuffer(int windowWidth, int windowHeight) {
 
         // Get framebuffer scale factor
         float scale = Math.min(
 
-                (float) windowWidth / (float) FRAMEBUFFER_BASE_WIDTH,
-                (float) windowHeight / (float) FRAMEBUFFER_BASE_HEIGHT
+            (float) windowWidth / (float) FRAMEBUFFER_BASE_WIDTH,
+            (float) windowHeight / (float) FRAMEBUFFER_BASE_HEIGHT
 
         );
 

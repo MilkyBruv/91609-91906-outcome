@@ -20,7 +20,7 @@ public final class ImageResource {
     /**
      * Creates ImageResource, and loads and optimizes supplied bufferedImage
      * 
-     * @param bufferedImage
+     * @param bufferedImage - Pre-loaded image
      */
     public ImageResource(BufferedImage bufferedImage) {
 
@@ -35,7 +35,7 @@ public final class ImageResource {
     /**
      * Creates ImageResource, and loads and optimizes image from path
      * 
-     * @param fileName Name of file
+     * @param fileName - Name of file
      * @throws IOException If cannot find specified image
      */
     public ImageResource(String fileName) throws IOException {
@@ -100,6 +100,7 @@ public final class ImageResource {
     public final void setBufferedImage(BufferedImage bufferedImage) {
 
         this.bufferedImage = bufferedImage;
+        this.setImageProperties();
 
     }
 
@@ -108,8 +109,8 @@ public final class ImageResource {
     /**
      * Loads and optimizes and gets dimensions of bufferedImage from file path
      * 
-     * @param filePath
-     * @throws IOException
+     * @param fileName - Name of file
+     * @throws IOException If image cannot be found
      */
     public final void setBufferedImage(String fileName) throws IOException {
 
