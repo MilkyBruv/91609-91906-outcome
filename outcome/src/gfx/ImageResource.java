@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import main.Main;
 
-public final class ImageResource {
+public class ImageResource {
 
     private BufferedImage bufferedImage = null;
     private int width, height;
@@ -18,7 +18,7 @@ public final class ImageResource {
             .getDefaultScreenDevice().getDefaultConfiguration();
 
     /**
-     * Creates ImageResource, and loads and optimizes supplied bufferedImage
+     * Instantiates ImageResource, and loads and optimizes supplied BufferedImage
      * 
      * @param bufferedImage - Pre-loaded image
      */
@@ -33,7 +33,7 @@ public final class ImageResource {
 
 
     /**
-     * Creates ImageResource, and loads and optimizes image from path
+     * Instantiates ImageResource, and loads and optimizes BufferedImage from path
      * 
      * @param fileName - Name of file
      * @throws IOException If cannot find specified image
@@ -77,13 +77,30 @@ public final class ImageResource {
      */
     private final void optimizeBufferedImage() {
 
-        // Creates optimized / more compatible bufferedImage for faster rendering
+        // Create optimized / more compatible bufferedImage for faster rendering
         BufferedImage newImage = GRAPHICS_CONFIG.createCompatibleImage(this.bufferedImage.getWidth(),
                 this.bufferedImage.getHeight(), this.bufferedImage.getTransparency());
 
+        // Draw new bufferedImage onto existing bufferedImage
         Graphics2D g2d = (Graphics2D) this.bufferedImage.getGraphics();
         g2d.drawImage(newImage, 0, 0, null);
         g2d.dispose();
+
+    }
+
+
+
+    /**
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return New sub {@link ImageResource} from bufferedImage at (x, y) with the dimensions of (width, height)
+     */
+    public final ImageResource getSubImage(int x, int y, int width, int height) {
+
+        // Return new sub image
+        return new ImageResource(this.bufferedImage.getSubimage(x, y, width, height));
 
     }
 
@@ -97,8 +114,14 @@ public final class ImageResource {
 
 
 
+    /**
+     * Sets bufferedImage to supplied bufferedImage
+     * 
+     * @param bufferedImage
+     */
     public final void setBufferedImage(BufferedImage bufferedImage) {
 
+        // Set and optimize bufferedImage
         this.bufferedImage = bufferedImage;
         this.setImageProperties();
 

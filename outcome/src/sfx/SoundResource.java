@@ -88,6 +88,7 @@ public final class SoundResource {
     public final void stop() {
 
         this.currentMicrosecondPosition = 0;
+        this.clip.setMicrosecondPosition(this.currentMicrosecondPosition);
         this.clip.stop();
 
     }

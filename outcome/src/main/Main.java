@@ -10,6 +10,7 @@ import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 
 import asset.AssetManager;
+import event.GameEventManager;
 import event.KeyEventListener;
 import event.MouseEventListener;
 import event.RenderEventListener;
@@ -96,11 +97,12 @@ public final class Main implements Runnable {
         GL_WINDOW.setTitle("Test GLWindow");
         GL_WINDOW.setUndecorated(false);
 
-        // Add event listeners
-        GL_WINDOW.addGLEventListener(new RenderEventListener());
-        GL_WINDOW.addWindowListener(new WindowEventListener());
-        GL_WINDOW.addKeyListener(new KeyEventListener());
-        GL_WINDOW.addMouseListener(new MouseEventListener());
+        // Create main GameEventManager and add event listeners
+        GameEventManager game = new GameEventManager();
+        GL_WINDOW.addGLEventListener(new RenderEventListener(game));
+        GL_WINDOW.addWindowListener(new WindowEventListener(game));
+        GL_WINDOW.addKeyListener(new KeyEventListener(game));
+        GL_WINDOW.addMouseListener(new MouseEventListener(game));
 
         // Show window
         GL_WINDOW.setVisible(true);

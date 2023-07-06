@@ -7,6 +7,17 @@ import asset.AssetManager;
 
 public final class KeyEventListener implements KeyListener {
 
+    private GameEventManager game;
+
+    public KeyEventListener(GameEventManager game) {
+
+        this.game = game;
+
+    }
+
+
+
+
     @Override
     public void keyPressed(KeyEvent event) {
 
@@ -22,7 +33,23 @@ public final class KeyEventListener implements KeyListener {
 
             System.out.println("Key Pressed!");
 
-            AssetManager.sounds.get("audio2").play();
+            AssetManager.sounds.get("audio1").pause();
+
+        }
+
+        if (event.getKeyCode() == KeyEvent.VK_A) {
+
+            System.out.println("Key Pressed!");
+
+            AssetManager.sounds.get("audio1").stop();
+
+        }
+
+        if (event.getKeyCode() == KeyEvent.VK_D) {
+
+            System.out.println("Key Pressed!");
+
+            AssetManager.sounds.get("audio1").resume();
 
         }
 

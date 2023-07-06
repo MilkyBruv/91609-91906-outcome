@@ -5,6 +5,16 @@ import com.jogamp.newt.event.MouseListener;
 
 public final class MouseEventListener implements MouseListener {
 
+    private GameEventManager game;
+
+    public MouseEventListener(GameEventManager game) {
+
+        this.game = game;
+
+    }
+
+
+
     @Override
     public void mouseClicked(MouseEvent event) {
 

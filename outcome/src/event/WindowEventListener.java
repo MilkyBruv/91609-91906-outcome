@@ -6,6 +6,17 @@ import com.jogamp.newt.event.WindowUpdateEvent;
 
 public final class WindowEventListener implements WindowListener {
 
+    private GameEventManager game;
+
+    public WindowEventListener(GameEventManager game) {
+
+        this.game = game;
+
+    }
+
+
+
+
     @Override
     public void windowDestroyNotify(WindowEvent arg0) {
 
