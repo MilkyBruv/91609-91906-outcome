@@ -5,6 +5,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
 import asset.AssetManager;
+import gfx.FontSheet;
 import gfx.Renderer;
 
 public final class RenderEventListener implements GLEventListener {
@@ -41,8 +42,7 @@ public final class RenderEventListener implements GLEventListener {
 
         GL2 gl = drawable.getGL().getGL2();
 
-        // Clear display, set matrix mode, and set ortho viewport position to topleft
-        // (0, 0)
+        // Clear display, set matrix mode, and set ortho viewport position to topleft (0, 0)
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
@@ -51,9 +51,10 @@ public final class RenderEventListener implements GLEventListener {
         // Draw onto framebuffer
         Renderer.createGraphics();
 
-        Renderer.clear(0x000000);
-        Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
-        Renderer.drawImage(AssetManager.images.get("image1"), 0, 0);
+            Renderer.clear(0x000000);
+            Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
+            Renderer.drawImage(AssetManager.images.get("image1"), 0, 0);
+            Renderer.drawImage(FontSheet.getTextImage("this is a test... _!!!\""), 0, 32);
 
         Renderer.disposeGraphics();
 
@@ -68,18 +69,18 @@ public final class RenderEventListener implements GLEventListener {
         gl.glColor4f(1f, 1f, 1f, 1f);
         gl.glBegin(GL2.GL_QUADS);
 
-        gl.glTexCoord2f(0, 0);
-        gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY);
+            gl.glTexCoord2f(0, 0);
+            gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY);
 
-        gl.glTexCoord2f(1, 0);
-        gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, Renderer.framebufferY);
+            gl.glTexCoord2f(1, 0);
+            gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth, Renderer.framebufferY);
 
-        gl.glTexCoord2f(1, 1);
-        gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth,
-                Renderer.framebufferY + Renderer.framebufferHeight);
+            gl.glTexCoord2f(1, 1);
+            gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth,
+                    Renderer.framebufferY + Renderer.framebufferHeight);
 
-        gl.glTexCoord2f(0, 1);
-        gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY + Renderer.framebufferHeight);
+            gl.glTexCoord2f(0, 1);
+            gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY + Renderer.framebufferHeight);
 
         gl.glEnd();
         gl.glFlush();
@@ -112,7 +113,7 @@ public final class RenderEventListener implements GLEventListener {
     @Override
     public synchronized void dispose(GLAutoDrawable drawable) {
 
-        //
+        // 
 
     }
 

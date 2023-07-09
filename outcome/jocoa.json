@@ -6,7 +6,9 @@
         "src/event/*.java",
         "src/gfx/*.java",
         "src/sfx/*.java",
-        "src/asset/*.java"
+        "src/asset/*.java",
+        "src/map/*.java",
+        "src/entity/tile/*.java"
 
     ],
 

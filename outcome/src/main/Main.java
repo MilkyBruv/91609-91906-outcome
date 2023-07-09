@@ -26,11 +26,37 @@ public final class Main implements Runnable {
     private static final GLCapabilities GL_CAPABILITIES = new GLCapabilities(GL_PROFILE);
     private static final GLWindow GL_WINDOW = GLWindow.create(GL_CAPABILITIES);
     private static Thread thread;
+    private static GameEventManager game;
 
     public static void main(String[] args) {
 
         // Init everything
         init();
+
+    }
+
+
+
+    /**
+     * Initializes window, game manager, and thread, and loads all the assets
+     */
+    private static final void init() {
+
+        // Set system properties / compiler args
+        setSystemProperties();
+
+        // Load all content before creating window as RenderEventListener needs all content to be fully initialized
+        loadAssets();
+
+        // Instantiate and initialize main game manager
+        game = new GameEventManager();
+        game.init();
+
+        // Create window
+        initWindow();
+
+        // Create and start thread
+        initThread();
 
     }
 
@@ -47,28 +73,6 @@ public final class Main implements Runnable {
         // Prevent display from being erased to stop flickering when resizing and
         // rendering
         System.setProperty("sun.awt.noerasebackground", "true");
-
-    }
-
-
-
-    /**
-     * Initializes window and thread, and loads all the assets
-     */
-    private static final void init() {
-
-        // Set system properties / compiler args
-        setSystemProperties();
-
-        // Load all content before creating window as RenderEventListener needs all
-        // content to be full initialized
-        loadAssets();
-
-        // Create window
-        initWindow();
-
-        // Create and start thread
-        initThread();
 
     }
 
@@ -94,11 +98,11 @@ public final class Main implements Runnable {
 
         // Setup basic properties
         GL_WINDOW.setSize(640, 480);
+        // GL_WINDOW.setFullscreen(true);
         GL_WINDOW.setTitle("Test GLWindow");
         GL_WINDOW.setUndecorated(false);
 
         // Create main GameEventManager and add event listeners
-        GameEventManager game = new GameEventManager();
         GL_WINDOW.addGLEventListener(new RenderEventListener(game));
         GL_WINDOW.addWindowListener(new WindowEventListener(game));
         GL_WINDOW.addKeyListener(new KeyEventListener(game));
@@ -135,15 +139,14 @@ public final class Main implements Runnable {
      */
     private static final void update() {
 
-        //
+        game.update();
 
     }
 
 
     
     /**
-     * Calls {@link Renderer} and {@link RenderEventListener} drawing methods
-     * through GLCanvas
+     * Calls {@link Renderer} and {@link RenderEventListener} drawing methods through GLWindow
      */
     private static final void draw() {
 

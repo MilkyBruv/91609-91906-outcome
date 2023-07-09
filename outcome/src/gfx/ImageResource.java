@@ -78,8 +78,8 @@ public class ImageResource {
     private final void optimizeBufferedImage() {
 
         // Create optimized / more compatible bufferedImage for faster rendering
-        BufferedImage newImage = GRAPHICS_CONFIG.createCompatibleImage(this.bufferedImage.getWidth(),
-                this.bufferedImage.getHeight(), this.bufferedImage.getTransparency());
+        BufferedImage newImage = GRAPHICS_CONFIG.createCompatibleImage(this.bufferedImage.getWidth(), 
+            this.bufferedImage.getHeight(), this.bufferedImage.getTransparency());
 
         // Draw new bufferedImage onto existing bufferedImage
         Graphics2D g2d = (Graphics2D) this.bufferedImage.getGraphics();

@@ -1,0 +1,42 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "test.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "image.tsx": {
+            "scaleInDock": 8,
+            "scaleInEditor": 1
+        },
+        "test.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 235,
+                "y": 131.1818181818182
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/Kai/Code/SCHOOL/91907-91609-outcome/outcome/res",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "openFiles": [
+        "image.tsx",
+        "test.tmx"
+    ],
+    "project": "maps.tiled-project",
+    "recentFiles": [
+        "image.tsx",
+        "test.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 8,
+        "width": 8
+    }
+}
