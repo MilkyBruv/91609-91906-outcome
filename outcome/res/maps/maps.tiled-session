@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "image.tsx",
+    "activeFile": "test.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -16,8 +16,8 @@
             "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 281.72727272727275,
-                "y": 134.27272727272728
+                "x": 99.18181818181819,
+                "y": 67.36363636363636
             }
         }
     },
@@ -31,8 +31,8 @@
     ],
     "project": "maps.tiled-project",
     "recentFiles": [
-        "test.tmx",
-        "image.tsx"
+        "image.tsx",
+        "test.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

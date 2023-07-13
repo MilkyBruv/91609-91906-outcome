@@ -9,4 +9,12 @@
  <tile id="5" type="solid"/>
  <tile id="6" type="solid"/>
  <tile id="7" type="solid"/>
+ <tile id="8" type="solid"/>
+ <tile id="9" type="solid"/>
+ <tile id="10" type="solid"/>
+ <tile id="11" type="solid"/>
+ <tile id="12" type="solid"/>
+ <tile id="13" type="solid"/>
+ <tile id="14" type="solid"/>
+ <tile id="15" type="solid"/>
 </tileset>

@@ -1,14 +1,16 @@
 package event;
 
-import asset.AssetManager;
+import entity.tile.Tile;
 import gfx.Renderer;
-import tileset.Spritesheet;
+import map.Tilemap;
 
 public final class GameEventManager {
 
+    private Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
+
     public GameEventManager() {
         
-        Spritesheet.mapTiles();
+        this.tilemap.createTiles();
 
     }
 
@@ -33,10 +35,12 @@ public final class GameEventManager {
     public final void draw() {
 
         Renderer.clear(0x000000);
-        Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
-        Renderer.drawImage(AssetManager.images.get("image1"), 0, 0);
-        Renderer.drawImage(Spritesheet.getImage("2"), 40, 40);
-        Renderer.drawText("this is a test... _!!!\"", 0, 32);
+        
+        for (Tile tile : this.tilemap.getTiles()) {
+            
+            Renderer.drawImage(tile.image, tile.x, tile.y);
+
+        }
 
     }
 

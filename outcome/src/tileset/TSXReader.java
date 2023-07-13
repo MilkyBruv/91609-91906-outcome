@@ -24,8 +24,8 @@ public abstract class TSXReader {
      * @throws SAXException
      * @throws IOException
      */
-    public static final TSXInfo getTilesetData(String fileName) throws 
-        ParserConfigurationException, SAXException, IOException {
+    public static final TSXInfo getTilesetData(String fileName) throws ParserConfigurationException, SAXException, 
+        IOException {
 
         // Tile array
         List<TileInfo> tiles = new ArrayList<>() {};

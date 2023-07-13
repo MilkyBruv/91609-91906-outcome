@@ -2,9 +2,7 @@ package map;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -12,41 +10,95 @@ import org.xml.sax.SAXException;
 
 import entity.tile.Tile;
 import event.GameEventManager;
+import tileset.Spritesheet;
 
 public final class Tilemap {
     
     private GameEventManager game;
-    private List<Tile> tiles = new ArrayList<Tile>();
-    private Map<String, HashMap<String, Object>> data;
-    private String map = null;
+    private final List<Tile> TILES = new ArrayList<Tile>();
+    private String[][] mapIdData;
+    private TMXInfo tmxInfo;
     private int[] pos = new int[2];
 
-    public Tilemap(GameEventManager game) {
+    public Tilemap(GameEventManager game, int[] pos) {
 
         this.game = game;
+        this.pos = pos;
+
+        // Map tiles to spritesheet
+        Spritesheet.mapTiles();
 
         try {
-
-            this.data = TMXReader.getMapData("test.tmx");
-            this.map = (String) this.data.get("data").get("csvmap");
+            
+            // Get data from TMX file
+            this.tmxInfo = TMXReader.getMapData("test.tmx");
+            this.mapIdData = this.tmxInfo.getMapIdData();
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             
             e.printStackTrace();
-            
+
         }
 
     }
 
 
 
+    /**
+     * Loops through each id in the CSV map and creates a new Tile
+     */
     public void createTiles() {
 
-        for (int y = 0; y < (int) this.data.get("map").get("height"); y++) {
+        for (int y = 0; y < this.tmxInfo.getHeight(); y++) {
             
+            for (int x = 0; x < this.tmxInfo.getWidth(); x++) {
+                
+                this.TILES.add(new Tile(x * this.tmxInfo.getTileWidth(), y * this.tmxInfo.getTileHeight(), 
+                    String.valueOf(this.mapIdData[y][x])));
 
+            }
 
         }
+
+    }
+
+
+
+    public GameEventManager getGame() {
+
+        return game;
+
+    }
+
+
+
+    public List<Tile> getTiles() {
+
+        return TILES;
+
+    }
+
+
+
+    public String[][] getMapIdData() {
+
+        return mapIdData;
+
+    }
+
+
+
+    public TMXInfo getTmxInfo() {
+
+        return tmxInfo;
+
+    }
+
+
+
+    public int[] getPos() {
+
+        return pos;
 
     }
 

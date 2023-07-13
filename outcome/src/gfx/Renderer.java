@@ -8,11 +8,13 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
+import entity.Entity;
+
 public abstract class Renderer {
 
     // Framebuffer scaling and positioning variable declarations
-    public static final int FRAMEBUFFER_BASE_WIDTH = 16 * 20; // 16:9 ratio is the aspect ratio for most monitors
-    public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 20;
+    public static final int FRAMEBUFFER_BASE_WIDTH = 16 * 16; // 16:9 ratio is the aspect ratio for most monitors
+    public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 16;
     public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
     public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
     public static int framebufferX = 0;
@@ -126,6 +128,14 @@ public abstract class Renderer {
             framebufferGraphics2D.drawImage(image.getBufferedImage(), x, y, null);
             
         }
+
+    }
+
+
+
+    public static final void drawEntity(Entity entity) {
+
+        
 
     }
 
