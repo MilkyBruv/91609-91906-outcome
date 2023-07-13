@@ -2,7 +2,9 @@ package map;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -15,16 +17,23 @@ public final class Tilemap {
     
     private GameEventManager game;
     private List<Tile> tiles = new ArrayList<Tile>();
+    private Map<String, HashMap<String, Object>> data;
+    private String map = null;
+    private int[] pos = new int[2];
 
     public Tilemap(GameEventManager game) {
 
         this.game = game;
 
         try {
-            System.out.println(TMXMapReader.getMapData("test.tmx").get("map").get("width"));
+
+            this.data = TMXReader.getMapData("test.tmx");
+            this.map = (String) this.data.get("data").get("csvmap");
+
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            // TODO Auto-generated catch block
+            
             e.printStackTrace();
+            
         }
 
     }
@@ -33,7 +42,11 @@ public final class Tilemap {
 
     public void createTiles() {
 
-        // 
+        for (int y = 0; y < (int) this.data.get("map").get("height"); y++) {
+            
+
+
+        }
 
     }
 

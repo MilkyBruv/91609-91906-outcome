@@ -60,6 +60,14 @@ public abstract class Renderer {
 
 
 
+    public static final void drawText(String text, int x, int y) {
+
+        framebufferGraphics2D.drawImage(FontSheet.getTextImage(text).getBufferedImage(), x, y, null);
+
+    }
+
+
+
     /**
      * Draws line onto frame buffer from (x1, y1) to (x2, y2) with the colour of the
      * supplied hex

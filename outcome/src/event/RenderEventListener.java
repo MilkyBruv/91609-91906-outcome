@@ -4,8 +4,6 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
-import asset.AssetManager;
-import gfx.FontSheet;
 import gfx.Renderer;
 
 public final class RenderEventListener implements GLEventListener {
@@ -51,10 +49,7 @@ public final class RenderEventListener implements GLEventListener {
         // Draw onto framebuffer
         Renderer.createGraphics();
 
-            Renderer.clear(0x000000);
-            Renderer.drawLine(0, 0, 20, 20, 0x00ff00);
-            Renderer.drawImage(AssetManager.images.get("image1"), 0, 0);
-            Renderer.drawImage(FontSheet.getTextImage("this is a test... _!!!\""), 0, 32);
+            this.game.draw();
 
         Renderer.disposeGraphics();
 

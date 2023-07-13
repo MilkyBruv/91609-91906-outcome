@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class FontSheet {
     
-    private static Map<Character, ImageResource> charMap = new HashMap<Character, ImageResource>() {};
+    private static Map<Character, ImageResource> charMap = new HashMap<>() {};
     public static ImageResource spritesheet = null;
     private static final char[] chars = "abcdefghijklmnopqrstuvwxyz |0123456789.,\"|!?#_♠♦◘☻+=-♣○*%$:;()[]{}||||"
         .toCharArray();
@@ -26,7 +26,7 @@ public final class FontSheet {
                 
                 for (int x = 0; x < spritesheet.getWidth() / 8; x++) {
                 
-                    charMap.put(chars[charCount], spritesheet.getSubImage(x, y, 8, 8));
+                    charMap.put(chars[charCount], spritesheet.getSubImage(x * 8, y * 8, 8, 8));
                     charCount++;
 
                 }

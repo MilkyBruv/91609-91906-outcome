@@ -8,7 +8,8 @@
         "src/sfx/*.java",
         "src/asset/*.java",
         "src/map/*.java",
-        "src/entity/tile/*.java"
+        "src/entity/tile/*.java",
+        "src/tileset/*.java"
 
     ],
 

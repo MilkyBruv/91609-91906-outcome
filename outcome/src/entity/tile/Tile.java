@@ -8,6 +8,8 @@ public class Tile {
     
     public int x;
     public int y;
+    public int drawX;
+    public int drawY;
     public String id;
     public ImageResource image;
     public Rectangle rect;
@@ -16,6 +18,8 @@ public class Tile {
 
         this.x = x;
         this.y = y;
+        this.drawX = x;
+        this.drawY = y;
         this.id = id;
 
     }
