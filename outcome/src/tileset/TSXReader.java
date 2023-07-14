@@ -42,9 +42,13 @@ public abstract class TSXReader {
 
         // Loop through each tile element and create a new TileInfo instance and add it to tile array
         for (int i = 0; i < tilesData.getLength(); i++) {
+
+            if (tilesData.item(i).getAttributes().getNamedItem("id").getNodeValue() != "0") {
             
-            tiles.add(new TileInfo(tilesData.item(i).getAttributes().getNamedItem("id").getNodeValue(), 
-                tilesData.item(i).getAttributes().getNamedItem("type").getNodeValue()));
+                tiles.add(new TileInfo(tilesData.item(i).getAttributes().getNamedItem("id").getNodeValue(), 
+                    tilesData.item(i).getAttributes().getNamedItem("type").getNodeValue()));
+
+            }
 
         }
 

@@ -3,26 +3,32 @@ package entity.tile;
 import java.awt.Rectangle;
 
 import entity.Entity;
-import gfx.ImageResource;
+import event.GameEventManager;
 import tileset.Spritesheet;
 
 public class Tile extends Entity {
     
     public String id;
-    public ImageResource image;
     public String type;
-    public Rectangle rect;
 
-    public Tile(int x, int y, String id) {
+    public Tile(int x, int y, String id, GameEventManager game) {
 
-        super(x, y);
-
-        this.drawX = x;
-        this.drawY = y;
+        super(x, y, game);
+        
         this.id = id;
         this.image = Spritesheet.getImage(id);
         this.type = Spritesheet.getType(id);
         this.rect = new Rectangle(0, 0, 8, 8);
+
+    }
+
+
+
+    @Override
+    public void update() {
+
+        this.drawX = this.x;
+        this.drawY = this.y;
 
     }
 

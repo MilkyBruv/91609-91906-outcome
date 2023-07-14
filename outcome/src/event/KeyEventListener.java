@@ -3,8 +3,6 @@ package event;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
 
-import asset.AssetManager;
-
 public final class KeyEventListener implements KeyListener {
 
     private GameEventManager game;
@@ -19,48 +17,27 @@ public final class KeyEventListener implements KeyListener {
 
 
     @Override
-    public void keyPressed(KeyEvent event) {
+    public synchronized void keyPressed(KeyEvent event) {
 
-        if (event.getKeyCode() == KeyEvent.VK_W) {
-
-            System.out.println("Key Pressed!");
-
-            AssetManager.sounds.get("audio1").play();
-
-        }
-
-        if (event.getKeyCode() == KeyEvent.VK_S) {
-
-            System.out.println("Key Pressed!");
-
-            AssetManager.sounds.get("audio1").pause();
-
-        }
-
-        if (event.getKeyCode() == KeyEvent.VK_A) {
-
-            System.out.println("Key Pressed!");
-
-            AssetManager.sounds.get("audio1").stop();
-
-        }
-
-        if (event.getKeyCode() == KeyEvent.VK_D) {
-
-            System.out.println("Key Pressed!");
-
-            AssetManager.sounds.get("audio1").resume();
-
-        }
+        // Set index of key code to true as key is pressed
+        KeyInfo.pressedKeys[event.getKeyCode()] = true;
 
     }
 
 
     
     @Override
-    public void keyReleased(KeyEvent event) {
+    public synchronized void keyReleased(KeyEvent event) {
 
-        //
+        // Return after auto release for typing-style input reading to allow keys to be held properly
+        if (event.isAutoRepeat()) {
+
+            return;
+
+        }
+
+        // Set index of key code to false as key is released
+        KeyInfo.pressedKeys[event.getKeyCode()] = false;
 
     }
 

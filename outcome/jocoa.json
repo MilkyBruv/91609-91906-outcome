@@ -9,6 +9,8 @@
         "src/asset/*.java",
         "src/map/*.java",
         "src/entity/tile/*.java",
+        "src/entity/player/*.java",
+        "src/entity/*.java",
         "src/tileset/*.java"
 
     ],

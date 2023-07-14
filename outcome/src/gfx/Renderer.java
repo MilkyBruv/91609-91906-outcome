@@ -30,12 +30,7 @@ public abstract class Renderer {
      */
     public static final void createGraphics() {
 
-        // Create graphics2d if it is null
-        if (framebufferGraphics2D == null) {
-
-            framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
-
-        }
+        framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
 
     }
 
@@ -122,20 +117,22 @@ public abstract class Renderer {
      */
     public static final void drawImage(ImageResource image, int x, int y) {
 
-        // Draw bufferedImage to framebuffer if the image is properly loaded
-        if (image != null) {
-
-            framebufferGraphics2D.drawImage(image.getBufferedImage(), x, y, null);
-            
-        }
+        // Draw image at (x, y)
+        framebufferGraphics2D.drawImage(image.getBufferedImage(), x, y, null);
 
     }
 
 
 
+    /**
+     * Draws entity image at entity draw position
+     * 
+     * @param entity
+     */
     public static final void drawEntity(Entity entity) {
 
-        
+        // Draw entity image at (drawX, drawY)
+        framebufferGraphics2D.drawImage(entity.image.getBufferedImage(), entity.drawX, entity.drawY, null);
 
     }
 

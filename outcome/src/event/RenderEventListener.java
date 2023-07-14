@@ -10,7 +10,6 @@ public final class RenderEventListener implements GLEventListener {
 
     private int windowWidth = 10;
     private int windowHeight = 10;
-
     private GameEventManager game;
 
     public RenderEventListener(GameEventManager game) {

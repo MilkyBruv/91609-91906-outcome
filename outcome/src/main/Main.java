@@ -70,8 +70,7 @@ public final class Main implements Runnable {
         // Make Java2D use OpenGL for faster rendering
         System.setProperty("sun.java2d.opengl", "true");
 
-        // Prevent display from being erased to stop flickering when resizing and
-        // rendering
+        // Prevent display from being erased to stop flickering when resizing and rendering
         System.setProperty("sun.awt.noerasebackground", "true");
 
     }

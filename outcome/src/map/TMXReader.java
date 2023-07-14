@@ -34,6 +34,7 @@ public abstract class TMXReader {
         NamedNodeMap tilesetData = document.getElementsByTagName("tileset").item(0).getAttributes();
         String csvData = document.getElementsByTagName("data").item(0).getTextContent();
 
+        // Return new TMXInfo instance with collected and parsed map data
         return new TMXInfo(
             
             mapData.getNamedItem("version").getNodeValue(), 

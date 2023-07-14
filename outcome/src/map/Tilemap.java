@@ -53,8 +53,12 @@ public final class Tilemap {
             
             for (int x = 0; x < this.tmxInfo.getWidth(); x++) {
                 
-                this.TILES.add(new Tile(x * this.tmxInfo.getTileWidth(), y * this.tmxInfo.getTileHeight(), 
-                    String.valueOf(this.mapIdData[y][x])));
+                if (!String.valueOf(this.mapIdData[y][x]).equals("0")) {
+
+                    this.TILES.add(new Tile(x * this.tmxInfo.getTileWidth(), y * this.tmxInfo.getTileHeight(), 
+                        String.valueOf(this.mapIdData[y][x]), this.game));
+                
+                }
 
             }
 
