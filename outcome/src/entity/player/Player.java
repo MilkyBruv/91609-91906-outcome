@@ -15,7 +15,6 @@ public class Player extends Entity {
     public Rectangle rect;
     public int speed = 2;
 
-
     public Player(int x, int y, GameEventManager game) {
         
         super(x, y, game);

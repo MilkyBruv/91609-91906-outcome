@@ -25,7 +25,7 @@ public final class Spritesheet {
 
             // Get data from TSX file
             TSXInfo tsxInfo = TSXReader.getTilesetData("image.tsx");
-            image = new ImageResource(tsxInfo.source.split("/")[1]);
+            image = new ImageResource(tsxInfo.getSource().split("/")[1]);
 
             // Tile id
             int id = 1;
@@ -34,14 +34,14 @@ public final class Spritesheet {
             int tileCount = 0;
 
             // Loop through each tile and add the image and type to map with corresponding id
-            for (int y = 0; y < tsxInfo.height / tsxInfo.tileHeight; y++) {
+            for (int y = 0; y < tsxInfo.getHeight() / tsxInfo.getTileHeight(); y++) {
                 
-                for (int x = 0; x < tsxInfo.width / tsxInfo.tileWidth; x++) {
+                for (int x = 0; x < tsxInfo.getWidth() / tsxInfo.getTileWidth(); x++) {
 
-                    IMAGE_ID_MAP.put(Integer.toString(id), image.getSubImage(x * tsxInfo.tileWidth, y * tsxInfo.tileHeight, 
-                        tsxInfo.tileWidth, tsxInfo.tileHeight));
+                    IMAGE_ID_MAP.put(Integer.toString(id), image.getSubImage(x * tsxInfo.getTileWidth(), 
+                        y * tsxInfo.getTileHeight(), tsxInfo.getTileWidth(), tsxInfo.getTileHeight()));
 
-                    TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.tilesInfo.get(tileCount).id);
+                    TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).id);
 
                     id++;
                     tileCount++;
