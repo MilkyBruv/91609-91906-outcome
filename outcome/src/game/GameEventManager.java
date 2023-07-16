@@ -1,4 +1,4 @@
-package event;
+package game;
 
 import entity.player.Player;
 import entity.tile.Tile;
@@ -7,13 +7,12 @@ import map.Tilemap;
 
 public final class GameEventManager {
 
-    private Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
-    public Player player = new Player(0, 0, this);
+    public Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
+    public Player player = new Player(32, 32, this);
 
     public GameEventManager() {
         
         this.tilemap.createTiles();
-        System.out.println(this.tilemap.getTiles().size());
 
     }
 

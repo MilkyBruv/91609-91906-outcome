@@ -3,6 +3,8 @@ package event;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 
+import game.GameEventManager;
+
 public final class MouseEventListener implements MouseListener {
 
     private GameEventManager game;

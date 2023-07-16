@@ -10,11 +10,11 @@ import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 
 import asset.AssetManager;
-import event.GameEventManager;
 import event.KeyEventListener;
 import event.MouseEventListener;
 import event.RenderEventListener;
 import event.WindowEventListener;
+import game.GameEventManager;
 import gfx.Renderer;
 
 public final class Main implements Runnable {

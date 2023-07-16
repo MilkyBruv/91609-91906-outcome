@@ -4,6 +4,8 @@ import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
 
+import game.GameEventManager;
+
 public final class WindowEventListener implements WindowListener {
 
     private GameEventManager game;

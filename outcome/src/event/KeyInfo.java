@@ -8,7 +8,7 @@ public class KeyInfo {
      * Returns pressedKeys boolean value of index {@param keyCode}
      * 
      * @param keyCode
-     * @return Boolean value of index {@param keyCode} 
+     * @return Boolean value of index {@param keyCode}
      */
     public static final boolean isKeyPressed(short keyCode) {
 

@@ -9,7 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import entity.tile.Tile;
-import event.GameEventManager;
+import game.GameEventManager;
 import tileset.Spritesheet;
 
 public final class Tilemap {

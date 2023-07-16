@@ -13,8 +13,8 @@ import entity.Entity;
 public abstract class Renderer {
 
     // Framebuffer scaling and positioning variable declarations
-    public static final int FRAMEBUFFER_BASE_WIDTH = 16 * 16; // 16:9 ratio is the aspect ratio for most monitors
-    public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 16;
+    public static final int FRAMEBUFFER_BASE_WIDTH = 16 * 18; // 16:9 ratio is the aspect ratio for most monitors
+    public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 18;
     public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
     public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
     public static int framebufferX = 0;

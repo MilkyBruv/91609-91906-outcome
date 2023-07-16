@@ -2,7 +2,7 @@ package entity;
 
 import java.awt.Rectangle;
 
-import event.GameEventManager;
+import game.GameEventManager;
 import gfx.ImageResource;
 
 public class Entity {

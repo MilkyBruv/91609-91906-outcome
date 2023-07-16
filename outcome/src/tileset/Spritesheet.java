@@ -41,7 +41,7 @@ public final class Spritesheet {
                     IMAGE_ID_MAP.put(Integer.toString(id), image.getSubImage(x * tsxInfo.getTileWidth(), 
                         y * tsxInfo.getTileHeight(), tsxInfo.getTileWidth(), tsxInfo.getTileHeight()));
 
-                    TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).id);
+                    TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).type);
 
                     id++;
                     tileCount++;
