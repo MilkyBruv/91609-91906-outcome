@@ -7,20 +7,20 @@ import map.Tilemap;
 
 public class Camera {
     
-    private GameEventManager game;
+    private static GameEventManager game;
 
-    public int x;
-    public int y;
-    public Tilemap currentTilemap = null;
-    public int width = this.currentTilemap.getTmxInfo().getWidth() * GameSettings.TILESIZE;
-    public int height = this.currentTilemap.getTmxInfo().getHeight() * GameSettings.TILESIZE;
+    public static int x;
+    public static int y;
+    public static Tilemap currentTilemap = game.tilemap;
+    public static int width = currentTilemap.getTmxInfo().getWidth() * GameSettings.TILESIZE;
+    public static int height = currentTilemap.getTmxInfo().getHeight() * GameSettings.TILESIZE;
 
-    public Camera(GameEventManager game) {
+    public Camera(GameEventManager _game) {
 
-        this.game = game;
+        game = _game;
 
-        this.x = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (this.width / 2);
-        this.y = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (this.height / 2);
+        x = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (width / 2);
+        y = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (height / 2);
 
     }
 
