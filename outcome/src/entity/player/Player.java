@@ -17,7 +17,7 @@ public final class Player extends Entity {
     public Rectangle rect;
     public int width = 8;
     public int height = 8;
-    public int speed = 4;
+    public int speed = 2;
     public float velX = 0;
     public float velY = 0;
 
@@ -35,7 +35,7 @@ public final class Player extends Entity {
         this.rect.y = this.y;
         this.rect.width = 8;
         this.rect.height = 8;
-        this.image = Spritesheet.getImage("6");
+        this.image = Spritesheet.getImage("2");
         
     }
     
