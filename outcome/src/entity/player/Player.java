@@ -26,6 +26,8 @@ public final class Player extends Entity {
     public boolean collidedDown = false;
     public boolean collidedRight = false;
 
+    public boolean canJump = false;
+
     public Player(int x, int y, GameEventManager game) {
         
         super(x, y, game);
@@ -114,8 +116,8 @@ public final class Player extends Entity {
                 
                 if (tile.type.equals("solid")) {
 
-                    // If the tile is solid and the player is moving, set the position to align with the tile and zero
-                    // the player velocity
+                    // If the tile is solid and the player collides with it, set the position to align with the tile and 
+                    // zero the player velocity
                     if (this.rect.intersects(tile.rect)) {
 
                         if (this.velY < 0) {
@@ -136,6 +138,11 @@ public final class Player extends Entity {
                         this.velY = 0;
 
                     }
+
+                } else {
+
+                    this.collidedDown = false;
+                    this.collidedUp = false;
 
                 }
 
