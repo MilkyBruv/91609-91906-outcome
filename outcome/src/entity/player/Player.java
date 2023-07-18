@@ -137,12 +137,12 @@ public final class Player extends Entity {
                         this.rect.y = this.y;
                         this.velY = 0;
 
+                    } else {
+
+                        this.collidedDown = false;
+                        this.collidedUp = false;
+
                     }
-
-                } else {
-
-                    this.collidedDown = false;
-                    this.collidedUp = false;
 
                 }
 
