@@ -12,6 +12,7 @@
         "src/entity/player/*.java",
         "src/entity/*.java",
         "src/game/*.java",
+        "src/common/*.java",
         "src/tileset/*.java"
 
     ],
