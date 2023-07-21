@@ -1,5 +1,6 @@
 package camera;
 
+import entity.Entity;
 import game.GameEventManager;
 import game.GameSettings;
 import gfx.Renderer;
@@ -7,21 +8,30 @@ import map.Tilemap;
 
 public class Camera {
     
-    private static GameEventManager game;
+    private GameEventManager game;
 
-    public static int x;
-    public static int y;
-    public static Tilemap currentTilemap = game.tilemap;
-    public static int width = currentTilemap.getTmxInfo().getWidth() * GameSettings.TILESIZE;
-    public static int height = currentTilemap.getTmxInfo().getHeight() * GameSettings.TILESIZE;
+    public int x;
+    public int y;
+    public Entity target = null;
 
-    public Camera(GameEventManager _game) {
+    public Camera(GameEventManager _game, Entity target) {
 
-        game = _game;
+        this.game = _game;
+        this.target = target;
+        
+        this.x = (this.target.width / 2) - (Renderer.FRAMEBUFFER_BASE_WIDTH / 2);
+        this.y = (this.target.height / 2) - (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2);
 
-        x = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (width / 2);
-        y = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (height / 2);
+    }
 
+
+
+    public void update() {
+        
+        // Set position to centre the target
+        this.x = (this.target.width / 2) - (Renderer.FRAMEBUFFER_BASE_WIDTH / 2);
+        this.y = (this.target.height / 2) - (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2);
+            
     }
 
 }

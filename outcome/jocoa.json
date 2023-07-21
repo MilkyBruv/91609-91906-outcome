@@ -13,6 +13,7 @@
         "src/entity/*.java",
         "src/game/*.java",
         "src/common/*.java",
+        "src/camera/*.java",
         "src/tileset/*.java"
 
     ],

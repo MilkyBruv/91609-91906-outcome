@@ -15,7 +15,7 @@ public class Tile extends Entity {
 
     public Tile(int x, int y, String id, GameEventManager game) {
 
-        super(x, y, game);
+        super(x, y, 8, 8, game);
         
         this.id = id;
         this.image = Spritesheet.getImage(id);
