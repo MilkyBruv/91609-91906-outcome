@@ -4,22 +4,21 @@ import common.Commons;
 import entity.tile.Tile;
 import game.GameEventManager;
 import game.GameSettings;
+import main.Main;
 
-public class PlayerCollisionThread implements Runnable {
+public final class PlayerCollisionThread implements Runnable {
 
-    private Player player;
     private GameEventManager game;
 
-    public PlayerCollisionThread(Player player, GameEventManager game) {
+    public PlayerCollisionThread(GameEventManager _game) {
 
-        this.player = player;
-        this.game = game;
+        game = _game;
 
     }
 
 
     
-    public synchronized final void detectTileCollisions(String dir) {
+    public final void detectTileCollisions(String dir) {
 
         // Detect collisions in determined direction (x or y)
         if (dir.equals("x")) {
@@ -28,39 +27,39 @@ public class PlayerCollisionThread implements Runnable {
             for (Tile tile : game.tilemap.getTiles()) {
 
                 // Check if the tile is close to avoid checking collisions for every tile on the map
-                if ((Commons.inRange(tile.y, player.y - player.height * 2, player.y + player.height * 3) || 
-                    Commons.inRange(tile.y + tile.height, player.y - player.height * 2, player.y + player.height * 3)) && 
-                    (Commons.inRange(tile.x, player.x - player.width * 2, player.x + player.width * 3) || 
-                    Commons.inRange(tile.x + tile.width, player.x - player.width * 2, player.x + player.width * 3))) {
+                if ((Commons.inRange(tile.y, game.player.y - game.player.height * 2, game.player.y + game.player.height * 3) || 
+                    Commons.inRange(tile.y + tile.height, game.player.y - game.player.height * 2, game.player.y + game.player.height * 3)) && 
+                    (Commons.inRange(tile.x, game.player.x - game.player.width * 2, game.player.x + game.player.width * 3) || 
+                    Commons.inRange(tile.x + tile.width, game.player.x - game.player.width * 2, game.player.x + game.player.width * 3))) {
                 
                     if (tile.type.equals("solid")) {
 
-                        // If the tile is solid and the player is moving, set the position to align with the tile and zero
-                        // the player velocity
-                        if (player.rect.intersects(tile.rect)) {
+                        // If the tile is solid and the game.player is moving, set the position to align with the tile and zero
+                        // the game.player velocity
+                        if (game.player.rect.intersects(tile.rect)) {
 
-                            if (player.velX < 0) {
+                            if (game.player.velX < 0) {
 
-                                player.x = tile.x + GameSettings.TILESIZE;
-                                player.collidedLeft = true;
-
-                            }
-
-                            if (player.velX > 0) {
-
-                                player.x = tile.x - GameSettings.TILESIZE;
-                                player.collidedRight = true;
+                                game.player.x = tile.x + GameSettings.TILESIZE;
+                                game.player.collidedLeft = true;
 
                             }
 
-                            player.rect.x = player.x;
-                            player.velX = 0;
+                            if (game.player.velX > 0) {
+
+                                game.player.x = tile.x - GameSettings.TILESIZE;
+                                game.player.collidedRight = true;
+
+                            }
+
+                            game.player.rect.x = game.player.x;
+                            game.player.velX = 0;
 
                         } else {
 
                             // Set x collision properties to false if no collisions happen
-                            player.collidedLeft = false;
-                            player.collidedRight = false;
+                            game.player.collidedLeft = false;
+                            game.player.collidedRight = false;
 
                         }
 
@@ -74,49 +73,49 @@ public class PlayerCollisionThread implements Runnable {
 
         if (dir.equals("y")) {
 
-            player.collisions.clear();
+            game.player.collisions.clear();
 
             // Loop through each tile and check if it is solid
             for (Tile tile : game.tilemap.getTiles()) {
 
                 // Check if the tile is close to avoid checking collisions for every tile on the map
-                if ((Commons.inRange(tile.y, player.y - player.height * 2, player.y + player.height * 3) || 
-                    Commons.inRange(tile.y + tile.height, player.y - player.height * 2, player.y + player.height * 3)) && 
-                    (Commons.inRange(tile.x, player.x - player.width * 2, player.x + player.width * 3) || 
-                    Commons.inRange(tile.x + tile.width, player.x - player.width * 2, player.x + player.width * 3))) {
+                if ((Commons.inRange(tile.y, game.player.y - game.player.height * 2, game.player.y + game.player.height * 3) || 
+                    Commons.inRange(tile.y + tile.height, game.player.y - game.player.height * 2, game.player.y + game.player.height * 3)) && 
+                    (Commons.inRange(tile.x, game.player.x - game.player.width * 2, game.player.x + game.player.width * 3) || 
+                    Commons.inRange(tile.x + tile.width, game.player.x - game.player.width * 2, game.player.x + game.player.width * 3))) {
 
                     if (tile.type.equals("solid")) {
 
-                        // If the tile is solid and the player collides with it, set the position to align with the tile and 
-                        // zero the player velocity
-                        if (player.rect.intersects(tile.rect)) {
+                        // If the tile is solid and the game.player collides with it, set the position to align with the tile and 
+                        // zero the game.player velocity
+                        if (game.player.rect.intersects(tile.rect)) {
 
-                            if (player.velY < 0) {
+                            if (game.player.velY < 0) {
 
-                                player.y = tile.y + GameSettings.TILESIZE;
-                                player.collidedUp = true;
-
-                            }
-
-                            if (player.velY > 0) {
-
-                                player.y = tile.y - GameSettings.TILESIZE;
-                                player.collidedDown = true;
+                                game.player.y = tile.y + GameSettings.TILESIZE;
+                                game.player.collidedUp = true;
 
                             }
 
-                            player.rect.y = player.y;
-                            player.velY = 0;
+                            if (game.player.velY > 0) {
+
+                                game.player.y = tile.y - GameSettings.TILESIZE;
+                                game.player.collidedDown = true;
+
+                            }
+
+                            game.player.rect.y = game.player.y;
+                            game.player.velY = 0;
 
                         }
                         
-                        if (player.groundRect.intersects(tile.rect)) {
+                        if (game.player.groundRect.intersects(tile.rect)) {
 
-                            player.collisions.add(true);
+                            game.player.collisions.add(true);
 
                         } else {
                             
-                            player.collisions.add(false);
+                            game.player.collisions.add(false);
                         
                         }
 
@@ -126,9 +125,9 @@ public class PlayerCollisionThread implements Runnable {
 
             }
 
-            if (!player.collisions.contains(true)) {
+            if (!game.player.collisions.contains(true)) {
 
-                player.collidedDown = false;
+                game.player.collidedDown = false;
 
             }
 
@@ -138,13 +137,13 @@ public class PlayerCollisionThread implements Runnable {
 
 
 
-    public void update() {
+    public final void update() {
 
-        player.rect.x = player.x;
-        player.groundRect.x = player.x;
+        game.player.rect.x = game.player.x;
+        game.player.groundRect.x = game.player.x;
         detectTileCollisions("x");
-        player.rect.y = player.y;
-        player.groundRect.y = player.y + 8;
+        game.player.rect.y = game.player.y;
+        game.player.groundRect.y = game.player.y + 8;
         detectTileCollisions("y");
 
     }
@@ -153,8 +152,12 @@ public class PlayerCollisionThread implements Runnable {
 
     @Override
     public void run() {
-        
-        update();
+
+        while (true) {
+
+            update();
+
+        }
 
     }
 

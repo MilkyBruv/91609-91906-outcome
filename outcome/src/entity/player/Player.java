@@ -51,6 +51,10 @@ public final class Player extends Entity {
         this.drawX = this.x;
         this.drawY = this.y;
 
+        
+        // this.drawX = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (this.width / 2);
+        // this.drawY = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (this.height / 2);
+
         // Call update methods
         this.applyGravity();
         this.applyXVelocity();

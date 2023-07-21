@@ -10,6 +10,7 @@ import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 
 import asset.AssetManager;
+import entity.player.PlayerCollisionThread;
 import event.KeyEventListener;
 import event.MouseEventListener;
 import event.RenderEventListener;
@@ -26,6 +27,7 @@ public final class Main implements Runnable {
     private static final GLCapabilities GL_CAPABILITIES = new GLCapabilities(GL_PROFILE);
     private static final GLWindow GL_WINDOW = GLWindow.create(GL_CAPABILITIES);
     private static Thread thread;
+    private static Thread playerCollisionThread;
     private static GameEventManager game;
 
     public static void main(String[] args) {
@@ -56,7 +58,7 @@ public final class Main implements Runnable {
         initWindow();
 
         // Create and start thread
-        initThread();
+        initThreads();
 
     }
 
@@ -80,10 +82,13 @@ public final class Main implements Runnable {
     /**
      * Initializes main thread and starts it
      */
-    private static final void initThread() {
+    private static final void initThreads() {
 
-        // Create and start thread to run game
+        // Create and start threads to run game and calculate player collisions
         thread = new Thread(new Main());
+        playerCollisionThread = new Thread(new PlayerCollisionThread(game));
+
+        playerCollisionThread.start();
         thread.start();
 
     }
