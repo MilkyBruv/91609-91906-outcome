@@ -12,11 +12,8 @@
         "src/entity/player/*.java",
         "src/entity/*.java",
         "src/game/*.java",
-<<<<<<< HEAD
         "src/common/*.java",
         "src/camera/*.java",
-=======
->>>>>>> parent of bfb7c12 (tested collision methods)
         "src/tileset/*.java"
 
     ],
