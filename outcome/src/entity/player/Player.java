@@ -1,8 +1,6 @@
 package entity.player;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.jogamp.newt.event.KeyEvent;
 
@@ -29,7 +27,6 @@ public final class Player extends Entity {
     public boolean collidedLeft = false;
     public boolean collidedDown = false;
     public boolean collidedRight = false;
-    public List<Boolean> collisions = new ArrayList<>() {};
 
     public boolean canJump = false;
 
@@ -37,8 +34,8 @@ public final class Player extends Entity {
         
         super(x, y, 8, 8, game);
         
-        this.rect = new Rectangle(this.x, this.y, 8, 8);
-        this.groundRect = new Rectangle(this.x, this.y + 8, 8, 8);
+        this.rect = new Rectangle(this.x, this.y, this.width, this.height);
+        this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
         this.image = Spritesheet.getImage("2");
         
     }
@@ -59,9 +56,121 @@ public final class Player extends Entity {
         this.applyGravity();
         this.applyXVelocity();
 
-        
+        this.rect.x = this.x;
+        this.groundRect.x = this.x;
+        this.detectTileCollisions("x");
+        this.rect.y = this.y;
+        this.groundRect.y = this.y + 8;
+        this.detectTileCollisions("y");
 
         this.getKeyInput();
+
+    }
+
+
+
+    public final void detectTileCollisions(String dir) {
+
+        // Detect collisions in determined direction (x or y)
+        if (dir.equals("x")) {
+
+            // Loop through each tile and check if it is solid
+            for (Tile tile : this.game.tilemap.getTiles()) {
+
+                // Check if the tile is close to avoid checking collisions for every tile on the map
+                if ((Commons.inRange(tile.y, this.y - this.height * 2, this.y + this.height * 3) || 
+                    Commons.inRange(tile.y + tile.height, this.y - this.height * 2, this.y + this.height * 3)) && 
+                    (Commons.inRange(tile.x, this.x - this.width * 2, this.x + this.width * 3) || 
+                    Commons.inRange(tile.x + tile.width, this.x - this.width * 2, this.x + this.width * 3))) {
+                
+                    if (tile.type.equals("solid")) {
+
+                        // If the tile is solid and the player is moving, set the position to align with the tile and zero
+                        // the player velocity
+                        if (this.rect.intersects(tile.rect)) {
+
+                            if (this.velX < 0) {
+
+                                this.x = tile.x + GameSettings.TILESIZE;
+                                this.collidedLeft = true;
+
+                            }
+
+                            if (this.velX > 0) {
+
+                                this.x = tile.x - GameSettings.TILESIZE;
+                                this.collidedRight = true;
+
+                            }
+
+                            this.rect.x = this.x;
+                            this.velX = 0;
+
+                        } else {
+
+                            // Set x collision properties to false if no collisions happen
+                            this.collidedLeft = false;
+                            this.collidedRight = false;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        if (dir.equals("y")) {
+
+            // Loop through each tile and check if it is solid
+            for (Tile tile : this.game.tilemap.getTiles()) {
+
+                // Check if the tile is close to avoid checking collisions for every tile on the map
+                if ((Commons.inRange(tile.y, this.y - this.height * 2, this.y + this.height * 3) || 
+                    Commons.inRange(tile.y + tile.height, this.y - this.height * 2, this.y + this.height * 3)) && 
+                    (Commons.inRange(tile.x, this.x - this.width * 2, this.x + this.width * 3) || 
+                    Commons.inRange(tile.x + tile.width, this.x - this.width * 2, this.x + this.width * 3))) {
+
+                    if (tile.type.equals("solid")) {
+
+                        // If the tile is solid and the player collides with it, set the position to align with the tile and 
+                        // zero the player velocity
+                        if (this.rect.intersects(tile.rect)) {
+
+                            if (this.velY < 0) {
+
+                                this.y = tile.y + GameSettings.TILESIZE;
+                                this.collidedUp = true;
+
+                            }
+
+                            if (this.velY > 0) {
+
+                                this.y = tile.y - GameSettings.TILESIZE;
+                                this.collidedDown = true;
+
+                            }
+
+                            this.rect.y = this.y;
+                            this.velY = 0;
+
+                        }
+                        
+                        // if (!this.rect.intersects(tile.rect) && this.velY > 0) {
+
+                        //     this.collidedDown = false;
+
+                        // }
+
+                    }
+
+                }
+
+            }
+
+        }
 
     }
 
@@ -138,8 +247,8 @@ public final class Player extends Entity {
 
         if (this.collidedDown) {
 
-            this.velY = -5;
-            // this.collidedDown = false;
+            this.velY = -3;
+            this.collidedDown = false;
 
         }
 

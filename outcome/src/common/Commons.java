@@ -2,9 +2,9 @@ package common;
 
 public abstract class Commons {
     
-    public static final boolean inRange(int value, int bottom, int top) {
+    public static final boolean inRange(int val, int bottom, int top) {
 
-        if (value >= bottom && value <= top) {
+        if (val >= bottom && val <= top) {
 
             return true;
 

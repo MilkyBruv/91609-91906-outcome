@@ -10,8 +10,6 @@ public class Tile extends Entity {
     
     public String id;
     public String type;
-    public int width = 8;
-    public int height = 8;
 
     public Tile(int x, int y, String id, GameEventManager game) {
 
