@@ -10,13 +10,11 @@ public final class GameEventManager {
 
     public Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
     public Player player = new Player(32, 32, this);
-    public Camera camera;
+    public Camera camera = new Camera(this, this.player);
 
     public GameEventManager() {
         
         this.tilemap.createTiles();
-
-        this.camera = new Camera(this, this.player);
 
     }
 
@@ -32,16 +30,15 @@ public final class GameEventManager {
 
     public final void update() {
 
-        // Update player, camera, and tiles
-
         this.player.update();
-        this.camera.update();
 
         for (Tile tile : this.tilemap.getTiles()) {
             
             tile.update();
 
         }
+
+        this.camera.update();
 
     }
 
@@ -53,7 +50,7 @@ public final class GameEventManager {
         
         for (Tile tile : this.tilemap.getTiles()) {
             
-            Renderer.drawImage(tile.image, tile.x, tile.y);
+            Renderer.drawImage(tile.image, tile.drawX, tile.drawY);
 
         }
 

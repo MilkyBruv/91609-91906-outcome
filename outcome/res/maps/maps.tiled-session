@@ -13,11 +13,11 @@
             "scaleInEditor": 32
         },
         "test.tmx": {
-            "scale": 5.5,
+            "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 140.27272727272728,
-                "y": 81.00000000000001
+                "x": 219.66666666666666,
+                "y": 34.166666666666686
             }
         }
     },
@@ -34,6 +34,7 @@
         "image.tsx",
         "test.tmx"
     ],
+    "resizeMap.removeObjects": true,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 8,

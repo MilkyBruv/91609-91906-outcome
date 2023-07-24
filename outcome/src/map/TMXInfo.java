@@ -1,5 +1,7 @@
 package map;
 
+import game.GameSettings;
+
 public final class TMXInfo {
     
     private String version;
@@ -14,6 +16,8 @@ public final class TMXInfo {
     private String source;
     private String csvData;
     private String[][] mapIdData;
+    private int totalWidth;
+    private int totalHeight;
 
     public TMXInfo(String version, String tiledVersion, String orientation, String renderOrder, int width, int height,
         int tileWidth, int tileHeight, int infinite, String source, String csvData) {
@@ -30,6 +34,8 @@ public final class TMXInfo {
         this.source = source;
         this.csvData = csvData;
         this.mapIdData = new String[this.height][this.width];
+        this.totalWidth = this.width * GameSettings.TILESIZE;
+        this.totalHeight = this.height * GameSettings.TILESIZE;
 
         // Remove first blank line of CSV data then split it into a 2D string array for individual ids
         String[] rows = new String[this.height];
@@ -147,6 +153,22 @@ public final class TMXInfo {
     public String[][] getMapIdData() {
 
         return mapIdData;
+
+    }
+
+
+
+    public int getTotalWidth() {
+        
+        return totalWidth;
+
+    }
+
+
+
+    public int getTotalHeight() {
+        
+        return totalHeight;
 
     }
 

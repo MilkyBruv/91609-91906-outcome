@@ -18,15 +18,15 @@ public class Entity {
     public ImageResource image;
     public Rectangle rect;
 
-    public Entity(int x, int y, int width, int height, GameEventManager game) {
+    public Entity(int x, int y, GameEventManager game) {
 
         this.game = game;
         this.x = x;
         this.y = y;
         this.drawX = this.x;
         this.drawX = this.y;
-        this.width = width;
-        this.height = height;
+        this.width = 8;
+        this.height = 8;
 
     }
 

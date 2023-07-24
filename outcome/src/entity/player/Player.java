@@ -1,6 +1,8 @@
 package entity.player;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jogamp.newt.event.KeyEvent;
 
@@ -27,12 +29,13 @@ public final class Player extends Entity {
     public boolean collidedLeft = false;
     public boolean collidedDown = false;
     public boolean collidedRight = false;
-
     public boolean canJump = false;
+
+    public List<Boolean> groundRectCollisions = new ArrayList<>();
 
     public Player(int x, int y, GameEventManager game) {
         
-        super(x, y, 8, 8, game);
+        super(x, y, game);
         
         this.rect = new Rectangle(this.x, this.y, this.width, this.height);
         this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
@@ -45,22 +48,17 @@ public final class Player extends Entity {
     @Override
     public void update() {
 
-        this.drawX = this.x;
-        this.drawY = this.y;
-
-        
-        // this.drawX = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (this.width / 2);
-        // this.drawY = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (this.height / 2);
-
         // Call update methods
         this.applyGravity();
         this.applyXVelocity();
+
+        this.setDrawPosition();
 
         this.rect.x = this.x;
         this.groundRect.x = this.x;
         this.detectTileCollisions("x");
         this.rect.y = this.y;
-        this.groundRect.y = this.y + 8;
+        this.groundRect.y = this.y + this.height;
         this.detectTileCollisions("y");
 
         this.getKeyInput();
@@ -124,6 +122,8 @@ public final class Player extends Entity {
 
         if (dir.equals("y")) {
 
+            this.groundRectCollisions.clear();
+
             // Loop through each tile and check if it is solid
             for (Tile tile : this.game.tilemap.getTiles()) {
 
@@ -158,15 +158,25 @@ public final class Player extends Entity {
 
                         }
                         
-                        // if (!this.rect.intersects(tile.rect) && this.velY > 0) {
+                        if (this.groundRect.intersects(tile.rect)) {
 
-                        //     this.collidedDown = false;
+                            this.groundRectCollisions.add(true);
 
-                        // }
+                        } else {
+
+                            this.groundRectCollisions.add(false);
+
+                        }
 
                     }
 
                 }
+
+            }
+
+            if (!this.groundRectCollisions.contains(true)) {
+
+                this.collidedDown = false;
 
             }
 
@@ -249,6 +259,45 @@ public final class Player extends Entity {
 
             this.velY = -3;
             this.collidedDown = false;
+
+        }
+
+    }
+
+
+
+    /**
+     * Check if the Camera is locked to the edge of the map and adjust draw position to match Camera bounds
+     */
+    public final void setDrawPosition() {
+
+        if (this.game.camera.lockedLeft) {
+
+            this.drawX = this.x;
+
+        } else if (this.game.camera.lockedRight) {
+
+            this.drawX = this.x - this.game.tilemap.getTmxInfo().getTotalWidth() / 2;
+
+        } else {
+
+            // Set draw position to centre x
+            this.drawX = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (this.width / 2);
+
+        }
+
+        if (this.game.camera.lockedTop) {
+
+            this.drawY = this.y;
+
+        } else if (this.game.camera.lockedBottom) {
+
+            this.drawY = this.y - this.game.tilemap.getTmxInfo().getTotalHeight() / 2;
+
+        } else {
+
+            // Set draw position to centre y
+            this.drawY = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (this.height / 2);
 
         }
 
