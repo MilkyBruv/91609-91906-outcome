@@ -56,8 +56,6 @@ public final class GameEventManager {
 
         this.player.draw();
 
-        Renderer.drawText("i boutta bust___", 48, 48);
-
     }
     
 }

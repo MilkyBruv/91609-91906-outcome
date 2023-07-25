@@ -103,6 +103,8 @@ public final class Player extends Entity {
 
                             this.rect.x = this.x;
                             this.velX = 0;
+                            
+                            break;
 
                         } else {
 
@@ -155,6 +157,8 @@ public final class Player extends Entity {
 
                             this.rect.y = this.y;
                             this.velY = 0;
+
+                            // break;
 
                         }
                         
@@ -267,39 +271,13 @@ public final class Player extends Entity {
 
 
     /**
-     * Check if the Camera is locked to the edge of the map and adjust draw position to match Camera bounds
+     * Set current draw position
      */
     public final void setDrawPosition() {
 
-        if (this.game.camera.lockedLeft) {
-
-            this.drawX = this.x;
-
-        } else if (this.game.camera.lockedRight) {
-
-            this.drawX = this.x - this.game.tilemap.getTmxInfo().getTotalWidth() / 2;
-
-        } else {
-
-            // Set draw position to centre x
-            this.drawX = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (this.width / 2);
-
-        }
-
-        if (this.game.camera.lockedTop) {
-
-            this.drawY = this.y;
-
-        } else if (this.game.camera.lockedBottom) {
-
-            this.drawY = this.y - this.game.tilemap.getTmxInfo().getTotalHeight() / 2;
-
-        } else {
-
-            // Set draw position to centre y
-            this.drawY = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (this.height / 2);
-
-        }
+        // Set draw position to centre of display
+        this.drawX = (this.game.tilemap.getTmxInfo().getTotalWidth() / 2) - (this.width / 2);
+        this.drawY = (this.game.tilemap.getTmxInfo().getTotalHeight() / 2) - (this.height / 2);
 
     }
 

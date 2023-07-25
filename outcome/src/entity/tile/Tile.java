@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import entity.Entity;
 import game.GameEventManager;
+import game.GameSettings;
 import tileset.Spritesheet;
 
 public class Tile extends Entity {
@@ -23,8 +24,8 @@ public class Tile extends Entity {
         this.rect = new Rectangle();
         this.rect.x = this.x;
         this.rect.y = this.y;
-        this.rect.width = 8;
-        this.rect.height = 8;
+        this.rect.width = GameSettings.TILESIZE;
+        this.rect.height = GameSettings.TILESIZE;
 
     }
 
@@ -47,35 +48,9 @@ public class Tile extends Entity {
      */
     public final void setDrawPosition() {
 
-        if (this.game.camera.lockedLeft) {
-
-            this.drawX = this.x;
-
-        } else if (this.game.camera.lockedRight) {
-
-            this.drawX = this.x - this.game.tilemap.getTmxInfo().getTotalWidth() / 2;
-
-        } else {
-
-            // Set draw position relative to player x position
-            this.drawX = this.x - this.game.player.x + this.game.player.drawX;
-
-        }
-
-        if (this.game.camera.lockedTop) {
-
-            this.drawY = this.y;
-
-        } else if (this.game.camera.lockedBottom) {
-
-            this.drawY = this.y - this.game.tilemap.getTmxInfo().getTotalHeight() / 2;
-
-        } else {
-
-            // Set draw position relative to player x position
-            this.drawY = this.y - this.game.player.y + this.game.player.drawY;
-
-        }
+        // Set draw position relative to player position
+        this.drawX = this.x - this.game.player.x + this.game.player.drawX;
+        this.drawY = this.y - this.game.player.y + this.game.player.drawY;
 
     }
 
