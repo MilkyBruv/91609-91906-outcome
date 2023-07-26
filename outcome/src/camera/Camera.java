@@ -2,7 +2,6 @@ package camera;
 
 import entity.Entity;
 import game.GameEventManager;
-import game.GameSettings;
 import gfx.Renderer;
 
 public class Camera {

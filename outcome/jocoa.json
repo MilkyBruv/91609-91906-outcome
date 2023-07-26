@@ -2,18 +2,21 @@
 
     "files": [
 
-        "src/main/*.java",
-        "src/event/*.java",
-        "src/gfx/*.java",
-        "src/sfx/*.java",
         "src/asset/*.java",
-        "src/map/*.java",
-        "src/entity/tile/*.java",
-        "src/entity/player/*.java",
-        "src/entity/*.java",
-        "src/game/*.java",
-        "src/common/*.java",
         "src/camera/*.java",
+        "src/common/*.java",
+        "src/entity/*.java",
+        "src/entity/item/*.java",
+        "src/entity/item/items/*.java",
+        "src/entity/player/*.java",
+        "src/entity/player/hud/inventory/*.java",
+        "src/entity/tile/*.java",
+        "src/event/*.java",
+        "src/game/*.java",
+        "src/gfx/*.java",
+        "src/main/*.java",
+        "src/map/*.java",
+        "src/sfx/*.java",
         "src/tileset/*.java"
 
     ],

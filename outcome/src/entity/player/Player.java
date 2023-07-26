@@ -8,6 +8,7 @@ import com.jogamp.newt.event.KeyEvent;
 
 import common.Commons;
 import entity.Entity;
+import entity.player.hud.inventory.PlayerInventory;
 import entity.tile.Tile;
 import event.KeyInfo;
 import game.GameEventManager;
@@ -32,6 +33,8 @@ public final class Player extends Entity {
     public boolean canJump = false;
 
     public List<Boolean> groundRectCollisions = new ArrayList<>();
+
+    public PlayerInventory inventory = new PlayerInventory(this);
 
     public Player(int x, int y, GameEventManager game) {
         
@@ -276,8 +279,8 @@ public final class Player extends Entity {
     public final void setDrawPosition() {
 
         // Set draw position to centre of display
-        this.drawX = (this.game.tilemap.getTmxInfo().getTotalWidth() / 2) - (this.width / 2);
-        this.drawY = (this.game.tilemap.getTmxInfo().getTotalHeight() / 2) - (this.height / 2);
+        this.drawX = (Renderer.FRAMEBUFFER_BASE_WIDTH / 2) - (this.width / 2);
+        this.drawY = (Renderer.FRAMEBUFFER_BASE_HEIGHT / 2) - (this.height / 2);
 
     }
 
