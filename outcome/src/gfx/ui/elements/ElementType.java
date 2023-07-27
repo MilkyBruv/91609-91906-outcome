@@ -1,4 +1,4 @@
-package entity.item;
+package gfx.ui.elements;
 
 public enum ElementType {
     

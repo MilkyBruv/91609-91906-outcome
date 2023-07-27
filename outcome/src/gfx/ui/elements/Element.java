@@ -2,7 +2,6 @@ package gfx.ui.elements;
 
 import java.awt.image.BufferedImage;
 
-import entity.item.ElementType;
 import game.GameSettings;
 import gfx.ImageResource;
 
