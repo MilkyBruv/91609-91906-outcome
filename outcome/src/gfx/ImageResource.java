@@ -106,6 +106,23 @@ public class ImageResource {
 
 
 
+    /**
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return New sub {@link ImageResource} from bufferedImage at (x * width, y * height) with the dimensions of 
+     * (width, height)
+     */
+    public final ImageResource getSubImageByDimensions(int x, int y, int width, int height) {
+
+        // Return new sub image
+        return new ImageResource(this.bufferedImage.getSubimage(x * width, y * height, width, height));
+
+    }
+
+
+
     public final BufferedImage getBufferedImage() {
 
         return this.bufferedImage;

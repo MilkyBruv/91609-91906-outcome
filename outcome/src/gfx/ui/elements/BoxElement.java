@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import static game.GameSettings.*;
 import gfx.ImageResource;
+import gfx.ui.UISheet;
 
 public class BoxElement extends Element {
 
@@ -14,7 +15,7 @@ public class BoxElement extends Element {
 
         this.type = ElementType.BOX;
 
-        this.imageSections = new ImageResource[9];
+        this.imageSections = UISheet.BOX_ELEMENT_IMAGE_SECTIONS;
         this.image = new ImageResource(new BufferedImage(this.width * TILESIZE, this.height * TILESIZE, 
             BufferedImage.TYPE_INT_ARGB));
 

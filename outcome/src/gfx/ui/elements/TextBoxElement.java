@@ -16,7 +16,7 @@ public class TextBoxElement extends Element {
         
         super(x, y);
 
-        this.type = ElementType.BOX;
+        this.type = ElementType.TEXT_BOX;
 
         this.imageSections = new ImageResource[9];
         this.image = new ImageResource(new BufferedImage((this.text.length() + 2) * TILESIZE, 3 * TILESIZE, 

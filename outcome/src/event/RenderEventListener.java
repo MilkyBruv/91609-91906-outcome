@@ -72,7 +72,7 @@ public final class RenderEventListener implements GLEventListener {
 
             gl.glTexCoord2f(1, 1);
             gl.glVertex2f(Renderer.framebufferX + Renderer.framebufferWidth,
-                    Renderer.framebufferY + Renderer.framebufferHeight);
+                Renderer.framebufferY + Renderer.framebufferHeight);
 
             gl.glTexCoord2f(0, 1);
             gl.glVertex2f(Renderer.framebufferX, Renderer.framebufferY + Renderer.framebufferHeight);
