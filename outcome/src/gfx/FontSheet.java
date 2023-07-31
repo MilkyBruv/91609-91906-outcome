@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static game.GameSettings.*;
+
 public final class FontSheet {
     
     private static Map<Character, ImageResource> charMap = new HashMap<>() {};
@@ -22,11 +24,12 @@ public final class FontSheet {
             int charCount = 0;
 
             // Loop through each image in spritesheet and add them to charMap with the key of chars[charCount]
-            for (int y = 0; y < spritesheet.getHeight() / 8; y++) {
+            for (int y = 0; y < spritesheet.getHeight() / TILESIZE; y++) {
                 
-                for (int x = 0; x < spritesheet.getWidth() / 8; x++) {
+                for (int x = 0; x < spritesheet.getWidth() / TILESIZE; x++) {
                 
-                    charMap.put(CHARS[charCount], spritesheet.getSubImage(x * 8, y * 8, 8, 8));
+                    charMap.put(CHARS[charCount], spritesheet.getSubImage(x * TILESIZE, y * TILESIZE, TILESIZE, 
+                        TILESIZE));
                     charCount++;
 
                 }
@@ -52,7 +55,7 @@ public final class FontSheet {
     public static final ImageResource getTextImage(String text) {
 
         // Create new ImageResource with the dimensions relative to the supplied text
-        ImageResource textImage = new ImageResource(new BufferedImage(text.length() * 8, 8, 
+        ImageResource textImage = new ImageResource(new BufferedImage(text.length() * TILESIZE, TILESIZE, 
             BufferedImage.TYPE_INT_ARGB));
         
         // Get graphics of textImage BufferedImage and draw each character from charMap onto it
@@ -62,7 +65,7 @@ public final class FontSheet {
         for (Character c : text.toCharArray()) {
             
             g2d.drawImage(charMap.get(c).getBufferedImage(), x, 0, null);
-            x += 8;
+            x += TILESIZE;
 
         }
 

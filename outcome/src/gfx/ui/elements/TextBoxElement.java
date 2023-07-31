@@ -4,18 +4,22 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import static game.GameSettings.*;
+
+import gfx.FontSheet;
 import gfx.ImageResource;
 
-public class BoxElement extends Element {
+public class TextBoxElement extends Element {
 
-    public BoxElement(int x, int y, int width, int height) {
+    public String text;
+
+    public TextBoxElement(int x, int y, String text) {
         
-        super(x, y, width, height);
+        super(x, y);
 
         this.type = ElementType.BOX;
 
         this.imageSections = new ImageResource[9];
-        this.image = new ImageResource(new BufferedImage(this.width * TILESIZE, this.height * TILESIZE, 
+        this.image = new ImageResource(new BufferedImage((this.text.length() + 2) * TILESIZE, 3 * TILESIZE, 
             BufferedImage.TYPE_INT_ARGB));
 
         this.buildImage();
@@ -49,6 +53,8 @@ public class BoxElement extends Element {
             g2d.drawImage(this.imageSections[1].getBufferedImage(), this.image.getWidth() - TILESIZE, y, null);
 
         }
+
+        g2d.drawImage(FontSheet.getTextImage(this.text).getBufferedImage(), TILESIZE, TILESIZE, null);
 
         g2d.dispose();
 

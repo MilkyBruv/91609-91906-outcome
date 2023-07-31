@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import gfx.ImageResource;
+import static game.GameSettings.*;
 
 public final class Spritesheet {
     
@@ -24,7 +25,7 @@ public final class Spritesheet {
         try {
 
             // Get data from TSX file
-            TSXInfo tsxInfo = TSXReader.getTilesetData("image.tsx");
+            TSXInfo tsxInfo = TSXReader.getTilesetData("tileset.tsx");
             image = new ImageResource(tsxInfo.getSource().split("/")[1]);
 
             // Tile id
@@ -34,14 +35,25 @@ public final class Spritesheet {
             int tileCount = 0;
 
             // Loop through each tile and add the image and type to map with corresponding id
-            for (int y = 0; y < tsxInfo.getHeight() / tsxInfo.getTileHeight(); y++) {
+            for (int y = 0; y < tsxInfo.getHeight() / TILESIZE; y++) {
                 
-                for (int x = 0; x < tsxInfo.getWidth() / tsxInfo.getTileWidth(); x++) {
+                for (int x = 0; x < tsxInfo.getWidth() / TILESIZE; x++) {
+
+                    System.out.println(x + ", " + y);
 
                     IMAGE_ID_MAP.put(Integer.toString(id), image.getSubImage(x * tsxInfo.getTileWidth(), 
-                        y * tsxInfo.getTileHeight(), tsxInfo.getTileWidth(), tsxInfo.getTileHeight()));
+                        y * tsxInfo.getTileHeight(), TILESIZE, TILESIZE));
 
-                    TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).type);
+                    // Check if each tile has a defined type / class, if not, set the type to "null"
+                    try {
+                        
+                        TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).type);
+
+                    } catch (IndexOutOfBoundsException e) {
+
+                        TYPE_ID_MAP.put(Integer.toString(id), "null");
+
+                    }
 
                     id++;
                     tileCount++;

@@ -31,7 +31,7 @@ public final class Tilemap {
         try {
             
             // Get data from TMX file
-            this.tmxInfo = TMXReader.getMapData("test.tmx");
+            this.tmxInfo = TMXReader.getMapData("test1.tmx");
             this.mapIdData = this.tmxInfo.getMapIdData();
 
         } catch (ParserConfigurationException | SAXException | IOException e) {

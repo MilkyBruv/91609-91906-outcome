@@ -12,9 +12,9 @@ import main.Main;
 
 public class ImageResource {
 
-    private BufferedImage bufferedImage = null;
-    private int width, height;
-    private final GraphicsConfiguration GRAPHICS_CONFIG = GraphicsEnvironment.getLocalGraphicsEnvironment()
+    protected BufferedImage bufferedImage = null;
+    protected int width, height;
+    protected final GraphicsConfiguration GRAPHICS_CONFIG = GraphicsEnvironment.getLocalGraphicsEnvironment()
             .getDefaultScreenDevice().getDefaultConfiguration();
 
     /**
