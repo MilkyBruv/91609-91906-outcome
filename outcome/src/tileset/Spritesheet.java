@@ -39,22 +39,10 @@ public final class Spritesheet {
                 
                 for (int x = 0; x < tsxInfo.getWidth() / TILESIZE; x++) {
 
-                    System.out.println(x + ", " + y);
-
                     IMAGE_ID_MAP.put(Integer.toString(id), image.getSubImage(x * tsxInfo.getTileWidth(), 
                         y * tsxInfo.getTileHeight(), TILESIZE, TILESIZE));
-
-                    // Check if each tile has a defined type / class, if not, set the type to "null"
-                    // TODO: FIX INDEX OUT OF BOUNDS AND MAKE BETTER
-                    try {
                         
-                        TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).type);
-
-                    } catch (IndexOutOfBoundsException e) {
-
-                        TYPE_ID_MAP.put(Integer.toString(id), "null");
-
-                    }
+                    TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).type);
 
                     id++;
                     tileCount++;
