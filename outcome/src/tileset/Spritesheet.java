@@ -45,6 +45,7 @@ public final class Spritesheet {
                         y * tsxInfo.getTileHeight(), TILESIZE, TILESIZE));
 
                     // Check if each tile has a defined type / class, if not, set the type to "null"
+                    // TODO: FIX INDEX OUT OF BOUNDS AND MAKE BETTER
                     try {
                         
                         TYPE_ID_MAP.put(Integer.toString(id), tsxInfo.getTilesInfo().get(tileCount).type);
