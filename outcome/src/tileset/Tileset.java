@@ -11,7 +11,7 @@ import org.xml.sax.SAXException;
 import gfx.ImageResource;
 import static game.GameSettings.*;
 
-public final class Spritesheet {
+public final class Tileset {
     
     private static ImageResource image = null;
     private static final Map<String, ImageResource> IMAGE_ID_MAP = new HashMap<>();
@@ -20,7 +20,7 @@ public final class Spritesheet {
     /**
      * Gets data from TMX file and maps all the tiles with their corresponding id
      */
-    public static void mapTiles() {
+    static {
 
         try {
 

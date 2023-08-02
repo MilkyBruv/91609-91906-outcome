@@ -7,6 +7,8 @@ import static game.GameSettings.*;
 
 import gfx.FontSheet;
 import gfx.ImageResource;
+import gfx.Renderer;
+import gfx.ui.UISheet;
 
 public class TextBoxElement extends Element {
 
@@ -16,9 +18,11 @@ public class TextBoxElement extends Element {
         
         super(x, y);
 
+        this.text = text;
+
         this.type = ElementType.TEXT_BOX;
 
-        this.imageSections = new ImageResource[9];
+        this.imageSections = UISheet.BOX_ELEMENT_IMAGE_SECTIONS;
         this.image = new ImageResource(new BufferedImage((this.text.length() + 2) * TILESIZE, 3 * TILESIZE, 
             BufferedImage.TYPE_INT_ARGB));
 
@@ -40,23 +44,31 @@ public class TextBoxElement extends Element {
         g2d.drawImage(this.imageSections[8].getBufferedImage(), this.image.getWidth() - TILESIZE, 
             this.image.getHeight() - TILESIZE, null);
 
-        for (int x = TILESIZE; x < this.image.getWidth() - TILESIZE; x++) {
+        for (int x = TILESIZE; x < this.image.getWidth() - TILESIZE; x += TILESIZE) {
             
             g2d.drawImage(this.imageSections[1].getBufferedImage(), x, 0, null);
-            g2d.drawImage(this.imageSections[1].getBufferedImage(), x, this.image.getHeight() - TILESIZE, null);
+            g2d.drawImage(this.imageSections[7].getBufferedImage(), x, this.image.getHeight() - TILESIZE, null);
 
         }
 
-        for (int y = TILESIZE; y < this.image.getWidth() - TILESIZE; y++) {
+        for (int y = TILESIZE; y < this.image.getWidth() - TILESIZE; y += TILESIZE) {
             
-            g2d.drawImage(this.imageSections[1].getBufferedImage(), 0, y, null);
-            g2d.drawImage(this.imageSections[1].getBufferedImage(), this.image.getWidth() - TILESIZE, y, null);
+            g2d.drawImage(this.imageSections[3].getBufferedImage(), 0, y, null);
+            g2d.drawImage(this.imageSections[5].getBufferedImage(), this.image.getWidth() - TILESIZE, y, null);
 
         }
 
         g2d.drawImage(FontSheet.getTextImage(this.text).getBufferedImage(), TILESIZE, TILESIZE, null);
 
         g2d.dispose();
+
+    }
+
+
+    @Override
+    public void draw() {
+
+        Renderer.drawImage(this.image, this.x, this.y);
 
     }
 

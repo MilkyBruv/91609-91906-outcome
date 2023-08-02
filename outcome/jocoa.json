@@ -20,6 +20,8 @@
         "src/game/*.java",
         
         "src/gfx/*.java",
+        "src/gfx/ui/*.java",
+        "src/gfx/ui/elements/*.java",
         
         "src/main/*.java",
         

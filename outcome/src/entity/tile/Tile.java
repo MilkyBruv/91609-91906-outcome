@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import entity.Entity;
 import game.GameEventManager;
 import game.GameSettings;
-import tileset.Spritesheet;
+import tileset.Tileset;
 
 public class Tile extends Entity {
     
@@ -17,8 +17,8 @@ public class Tile extends Entity {
         super(x, y, game);
         
         this.id = id;
-        this.image = Spritesheet.getImage(id);
-        this.type = Spritesheet.getType(id);
+        this.image = Tileset.getImage(id);
+        this.type = Tileset.getType(id);
         this.rect = new Rectangle();
         this.rect.x = this.x;
         this.rect.y = this.y;

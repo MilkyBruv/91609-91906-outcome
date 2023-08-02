@@ -1,6 +1,7 @@
 package gfx.ui.elements;
 
 import gfx.ImageResource;
+import gfx.Renderer;
 
 public class Element {
     
@@ -33,5 +34,13 @@ public class Element {
 
 
     public void buildImage() {}
+
+
+
+    public void draw() {
+
+        Renderer.drawImage(this.image, this.x, this.x);
+
+    }
 
 }

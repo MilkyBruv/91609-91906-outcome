@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 
 import entity.tile.Tile;
 import game.GameEventManager;
-import tileset.Spritesheet;
+import tileset.Tileset;
 
 public final class Tilemap {
     
@@ -24,9 +24,6 @@ public final class Tilemap {
 
         this.game = game;
         this.pos = pos;
-
-        // Map tiles to spritesheet
-        Spritesheet.mapTiles();
 
         try {
             

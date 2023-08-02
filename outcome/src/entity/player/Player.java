@@ -14,7 +14,7 @@ import event.KeyInfo;
 import game.GameEventManager;
 import game.GameSettings;
 import gfx.Renderer;
-import tileset.Spritesheet;
+import tileset.Tileset;
 
 public final class Player extends Entity {
 
@@ -43,7 +43,7 @@ public final class Player extends Entity {
         
         this.rect = new Rectangle(this.x, this.y, this.width, this.height);
         this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
-        this.image = Spritesheet.getImage("17");
+        this.image = Tileset.getImage("17");
         
     }
     
@@ -84,8 +84,6 @@ public final class Player extends Entity {
                     Commons.inRange(tile.y + tile.height, this.y - this.height * this.collisionDistance, this.y + this.height * this.collisionDistance + 1)) && 
                     (Commons.inRange(tile.x, this.x - this.width * this.collisionDistance, this.x + this.width * this.collisionDistance + 1) || 
                     Commons.inRange(tile.x + tile.width, this.x - this.width * this.collisionDistance, this.x + this.width * this.collisionDistance + 1))) {
-
-                    System.out.println(tile.type);
 
                     if (tile.type.equals("solid")) {
 

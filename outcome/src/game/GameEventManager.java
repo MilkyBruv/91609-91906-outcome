@@ -4,6 +4,8 @@ import camera.Camera;
 import entity.player.Player;
 import entity.tile.Tile;
 import gfx.Renderer;
+import gfx.ui.elements.BoxElement;
+import gfx.ui.elements.TextBoxElement;
 import map.Tilemap;
 
 public final class GameEventManager {
@@ -11,6 +13,9 @@ public final class GameEventManager {
     public Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
     public Player player = new Player(32, 32, this);
     public Camera camera = new Camera(this, this.player);
+
+    public BoxElement boxElement = new BoxElement(0, 0, 8, 8);
+    public TextBoxElement textBoxElement = new TextBoxElement(0, 64, "hello!");
 
     public GameEventManager() {
         
@@ -53,6 +58,9 @@ public final class GameEventManager {
             Renderer.drawImage(tile.image, tile.drawX, tile.drawY);
 
         }
+
+        this.boxElement.draw();
+        this.textBoxElement.draw();
 
         this.player.draw();
 
