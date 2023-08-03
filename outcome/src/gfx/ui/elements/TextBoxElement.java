@@ -51,12 +51,8 @@ public class TextBoxElement extends Element {
 
         }
 
-        for (int y = TILESIZE; y < this.image.getWidth() - TILESIZE; y += TILESIZE) {
-            
-            g2d.drawImage(this.imageSections[3].getBufferedImage(), 0, y, null);
-            g2d.drawImage(this.imageSections[5].getBufferedImage(), this.image.getWidth() - TILESIZE, y, null);
-
-        }
+        g2d.drawImage(this.imageSections[3].getBufferedImage(), 0, TILESIZE, null);
+        g2d.drawImage(this.imageSections[5].getBufferedImage(), this.image.getWidth() - TILESIZE, TILESIZE, null);
 
         g2d.drawImage(FontSheet.getTextImage(this.text).getBufferedImage(), TILESIZE, TILESIZE, null);
 

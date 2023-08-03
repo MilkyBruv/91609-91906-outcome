@@ -10,7 +10,6 @@ import org.xml.sax.SAXException;
 
 import entity.tile.Tile;
 import game.GameEventManager;
-import tileset.Tileset;
 
 public final class Tilemap {
     
@@ -18,7 +17,7 @@ public final class Tilemap {
     private final List<Tile> TILES = new ArrayList<Tile>();
     private String[][] mapIdData;
     private TMXInfo tmxInfo;
-    private int[] pos = new int[2];
+    private int[] pos;
 
     public Tilemap(GameEventManager game, int[] pos) {
 
