@@ -45,10 +45,14 @@ public class BoxElement extends Element {
 
         }
 
-        for (int y = TILESIZE; y < this.image.getWidth() - TILESIZE; y += TILESIZE) {
-            
-            g2d.drawImage(this.imageSections[3].getBufferedImage(), 0, y, null);
-            g2d.drawImage(this.imageSections[5].getBufferedImage(), this.image.getWidth() - TILESIZE, y, null);
+        if (this.image.getWidth() / TILESIZE > 2) {
+
+            for (int y = TILESIZE; y < this.image.getWidth() - TILESIZE; y += TILESIZE) {
+                
+                g2d.drawImage(this.imageSections[3].getBufferedImage(), 0, y, null);
+                g2d.drawImage(this.imageSections[5].getBufferedImage(), this.image.getWidth() - TILESIZE, y, null);
+
+            }
 
         }
 

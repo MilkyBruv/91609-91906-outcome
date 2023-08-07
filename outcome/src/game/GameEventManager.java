@@ -14,8 +14,8 @@ public final class GameEventManager {
     public Player player = new Player(32, 32, this);
     public Camera camera = new Camera(this, this.player);
 
-    public BoxElement boxElement = new BoxElement(0, 0, 8, 8);
-    public TextBoxElement textBoxElement = new TextBoxElement(0, 64, "hello!");
+    public BoxElement boxElement = new BoxElement(0, 0, 9, 9);
+    public TextBoxElement textBoxElement = new TextBoxElement(0, 64, "guys this is really crazy....");
 
     public GameEventManager() {
         
