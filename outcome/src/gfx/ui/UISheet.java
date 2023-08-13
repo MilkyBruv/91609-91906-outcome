@@ -3,7 +3,6 @@ package gfx.ui;
 import java.io.IOException;
 
 import gfx.ImageResource;
-import gfx.Renderer;
 
 public class UISheet {
 
