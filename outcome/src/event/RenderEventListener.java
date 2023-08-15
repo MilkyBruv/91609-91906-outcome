@@ -1,5 +1,9 @@
 package event;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
@@ -11,6 +15,7 @@ public final class RenderEventListener implements GLEventListener {
 
     private int windowWidth = 10;
     private int windowHeight = 10;
+    private int shaderProgram;
     private GameEventManager game;
 
     public RenderEventListener(GameEventManager game) {
@@ -30,6 +35,64 @@ public final class RenderEventListener implements GLEventListener {
         // Set clear colour and enable images to be draw to the window
         gl.glClearColor(0f, 0f, 0f, 1f);
         gl.glEnable(GL2.GL_TEXTURE_2D);
+
+        // Load and apply fragment shader
+
+        // Read shader file
+        String fragShaderSource = "";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/shader/fragment.glsl"))) {
+
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+
+                fragShaderSource += line + "\n";
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+        // Create and compile shader
+        int fragShader = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
+        gl.glShaderSource(fragShader, 1, new String[] {fragShaderSource}, null);
+        gl.glCompileShader(fragShader);
+
+        // Load shader
+        shaderProgram = gl.glCreateProgram();
+        gl.glAttachShader(shaderProgram, fragShader);
+        gl.glLinkProgram(shaderProgram);
+
+        int[] status = new int[1];
+        gl.glGetShaderiv(fragShader, GL2.GL_COMPILE_STATUS, status, 0);
+        if (status[0] == GL2.GL_FALSE) {
+            int[] infoLogLength = new int[1];
+            gl.glGetShaderiv(fragShader, GL2.GL_INFO_LOG_LENGTH, infoLogLength, 0);
+
+            if (infoLogLength[0] > 0) {
+                byte[] infoLog = new byte[infoLogLength[0]];
+                gl.glGetShaderInfoLog(fragShader, infoLogLength[0], null, 0, infoLog, 0);
+                System.err.println("Shader compilation error: " + new String(infoLog));
+            }
+        }
+
+        status = new int[1];
+        gl.glGetProgramiv(shaderProgram, GL2.GL_LINK_STATUS, status, 0);
+        if (status[0] == GL2.GL_FALSE) {
+            int[] infoLogLength = new int[1];
+            gl.glGetProgramiv(shaderProgram, GL2.GL_INFO_LOG_LENGTH, infoLogLength, 0);
+
+            if (infoLogLength[0] > 0) {
+                byte[] infoLog = new byte[infoLogLength[0]];
+                gl.glGetProgramInfoLog(shaderProgram, infoLogLength[0], null, 0, infoLog, 0);
+                System.err.println("Shader program linking error: " + new String(infoLog));
+            }
+        }
+
 
     }
 
@@ -60,6 +123,9 @@ public final class RenderEventListener implements GLEventListener {
         gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_NEAREST);
         gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
 
+        // Apply shader
+        gl.glUseProgram(shaderProgram);
+
         // Draw framebuffer OpenGL Texture to window
         gl.glColor4f(1f, 1f, 1f, 1f);
         gl.glBegin(GL2.GL_QUADS);
@@ -79,6 +145,9 @@ public final class RenderEventListener implements GLEventListener {
 
         gl.glEnd();
         gl.glFlush();
+
+        // Remove shader
+        gl.glUseProgram(0);
 
         // Bind to 0 (No OpenGL Texture)
         gl.glBindTexture(GL2.GL_TEXTURE_2D, 0);

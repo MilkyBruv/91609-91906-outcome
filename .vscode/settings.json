@@ -7,5 +7,8 @@
         "outcome/lib/joal-natives-windows-amd64.jar",
         "outcome/lib/jogl-all.jar",
         "outcome/lib/jogl-all-natives-windows-amd64.jar"
-    ]
+    ],
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }
