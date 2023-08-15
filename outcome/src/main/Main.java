@@ -22,7 +22,7 @@ public final class Main implements Runnable {
     private static final int FPS = 60;
     public static double delta = 0;
 
-    private static final GLProfile GL_PROFILE = GLProfile.get(GLProfile.GL2);
+    private static final GLProfile GL_PROFILE = GLProfile.get(GLProfile.GL4);
     private static final GLCapabilities GL_CAPABILITIES = new GLCapabilities(GL_PROFILE);
     private static final GLWindow GL_WINDOW = GLWindow.create(GL_CAPABILITIES);
     private static Thread thread;
