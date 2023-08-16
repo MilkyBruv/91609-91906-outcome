@@ -1,10 +1,6 @@
 package event;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.ByteBuffer;
 

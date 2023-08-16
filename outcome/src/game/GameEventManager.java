@@ -7,6 +7,7 @@ import gfx.Renderer;
 import gfx.ui.elements.BoxElement;
 import gfx.ui.elements.TextBoxElement;
 import map.Tilemap;
+import static game.GameSettings.*;
 
 public final class GameEventManager {
 
@@ -15,7 +16,8 @@ public final class GameEventManager {
     public Camera camera = new Camera(this, this.player);
 
     public BoxElement boxElement = new BoxElement(0, 0, 9, 9);
-    public TextBoxElement textBoxElement = new TextBoxElement(0, 64, "guys this is really crazy....");
+    public TextBoxElement textBoxElement = new TextBoxElement(0, Renderer.FRAMEBUFFER_BASE_HEIGHT - (TILESIZE * 3), 
+        "guys this is really crazy....");
 
     public GameEventManager() {
         
