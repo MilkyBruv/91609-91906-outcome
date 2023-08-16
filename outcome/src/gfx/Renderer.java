@@ -3,12 +3,16 @@ package gfx;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.nio.FloatBuffer;
 
+import com.jogamp.common.nio.Buffers;
+import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import entity.Entity;
+import event.RenderEventListener;
 
 public abstract class Renderer {
 
@@ -19,7 +23,6 @@ public abstract class Renderer {
     public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
     public static int framebufferX = 0;
     public static int framebufferY = 0;
-
     private static final BufferedImage FRAMEBUFFER = new BufferedImage(FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT,
             BufferedImage.TYPE_INT_ARGB);
     private static Graphics2D framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
@@ -185,8 +188,8 @@ public abstract class Renderer {
         framebufferHeight = Math.round((float) FRAMEBUFFER_BASE_HEIGHT * scale);
 
         // Calculate centre-screen positions
-        framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
-        framebufferY = Math.round(((float) windowHeight / 2) - ((float) framebufferHeight / 2));
+        framebufferX = Math.round(((float) 2 / 2) - ((float) framebufferWidth / 2));
+        framebufferY = Math.round(((float) 2 / 2) - ((float) framebufferHeight / 2));
 
     }
 

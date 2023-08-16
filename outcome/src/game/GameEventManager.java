@@ -17,7 +17,7 @@ public final class GameEventManager {
 
     public BoxElement boxElement = new BoxElement(0, 0, 9, 9);
     public TextBoxElement textBoxElement = new TextBoxElement(0, Renderer.FRAMEBUFFER_BASE_HEIGHT - (TILESIZE * 3), 
-        "guys this is really crazy....");
+        "this is some test text!");
 
     public GameEventManager() {
         

@@ -8,6 +8,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.math.Matrix4;
 
 import game.GameEventManager;
 import gfx.Renderer;
@@ -19,6 +20,8 @@ public final class RenderEventListener implements GLEventListener {
     private int windowHeight = 10;
     private int vao;
     private int vbo;
+    private int projectionMatrixPos;
+    private Matrix4 projectionMatrix;
     private GameEventManager game;
 
     public RenderEventListener(GameEventManager game) {
@@ -72,6 +75,8 @@ public final class RenderEventListener implements GLEventListener {
         gl.glVertexAttribPointer(texCoordAttrib, 2, GL4.GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES);
         gl.glBindVertexArray(0);
 
+        projectionMatrixPos = gl.glGetUniformLocation(Shader.program, "projectionMatrix");
+
     }
 
 
@@ -89,6 +94,11 @@ public final class RenderEventListener implements GLEventListener {
             this.game.draw();
 
         Renderer.disposeGraphics();
+        
+        // Set origin to (0, 0) as top-left
+        projectionMatrix = new Matrix4();
+        projectionMatrix.makeOrtho(0.0f, (float) windowWidth, (float) windowHeight, 0.0f, 1.0f, -1.0f);
+        gl.glUniformMatrix4fv(projectionMatrixPos, 1, false, projectionMatrix.getMatrix(), 0);
 
         // Use shader
         gl.glUseProgram(Shader.program);

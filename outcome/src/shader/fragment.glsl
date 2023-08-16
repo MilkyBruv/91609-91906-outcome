@@ -11,7 +11,7 @@ void main() {
 
     vec4 col = texture(textureSampler, fragTexCoord);
 
-    vec4 newCol = vec4(col.r, 0.0, col.b, col.a);
+    vec4 newCol = vec4(col.g * 0.5, col.b, col.b, col.a);
 
     fragColor = fixColourInversion(newCol);
 
