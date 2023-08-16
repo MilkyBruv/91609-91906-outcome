@@ -1,11 +1,14 @@
 package event;
 
+import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.IntBuffer;
+import java.nio.FloatBuffer;
+import java.nio.ByteBuffer;
 
+import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
@@ -18,28 +21,15 @@ public final class RenderEventListener implements GLEventListener {
 
     private int windowWidth = 10;
     private int windowHeight = 10;
-    private int shaderProgram;
-    private int programId;
     private int vao;
     private int vbo;
-    private int framebuffer;
     private GameEventManager game;
-    private float[] verts = { // Texture vertices
-
-        // positions         // colors           // texture coords
-        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,    // top right
-        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,    // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
-
-    };;
 
     public RenderEventListener(GameEventManager game) {
 
         this.game = game;
 
     }
-
 
 
 
@@ -56,6 +46,36 @@ public final class RenderEventListener implements GLEventListener {
         Shader.loadAndCompileShaders(gl);
         Shader.createProgram(gl);
 
+        // Texture position buffer
+        FloatBuffer vertexBuffer = Buffers.newDirectFloatBuffer(new float[] {
+            -1.0f, -1.0f, 0.0f, 1.0f,   // Vertex 1 (x, y, u, v)
+            1.0f, -1.0f, 1.0f, 1.0f,    // Vertex 2 (x, y, u, v)
+            -1.0f,  1.0f, 0.0f, 0.0f,   // Vertex 3 (x, y, u, v)
+            1.0f,  1.0f, 1.0f, 0.0f     // Vertex 4 (x, y, u, v)
+        });
+
+        // Create VAOs and VBOs and pass info to shaders
+        int[] vaoArray = new int[1];
+        gl.glGenVertexArrays(1, vaoArray, 0);
+        vao = vaoArray[0];
+        gl.glBindVertexArray(vao);
+
+        int[] vboArray = new int[1];
+        gl.glGenBuffers(1, vboArray, 0);
+        vbo = vboArray[0];
+        
+        gl.glBindBuffer(GL4.GL_ARRAY_BUFFER, vbo);
+        gl.glBufferData(GL4.GL_ARRAY_BUFFER, vertexBuffer.capacity() * Float.BYTES, vertexBuffer, GL4.GL_STATIC_DRAW);
+
+        int positionAttrib = gl.glGetAttribLocation(Shader.program, "position");
+        int texCoordAttrib = gl.glGetAttribLocation(Shader.program, "texCoord");
+
+        gl.glEnableVertexAttribArray(positionAttrib);
+        gl.glVertexAttribPointer(positionAttrib, 2, GL4.GL_FLOAT, false, 4 * Float.BYTES, 0);
+        gl.glEnableVertexAttribArray(texCoordAttrib);
+        gl.glVertexAttribPointer(texCoordAttrib, 2, GL4.GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES);
+        gl.glBindVertexArray(0);
+
     }
 
 
@@ -65,7 +85,6 @@ public final class RenderEventListener implements GLEventListener {
 
         GL4 gl = drawable.getGL().getGL4();
 
-        // Clear display, set matrix mode, and set ortho viewport position to topleft (0, 0)
         gl.glClear(GL4.GL_COLOR_BUFFER_BIT);
 
         // Draw onto framebuffer
@@ -75,37 +94,25 @@ public final class RenderEventListener implements GLEventListener {
 
         Renderer.disposeGraphics();
 
-        framebuffer = Renderer.getFramebufferGlTexture().getTextureObject();
-        int[] framebufferPixelBuffer = ((DataBufferInt) Renderer.getFramebuffer().getRaster().getDataBuffer()).getData();
+        // Use shader
+        gl.glUseProgram(Shader.program);
 
-        // Generate and bind OpenGL Texture
-        gl.glGenTextures(1, IntBuffer.wrap(framebufferPixelBuffer));
-        gl.glBindTexture(GL4.GL_TEXTURE_2D, framebuffer);
-
-        // Set interpolation parameters to prevent blurring when scaling
-        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_LINEAR_MIPMAP_LINEAR);
-        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_LINEAR);
-
-        // Setup vertex map and texture
-        gl.glTexImage2D(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGB, Renderer.FRAMEBUFFER_BASE_WIDTH, 
-            Renderer.FRAMEBUFFER_BASE_HEIGHT, 0, GL4.GL_RGB, GL4.GL_UNSIGNED_BYTE, framebuffer);
-        gl.glGenerateMipmap(GL4.GL_TEXTURE_2D);
-        gl.glVertexAttribPointer(2, 2, GL4.GL_FLOAT, false, 8 * Float.BYTES, 6 * Float.BYTES);
-        gl.glEnableVertexAttribArray(2);
-
-        // Apply shader
-        Shader.useProgram(gl);
-
-        // Draw framebuffer OpenGL Texture to window
-        gl.glBindTexture(GL4.GL_TEXTURE_2D, framebuffer);
+        // Bind VAO
         gl.glBindVertexArray(vao);
-        gl.glDrawElements(GL4.GL_TRIANGLES, 6, GL4.GL_UNSIGNED_INT, 0);
 
-        // Remove shader
+        // Draw texture
+        createAndBindTexture(gl, Renderer.getFramebuffer());
+
+        // Set texture sampler pos uniform in shaders
+        int textureSamplerPos = gl.glGetUniformLocation(Shader.program, "textureSampler");
+        gl.glUniform1i(textureSamplerPos, 0);
+
+        // Render texture
+        gl.glDrawArrays(GL4.GL_TRIANGLE_STRIP, 0, 4);
+
+        // Unbind shader program and vertex array
+        gl.glBindVertexArray(0);
         gl.glUseProgram(0);
-
-        // Bind to 0 (No OpenGL Texture)
-        gl.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 
     }
 
@@ -132,7 +139,50 @@ public final class RenderEventListener implements GLEventListener {
     @Override
     public synchronized void dispose(GLAutoDrawable drawable) {
 
-        // 
+        GL4 gl = drawable.getGL().getGL4();
+
+        // Delete VBOs and VAOs
+        gl.glDeleteBuffers(1, new int[] {vbo}, 0);
+        gl.glDeleteVertexArrays(1, new int[] {vao}, 0);
+
+        // Delete shader
+        gl.glDeleteProgram(Shader.program);
+
+    }
+
+
+
+    private final void createAndBindTexture(GL4 gl, BufferedImage image) {
+
+        // Create texture
+        int[] textureArray = new int[1];
+        gl.glGenTextures(1, textureArray, 0);
+        int texture = textureArray[0];
+        
+        gl.glBindTexture(GL4.GL_TEXTURE_2D, texture);
+
+        // Set texture parameters
+        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
+        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
+        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_LINEAR);
+        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_LINEAR);
+
+        // Pass image data to texture
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[] pixels = new int[width * height];
+
+        image.getRGB(0, 0, width, height, pixels, 0, width);
+
+        ByteBuffer pixelBuffer = Buffers.newDirectByteBuffer(pixels.length * Integer.BYTES);
+
+        pixelBuffer.asIntBuffer().put(pixels);
+
+        gl.glTexImage2D(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, width, height, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, 
+            pixelBuffer);
+
+        // Bind the texture
+        gl.glBindTexture(GL4.GL_TEXTURE_2D, texture);
 
     }
 

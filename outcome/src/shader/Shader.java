@@ -8,7 +8,7 @@ import com.jogamp.opengl.GL4;
 
 public class Shader {
     
-    private static int program;
+    public static int program;
     private static String vertexSource = "";
     private static String fragmentSource = "";
     private static int vertex;
