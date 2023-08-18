@@ -47,10 +47,10 @@ public final class RenderEventListener implements GLEventListener {
 
         // Texture position buffer
         FloatBuffer vertexBuffer = Buffers.newDirectFloatBuffer(new float[] {
-            -1.0f, -1.0f, 0.0f, 1.0f,   // Vertex 1 (x, y, u, v)
-            1.0f, -1.0f, 1.0f, 1.0f,    // Vertex 2 (x, y, u, v)
-            -1.0f,  1.0f, 0.0f, 0.0f,   // Vertex 3 (x, y, u, v)
-            1.0f,  1.0f, 1.0f, 0.0f     // Vertex 4 (x, y, u, v)
+            -1.0f, -1.0f, 0.0f, 1.0f,   // Vertex 1 (x, y, u, v) bl
+            1.0f, -1.0f, 1.0f, 1.0f,    // Vertex 2 (x, y, u, v) br
+            -1.0f, 1.0f, 0.0f, 0.0f,   // Vertex 3 (x, y, u, v) tl
+            1.0f, 1.0f, 1.0f, 0.0f     // Vertex 4 (x, y, u, v) tr
         });
 
         // Create VAOs and VBOs and pass info to shaders
@@ -170,8 +170,8 @@ public final class RenderEventListener implements GLEventListener {
         // Set texture parameters
         gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_REPEAT);
         gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_REPEAT);
-        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_LINEAR);
-        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_LINEAR);
+        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+        gl.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 
         // Pass image data to texture
         int width = image.getWidth();

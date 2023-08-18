@@ -21,8 +21,8 @@ public abstract class Renderer {
     public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 18;
     public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
     public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
-    public static int framebufferX = 0;
-    public static int framebufferY = 0;
+    public static float framebufferX = 0;
+    public static float framebufferY = 0;
     private static final BufferedImage FRAMEBUFFER = new BufferedImage(FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT,
             BufferedImage.TYPE_INT_ARGB);
     private static Graphics2D framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
@@ -188,8 +188,11 @@ public abstract class Renderer {
         framebufferHeight = Math.round((float) FRAMEBUFFER_BASE_HEIGHT * scale);
 
         // Calculate centre-screen positions
-        framebufferX = Math.round(((float) 2 / 2) - ((float) framebufferWidth / 2));
-        framebufferY = Math.round(((float) 2 / 2) - ((float) framebufferHeight / 2));
+        // framebufferX = Math.round(((float) 2 / 2) - ((float) framebufferWidth / 2));
+        // framebufferY = Math.round(((float) 2 / 2) - ((float) framebufferHeight / 2));
+
+        framebufferX = 0 - (float) (2 / ((float) ((float) framebufferWidth / 2)));
+        framebufferY = 0 - (float) (2 / ((float) ((float) framebufferHeight / 2)));
 
     }
 
