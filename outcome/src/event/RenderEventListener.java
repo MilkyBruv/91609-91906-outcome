@@ -23,6 +23,7 @@ public final class RenderEventListener implements GLEventListener {
     private int projectionMatrixPos;
     private Matrix4 projectionMatrix;
     private GameEventManager game;
+    private FloatBuffer vertexBuffer = Renderer.framebufferVertexBuffer;
 
     public RenderEventListener(GameEventManager game) {
 
@@ -37,6 +38,8 @@ public final class RenderEventListener implements GLEventListener {
 
         GL4 gl = drawable.getGL().getGL4();
 
+        Renderer.scaleFramebuffer(windowWidth, windowHeight);
+
         // Set clear colour and enable images to be draw to the window
         gl.glClearColor(0f, 0f, 0f, 1f);
         gl.glEnable(GL4.GL_TEXTURE_2D);
@@ -44,14 +47,6 @@ public final class RenderEventListener implements GLEventListener {
         // Create shaders
         Shader.loadAndCompileShaders(gl);
         Shader.createProgram(gl);
-
-        // Texture position buffer
-        FloatBuffer vertexBuffer = Buffers.newDirectFloatBuffer(new float[] {
-            -1.0f, -1.0f, 0.0f, 1.0f,   // Vertex 1 (x, y, u, v) bl
-            1.0f, -1.0f, 1.0f, 1.0f,    // Vertex 2 (x, y, u, v) br
-            -1.0f, 1.0f, 0.0f, 0.0f,   // Vertex 3 (x, y, u, v) tl
-            1.0f, 1.0f, 1.0f, 0.0f     // Vertex 4 (x, y, u, v) tr
-        });
 
         // Create VAOs and VBOs and pass info to shaders
         int[] vaoArray = new int[1];
@@ -135,8 +130,34 @@ public final class RenderEventListener implements GLEventListener {
         // Set display viewport to resized window
         gl.glViewport(x, y, width, height);
 
-        // Scale framebuffer when
+        // Scale framebuffer only when window is resized
         Renderer.scaleFramebuffer(windowWidth, windowHeight);
+
+        vertexBuffer = Renderer.framebufferVertexBuffer;
+
+        // Create VAOs and VBOs and pass info to shaders
+        int[] vaoArray = new int[1];
+        gl.glGenVertexArrays(1, vaoArray, 0);
+        vao = vaoArray[0];
+        gl.glBindVertexArray(vao);
+
+        int[] vboArray = new int[1];
+        gl.glGenBuffers(1, vboArray, 0);
+        vbo = vboArray[0];
+        
+        gl.glBindBuffer(GL4.GL_ARRAY_BUFFER, vbo);
+        gl.glBufferData(GL4.GL_ARRAY_BUFFER, vertexBuffer.capacity() * Float.BYTES, vertexBuffer, GL4.GL_STATIC_DRAW);
+
+        int positionAttrib = gl.glGetAttribLocation(Shader.program, "position");
+        int texCoordAttrib = gl.glGetAttribLocation(Shader.program, "texCoord");
+
+        gl.glEnableVertexAttribArray(positionAttrib);
+        gl.glVertexAttribPointer(positionAttrib, 2, GL4.GL_FLOAT, false, 4 * Float.BYTES, 0);
+        gl.glEnableVertexAttribArray(texCoordAttrib);
+        gl.glVertexAttribPointer(texCoordAttrib, 2, GL4.GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES);
+        gl.glBindVertexArray(0);
+
+        projectionMatrixPos = gl.glGetUniformLocation(Shader.program, "projectionMatrix");
 
     }
 

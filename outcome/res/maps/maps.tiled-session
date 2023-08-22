@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tileset.tsx",
+    "activeFile": "main.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -11,6 +11,14 @@
         "image.tsx": {
             "scaleInDock": 5.5,
             "scaleInEditor": 5.5
+        },
+        "main.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 277.81818181818187,
+                "y": 251.36363636363637
+            }
         },
         "test.tmx": {
             "scale": 1.5,
@@ -34,23 +42,25 @@
         }
     },
     "last.imagePath": "C:/Users/Kai/Code/SCHOOL/91907-91609-outcome/outcome/res",
-    "map.height": 40,
+    "map.height": 160,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 8,
     "map.tileWidth": 8,
-    "map.width": 60,
+    "map.width": 240,
     "openFiles": [
         "image.tsx",
         "test.tmx",
         "test1.tmx",
-        "tileset.tsx"
+        "tileset.tsx",
+        "main.tmx"
     ],
     "project": "maps.tiled-project",
     "recentFiles": [
         "image.tsx",
         "test.tmx",
         "test1.tmx",
-        "tileset.tsx"
+        "tileset.tsx",
+        "main.tmx"
     ],
     "resizeMap.removeObjects": true,
     "tileset.lastUsedFormat": "tsx",

@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.nio.FloatBuffer;
 
 import com.jogamp.common.nio.Buffers;
-import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
@@ -19,10 +18,19 @@ public abstract class Renderer {
     // Framebuffer scaling and positioning variable declarations
     public static final int FRAMEBUFFER_BASE_WIDTH = 16 * 18; // 16:9 ratio is the aspect ratio for most monitors
     public static final int FRAMEBUFFER_BASE_HEIGHT = 9 * 18;
-    public static int framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
-    public static int framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
+    public static float framebufferWidth = FRAMEBUFFER_BASE_WIDTH;
+    public static float framebufferHeight = FRAMEBUFFER_BASE_HEIGHT;
     public static float framebufferX = 0;
     public static float framebufferY = 0;
+    public static FloatBuffer framebufferVertexBuffer = Buffers.newDirectFloatBuffer(new float[] {
+
+        // x, y, u, v
+        -1.0f, -1.0f, 0.0f, 1.0f,   // Vertex 1 bl
+        1.0f, -1.0f, 1.0f, 1.0f,    // Vertex 2 br
+        -1.0f, 1.0f, 0.0f, 0.0f,   // Vertex 3 tl
+        1.0f, 1.0f, 1.0f, 0.0f     // Vertex 4 tr
+
+    });
     private static final BufferedImage FRAMEBUFFER = new BufferedImage(FRAMEBUFFER_BASE_WIDTH, FRAMEBUFFER_BASE_HEIGHT,
             BufferedImage.TYPE_INT_ARGB);
     private static Graphics2D framebufferGraphics2D = (Graphics2D) FRAMEBUFFER.getGraphics();
@@ -188,11 +196,22 @@ public abstract class Renderer {
         framebufferHeight = Math.round((float) FRAMEBUFFER_BASE_HEIGHT * scale);
 
         // Calculate centre-screen positions
-        // framebufferX = Math.round(((float) 2 / 2) - ((float) framebufferWidth / 2));
-        // framebufferY = Math.round(((float) 2 / 2) - ((float) framebufferHeight / 2));
+        framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
+        framebufferY = Math.round(((float) windowHeight / 2) - ((float) framebufferHeight / 2));
 
-        framebufferX = 0 - (float) (2 / ((float) ((float) framebufferWidth / 2)));
-        framebufferY = 0 - (float) (2 / ((float) ((float) framebufferHeight / 2)));
+        float glX = (framebufferX / (float) windowWidth) * 2.0f - 1.0f;
+        float glY = (framebufferX / (float) windowWidth) * 2.0f - 1.0f;
+        float glWidth = (2.0f / windowWidth) / framebufferWidth;
+        float glHeight = (2.0f / windowHeight) / framebufferHeight;
+
+        framebufferVertexBuffer = Buffers.newDirectFloatBuffer(new float[] {
+
+            glX, glY, 0.0f, 1.0f,
+            glX + glWidth, glY, 1.0f, 1.0f,
+            glX, glY + glHeight, 0.0f, 0.0f,
+            glX + glWidth, glY + glHeight, 1.0f, 0.0f,
+
+        });
 
     }
 
