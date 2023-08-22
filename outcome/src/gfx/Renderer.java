@@ -199,10 +199,12 @@ public abstract class Renderer {
         framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
         framebufferY = Math.round(((float) windowHeight / 2) - ((float) framebufferHeight / 2));
 
-        float glX = (framebufferX / (float) windowWidth) * 2.0f - 1.0f;
-        float glY = (framebufferX / (float) windowWidth) * 2.0f - 1.0f;
-        float glWidth = (2.0f / windowWidth) / framebufferWidth;
-        float glHeight = (2.0f / windowHeight) / framebufferHeight;
+        float glWidthInterval = (2.0f / windowWidth);
+        float glHeightInterval = (2.0f / windowHeight);
+        float glWidth = framebufferWidth * glWidthInterval;
+        float glHeight = framebufferHeight * glHeightInterval;
+        float glX = framebufferX * glWidthInterval - 1.0f;
+        float glY = framebufferY * glHeightInterval - 1.0f;
 
         framebufferVertexBuffer = Buffers.newDirectFloatBuffer(new float[] {
 
