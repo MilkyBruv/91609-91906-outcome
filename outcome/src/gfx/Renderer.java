@@ -176,7 +176,8 @@ public abstract class Renderer {
 
 
     /**
-     * Scales framebuffer to fit window perfectly, keeping the aspect ratio and resolution the same
+     * Scales and normalizes framebuffer dimensions and position to fit window perfectly
+     * Keeps the aspect ratio and resolution the same
      * 
      * @param windowWidth - current window width from {@link RenderEventListener}
      * @param windowHeight - current window height from {@link RenderEventListener}
@@ -199,6 +200,7 @@ public abstract class Renderer {
         framebufferX = Math.round(((float) windowWidth / 2) - ((float) framebufferWidth / 2));
         framebufferY = Math.round(((float) windowHeight / 2) - ((float) framebufferHeight / 2));
 
+        // Normalize framebuffer position and dimensions to work with OpenGL co-ordinate system
         float glWidthInterval = (2.0f / windowWidth);
         float glHeightInterval = (2.0f / windowHeight);
         float glWidth = framebufferWidth * glWidthInterval;
