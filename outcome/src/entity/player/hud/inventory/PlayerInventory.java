@@ -1,7 +1,6 @@
 package entity.player.hud.inventory;
 
 import entity.item.Item;
-import entity.item.ItemList;
 import entity.player.Player;
 
 public class PlayerInventory {

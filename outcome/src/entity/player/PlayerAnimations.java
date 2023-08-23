@@ -14,7 +14,7 @@ public abstract class PlayerAnimations {
 	public static final ImageResource[][] idleFrames = new ImageResource[2][4];
 	public static final ImageResource[][] runningFrames = new ImageResource[2][4];
 
-	static {
+	public static final void init() {
 
 		try {
 
@@ -28,24 +28,24 @@ public abstract class PlayerAnimations {
 
 		// Assign all frames from player spritesheet
 		idleFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(0, 0, 32, 32);
-		idleFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(1, 0, 32, 32);
-		idleFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(2, 0, 32, 32);
-		idleFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(3, 0, 32, 32);
+		idleFrames[RIGHT][1] = spritesheet.getSubImageByDimensions(1, 0, 32, 32);
+		idleFrames[RIGHT][2] = spritesheet.getSubImageByDimensions(2, 0, 32, 32);
+		idleFrames[RIGHT][3] = spritesheet.getSubImageByDimensions(3, 0, 32, 32);
 
 		idleFrames[LEFT][0] = spritesheet.getSubImageByDimensions(0, 1, 32, 32);
-		idleFrames[LEFT][0] = spritesheet.getSubImageByDimensions(1, 1, 32, 32);
-		idleFrames[LEFT][0] = spritesheet.getSubImageByDimensions(2, 1, 32, 32);
-		idleFrames[LEFT][0] = spritesheet.getSubImageByDimensions(3, 1, 32, 32);
+		idleFrames[LEFT][1] = spritesheet.getSubImageByDimensions(1, 1, 32, 32);
+		idleFrames[LEFT][2] = spritesheet.getSubImageByDimensions(2, 1, 32, 32);
+		idleFrames[LEFT][3] = spritesheet.getSubImageByDimensions(3, 1, 32, 32);
 
 		runningFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(4, 0, 32, 32);
-		runningFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(5, 0, 32, 32);
-		runningFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(6, 0, 32, 32);
-		runningFrames[RIGHT][0] = spritesheet.getSubImageByDimensions(7, 0, 32, 32);
+		runningFrames[RIGHT][1] = spritesheet.getSubImageByDimensions(5, 0, 32, 32);
+		runningFrames[RIGHT][2] = spritesheet.getSubImageByDimensions(6, 0, 32, 32);
+		runningFrames[RIGHT][3] = spritesheet.getSubImageByDimensions(7, 0, 32, 32);
 
 		runningFrames[LEFT][0] = spritesheet.getSubImageByDimensions(4, 1, 32, 32);
-		runningFrames[LEFT][0] = spritesheet.getSubImageByDimensions(5, 1, 32, 32);
-		runningFrames[LEFT][0] = spritesheet.getSubImageByDimensions(6, 1, 32, 32);
-		runningFrames[LEFT][0] = spritesheet.getSubImageByDimensions(7, 1, 32, 32);
+		runningFrames[LEFT][1] = spritesheet.getSubImageByDimensions(5, 1, 32, 32);
+		runningFrames[LEFT][2] = spritesheet.getSubImageByDimensions(6, 1, 32, 32);
+		runningFrames[LEFT][3] = spritesheet.getSubImageByDimensions(7, 1, 32, 32);
 
 	}
 

@@ -20,8 +20,8 @@ public final class Player extends Entity {
 
     public Rectangle rect;
     public Rectangle groundRect;
-    public int width = 8;
-    public int height = 8;
+    public int width = 32;
+    public int height = 32;
     public int speed = 2;
     public float velX = 0;
     public float velY = 0;
@@ -32,6 +32,13 @@ public final class Player extends Entity {
     public boolean collidedDown = false;
     public boolean collidedRight = false;
     public boolean canJump = false;
+    public boolean movingLeft = false;
+    public boolean movingRight = false;
+    public boolean movingUp = false;
+    public boolean movingDown = false;
+    public boolean facingLeft = false;
+    public boolean facingRight = true;
+    public boolean moving = false;
 
     public List<Boolean> groundRectCollisions = new ArrayList<>();
 
@@ -44,6 +51,8 @@ public final class Player extends Entity {
         this.rect = new Rectangle(this.x, this.y, this.width, this.height);
         this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
         this.image = Tileset.getImage("17");
+
+        PlayerAnimations.init();
         
     }
     
@@ -66,6 +75,8 @@ public final class Player extends Entity {
         this.detectTileCollisions("y");
 
         this.getKeyInput();
+        this.setVelocityStates();
+        this.setAnimationFrames();
 
     }
 
@@ -100,7 +111,7 @@ public final class Player extends Entity {
 
                             if (this.velX > 0) {
 
-                                this.x = tile.x - GameSettings.TILESIZE;
+                                this.x = tile.x - this.width;
                                 this.collidedRight = true;
 
                             }
@@ -154,7 +165,7 @@ public final class Player extends Entity {
 
                             if (this.velY > 0) {
 
-                                this.y = tile.y - GameSettings.TILESIZE;
+                                this.y = tile.y - this.height;
                                 this.collidedDown = true;
 
                             }
@@ -212,6 +223,39 @@ public final class Player extends Entity {
     public void applyXVelocity() {
 
         this.x += this.velX;
+
+    }
+
+
+
+    public final void setVelocityStates() {
+
+        if (this.velX < 0) { this.moving = true; this.movingLeft = true; this.facingLeft = true; return; } else { this.movingLeft = false; }
+        if (this.velX > 0) { this.moving = true; this.movingRight = true; this.facingRight = true; return; } else { this.movingRight = false; }
+        if (this.velY < 0) { this.moving = true; this.movingUp = true; return; } else { this.movingUp = false; }
+        if (this.velY > 0) { this.moving = true; this.movingDown = true; return; } else { this.movingDown = false; }
+
+    }
+
+
+
+    public final void setAnimationFrames() {
+
+        if (this.movingLeft) {
+
+            this.image = PlayerAnimations.runningFrames[PlayerAnimations.LEFT][(Math.round(this.x / 20.0f)) % 
+                PlayerAnimations.runningFrames[PlayerAnimations.LEFT].length];
+
+        }
+
+        if (this.movingRight) {
+
+            this.image = PlayerAnimations.runningFrames[PlayerAnimations.RIGHT][(Math.round(this.x / 20.0f)) % 
+                PlayerAnimations.runningFrames[PlayerAnimations.RIGHT].length];
+
+        }
+
+        if (this.facingLeft && !this.movingLeft && !this.movingRight)
 
     }
 
