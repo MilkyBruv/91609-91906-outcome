@@ -1,5 +1,7 @@
 package entity.player;
 
+import java.io.IOException;
+
 import gfx.ImageResource;
 
 public abstract class PlayerAnimations {
