@@ -9,10 +9,12 @@ import com.jogamp.newt.event.KeyEvent;
 import common.Commons;
 import entity.Entity;
 import entity.player.hud.inventory.PlayerInventory;
+import entity.rect.DebugRect;
 import entity.tile.Tile;
 import event.KeyInfo;
 import game.GameEventManager;
 import game.GameSettings;
+import gfx.ImageResource;
 import gfx.Renderer;
 import tileset.Tileset;
 
@@ -20,8 +22,9 @@ public final class Player extends Entity {
 
     public Rectangle rect;
     public Rectangle groundRect;
-    public int width = 32;
-    public int height = 32;
+    public DebugRect debugRect;
+    public int width = 10;
+    public int height = 28;
     public int speed = 2;
     public float velX = 0;
     public float velY = 0;
@@ -40,6 +43,12 @@ public final class Player extends Entity {
     public boolean facingRight = true;
     public boolean moving = false;
 
+    public int frameDirection = PlayerAnimations.RIGHT;
+    public int currentFrame = 0;
+
+    private long lastIdleFrameUpdate = 0;
+    private long idleAnimationFrameInterval = 100;
+
     public List<Boolean> groundRectCollisions = new ArrayList<>();
 
     public PlayerInventory inventory = new PlayerInventory(this);
@@ -48,8 +57,9 @@ public final class Player extends Entity {
         
         super(x, y, game);
         
-        this.rect = new Rectangle(this.x, this.y, this.width, this.height);
+        this.rect = new Rectangle(this.x + (16 - (this.width / 2)), this.y, this.width, this.height);
         this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
+        this.debugRect = new DebugRect(this.rect, this.drawX + (16 - (this.width / 2)), this.drawY);
         this.image = Tileset.getImage("17");
 
         PlayerAnimations.init();
@@ -67,11 +77,15 @@ public final class Player extends Entity {
 
         this.setDrawPosition();
 
-        this.rect.x = this.x;
+        this.rect.x = this.x + (16 - (this.width / 2));
         this.groundRect.x = this.x;
+        this.debugRect.x = this.rect.x;
+        this.debugRect.drawX = this.drawX + (16 - (this.width / 2));
         this.detectTileCollisions("x");
         this.rect.y = this.y;
         this.groundRect.y = this.y + this.height;
+        this.debugRect.y = this.rect.y;
+        this.debugRect.drawY = this.drawY;
         this.detectTileCollisions("y");
 
         this.getKeyInput();
@@ -118,8 +132,6 @@ public final class Player extends Entity {
 
                             this.rect.x = this.x;
                             this.velX = 0;
-                            
-                            // break;
 
                         } else {
 
@@ -230,10 +242,55 @@ public final class Player extends Entity {
 
     public final void setVelocityStates() {
 
-        if (this.velX < 0) { this.moving = true; this.movingLeft = true; this.facingLeft = true; return; } else { this.movingLeft = false; }
-        if (this.velX > 0) { this.moving = true; this.movingRight = true; this.facingRight = true; return; } else { this.movingRight = false; }
-        if (this.velY < 0) { this.moving = true; this.movingUp = true; return; } else { this.movingUp = false; }
-        if (this.velY > 0) { this.moving = true; this.movingDown = true; return; } else { this.movingDown = false; }
+        if (this.velX < 0) {
+
+            this.moving = true;
+            this.movingLeft = true;
+            this.movingRight = false;
+            this.movingUp = false;
+            this.movingDown = false;
+
+            this.facingLeft = true;
+            this.facingRight = false;
+            this.frameDirection = PlayerAnimations.LEFT;
+
+        } else if (this.velX > 0) {
+
+            this.moving = true;
+            this.movingLeft = false;
+            this.movingRight = true;
+            this.movingUp = false;
+            this.movingDown = false;
+
+            this.facingLeft = false;
+            this.facingRight = true;
+            this.frameDirection = PlayerAnimations.RIGHT;
+
+        } else if (this.velY < 0) {
+
+            this.moving = true;
+            this.movingLeft = false;
+            this.movingRight = false;
+            this.movingUp = true;
+            this.movingDown = false;
+
+        } else if (this.velY > 2) {
+
+            this.moving = true;
+            this.movingLeft = false;
+            this.movingRight = false;
+            this.movingUp = false;
+            this.movingDown = true;
+
+        } else if (this.velX == 0 && this.velY == 0) {
+
+            this.moving = false;
+            this.movingLeft = false;
+            this.movingRight = false;
+            this.movingUp = false;
+            this.movingDown = false;
+
+        }
 
     }
 
@@ -241,21 +298,56 @@ public final class Player extends Entity {
 
     public final void setAnimationFrames() {
 
-        if (this.movingLeft) {
+        if (this.moving) {
 
-            this.image = PlayerAnimations.runningFrames[PlayerAnimations.LEFT][(Math.round(this.x / 20.0f)) % 
-                PlayerAnimations.runningFrames[PlayerAnimations.LEFT].length];
+            try {
+
+                this.image = PlayerAnimations.runningFrames[this.frameDirection][(Math.round(this.x / 20.0f)) % 
+                    PlayerAnimations.runningFrames[this.frameDirection].length];
+
+                System.out.println("moving");
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+        
+        if (!this.moving) {
+
+            long now = System.currentTimeMillis();
+
+            if (now - this.lastIdleFrameUpdate >= this.idleAnimationFrameInterval) {
+
+                FrameInfo frameInfo = this.updateAnimationFrame(PlayerAnimations.idleFrames[this.frameDirection], this.currentFrame);
+                this.image = frameInfo.image();
+                this.currentFrame = frameInfo.frame();
+
+                System.out.println("NOT MOVING");
+
+                this.lastIdleFrameUpdate = now;
+
+            }
 
         }
 
-        if (this.movingRight) {
+    }
 
-            this.image = PlayerAnimations.runningFrames[PlayerAnimations.RIGHT][(Math.round(this.x / 20.0f)) % 
-                PlayerAnimations.runningFrames[PlayerAnimations.RIGHT].length];
+
+
+    private final FrameInfo updateAnimationFrame(ImageResource[] frames, int currentFrame) {
+
+        int frameCount = frames.length - 1;
+
+        if (currentFrame == frameCount) {
+
+            return new FrameInfo(frames[0], 0);
 
         }
 
-        if (this.facingLeft && !this.movingLeft && !this.movingRight)
+        return new FrameInfo(frames[currentFrame + 1], currentFrame + 1);
 
     }
 
@@ -332,6 +424,7 @@ public final class Player extends Entity {
     public void draw() {
 
         Renderer.drawImage(this.image, this.drawX, this.drawY);
+        Renderer.drawRect(new Rectangle(this.debugRect.drawX, this.debugRect.drawY, this.debugRect.width, this.debugRect.height), 0xffffff);
 
     }
     

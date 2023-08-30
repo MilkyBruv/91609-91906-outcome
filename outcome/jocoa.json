@@ -13,6 +13,7 @@
         "src/entity/item/items/*.java",
         "src/entity/player/*.java",
         "src/entity/player/hud/inventory/*.java",
+        "src/entity/rect/*.java",
         "src/entity/tile/*.java",
         
         "src/event/*.java",

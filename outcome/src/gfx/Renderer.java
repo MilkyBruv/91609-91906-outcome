@@ -2,6 +2,7 @@ package gfx;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.nio.FloatBuffer;
 
@@ -114,6 +115,40 @@ public abstract class Renderer {
 
         // Draw line
         framebufferGraphics2D.drawLine(x1, y1, x2, y2);
+
+    }
+
+
+
+    /**
+     * Draws a rectangle on screen using the properties of the supplied rect
+     * 
+     * @param rect
+     */
+    public static final void drawRect(Rectangle rect) {
+
+        framebufferGraphics2D.drawRect(rect.x, rect.y, rect.width, rect.height);
+
+    }
+
+
+
+    /**
+     * Draws a rectangle on screen using the properties of the supplied rect with the supplied colour
+     * 
+     * @param rect
+     */
+    public static final void drawRect(Rectangle rect, int hex) {
+
+        // Get current colour
+        Color previousColour = framebufferGraphics2D.getColor();
+
+        // Draw rect with colour
+        framebufferGraphics2D.setColor(new Color(hex));
+        framebufferGraphics2D.drawRect(rect.x, rect.y, rect.width, rect.height);
+
+        // Set colour back to previous
+        framebufferGraphics2D.setColor(previousColour);
 
     }
 

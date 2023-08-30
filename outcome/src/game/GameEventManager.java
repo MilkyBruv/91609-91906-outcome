@@ -12,7 +12,7 @@ import static game.GameSettings.*;
 public final class GameEventManager {
 
     public Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
-    public Player player = new Player(32, 32, this);
+    public Player player = new Player(0, 0, this);
     public Camera camera = new Camera(this, this.player);
 
     public BoxElement boxElement = new BoxElement(0, 0, 9, 9);
