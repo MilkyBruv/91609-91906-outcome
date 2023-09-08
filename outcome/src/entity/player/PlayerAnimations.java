@@ -8,6 +8,8 @@ public abstract class PlayerAnimations {
 
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
+	public static final float RUNNING_FRAME_INTERVAL = 20.0f;
+	public static final int IDLE_FRAME_INTERVAL = 100;
 
 	private static ImageResource spritesheet = null;
 

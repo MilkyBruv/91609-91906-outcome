@@ -23,8 +23,8 @@ public final class Player extends Entity {
     public Rectangle rect;
     public Rectangle groundRect;
     public DebugRect debugRect;
-    public int width = 10;
-    public int height = 28;
+    public int width = 32;
+    public int height = 32;
     public int speed = 2;
     public float velX = 0;
     public float velY = 0;
@@ -47,7 +47,6 @@ public final class Player extends Entity {
     public int currentFrame = 0;
 
     private long lastIdleFrameUpdate = 0;
-    private long idleAnimationFrameInterval = 100;
 
     public List<Boolean> groundRectCollisions = new ArrayList<>();
 
@@ -57,9 +56,9 @@ public final class Player extends Entity {
         
         super(x, y, game);
         
-        this.rect = new Rectangle(this.x + (16 - (this.width / 2)), this.y, this.width, this.height);
+        this.rect = new Rectangle(this.x, this.y, this.width, this.height);
         this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
-        this.debugRect = new DebugRect(this.rect, this.drawX + (16 - (this.width / 2)), this.drawY);
+        this.debugRect = new DebugRect(this.rect, this.drawX, this.drawY);
         this.image = Tileset.getImage("17");
 
         PlayerAnimations.init();
@@ -77,10 +76,10 @@ public final class Player extends Entity {
 
         this.setDrawPosition();
 
-        this.rect.x = this.x + (16 - (this.width / 2));
+        this.rect.x = this.x;
         this.groundRect.x = this.x;
         this.debugRect.x = this.rect.x;
-        this.debugRect.drawX = this.drawX + (16 - (this.width / 2));
+        this.debugRect.drawX = this.drawX;
         this.detectTileCollisions("x");
         this.rect.y = this.y;
         this.groundRect.y = this.y + this.height;
@@ -96,6 +95,23 @@ public final class Player extends Entity {
 
 
 
+    public final boolean tileInCollisionRange(Tile tile) {
+
+        if ((Commons.inRange(tile.y, this.y - this.rect.height * this.collisionDistance, this.y + this.rect.height * this.collisionDistance + 1) || 
+            Commons.inRange(tile.y + tile.rect.height, this.y - this.rect.height * this.collisionDistance, this.y + this.rect.height * this.collisionDistance + 1)) && 
+            (Commons.inRange(tile.x, this.x - this.rect.width * this.collisionDistance, this.x + this.rect.width * this.collisionDistance + 1) || 
+            Commons.inRange(tile.x + tile.rect.width, this.x - this.rect.width * this.collisionDistance, this.x + this.rect.width * this.collisionDistance + 1))) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+
+
     public final void detectTileCollisions(String dir) {
 
         // Detect collisions in determined direction (x or y)
@@ -105,10 +121,7 @@ public final class Player extends Entity {
             for (Tile tile : this.game.tilemap.getTiles()) {
 
                 // Check if the tile is close to avoid checking collisions for every tile on the map
-                if ((Commons.inRange(tile.y, this.y - this.height * this.collisionDistance, this.y + this.height * this.collisionDistance + 1) || 
-                    Commons.inRange(tile.y + tile.height, this.y - this.height * this.collisionDistance, this.y + this.height * this.collisionDistance + 1)) && 
-                    (Commons.inRange(tile.x, this.x - this.width * this.collisionDistance, this.x + this.width * this.collisionDistance + 1) || 
-                    Commons.inRange(tile.x + tile.width, this.x - this.width * this.collisionDistance, this.x + this.width * this.collisionDistance + 1))) {
+                if (this.tileInCollisionRange(tile)) {
 
                     if (tile.type.equals("solid")) {
 
@@ -157,10 +170,7 @@ public final class Player extends Entity {
             for (Tile tile : this.game.tilemap.getTiles()) {
 
                 // Check if the tile is close to avoid checking collisions for every tile on the map
-                if ((Commons.inRange(tile.y, this.y - this.height * this.collisionDistance, this.y + this.height * this.collisionDistance + 1) || 
-                    Commons.inRange(tile.y + tile.height, this.y - this.height * this.collisionDistance, this.y + this.height * this.collisionDistance + 1)) && 
-                    (Commons.inRange(tile.x, this.x - this.width * this.collisionDistance, this.x + this.width * this.collisionDistance + 1) || 
-                    Commons.inRange(tile.x + tile.width, this.x - this.width * this.collisionDistance, this.x + this.width * this.collisionDistance + 1))) {
+                if (this.tileInCollisionRange(tile)) {
 
                     if (tile.type.equals("solid")) {
 
@@ -302,7 +312,7 @@ public final class Player extends Entity {
 
             try {
 
-                this.image = PlayerAnimations.runningFrames[this.frameDirection][(Math.round(this.x / 20.0f)) % 
+                this.image = PlayerAnimations.runningFrames[this.frameDirection][(Math.round(this.x / PlayerAnimations.RUNNING_FRAME_INTERVAL)) % 
                     PlayerAnimations.runningFrames[this.frameDirection].length];
 
                 System.out.println("moving");
@@ -319,7 +329,7 @@ public final class Player extends Entity {
 
             long now = System.currentTimeMillis();
 
-            if (now - this.lastIdleFrameUpdate >= this.idleAnimationFrameInterval) {
+            if (now - this.lastIdleFrameUpdate >= PlayerAnimations.IDLE_FRAME_INTERVAL) {
 
                 FrameInfo frameInfo = this.updateAnimationFrame(PlayerAnimations.idleFrames[this.frameDirection], this.currentFrame);
                 this.image = frameInfo.image();

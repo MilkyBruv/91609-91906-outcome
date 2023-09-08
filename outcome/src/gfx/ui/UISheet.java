@@ -8,13 +8,13 @@ public class UISheet {
 
     private static ImageResource image;
 
-    public final static ImageResource[] BOX_ELEMENT_IMAGE_SECTIONS = new ImageResource[9];
+    public static final ImageResource[] BOX_ELEMENT_IMAGE_SECTIONS = new ImageResource[9];
     // 0, 1, 2
     // 3, 4, 5
     // 6, 7, 8
 
-    public final static ImageResource[] TEXT_BOX_ELEMENT_IMAGE_SECTIONS = new ImageResource[9];
-    // 0, 1, 2
+    public static final ImageResource[] SLIDER_BOX_ELEMENT_IMAGE_SECTIONS = new ImageResource[11];
+    // 0, 1, 2      9, 10
     // 3, 4, 5
     // 6, 7, 8
 
@@ -31,25 +31,27 @@ public class UISheet {
             BOX_ELEMENT_IMAGE_SECTIONS[2] = image.getSubImageByDimensions(2, 0, 8, 8);
 
             BOX_ELEMENT_IMAGE_SECTIONS[3] = image.getSubImageByDimensions(0, 1, 8, 8);
-            // [4] is blank and therefore is not loaded
+            BOX_ELEMENT_IMAGE_SECTIONS[4] = image.getSubImageByDimensions(1, 1, 8, 8);
             BOX_ELEMENT_IMAGE_SECTIONS[5] = image.getSubImageByDimensions(2, 1, 8, 8);
 
             BOX_ELEMENT_IMAGE_SECTIONS[6] = image.getSubImageByDimensions(0, 2, 8, 8);
             BOX_ELEMENT_IMAGE_SECTIONS[7] = image.getSubImageByDimensions(1, 2, 8, 8);
             BOX_ELEMENT_IMAGE_SECTIONS[8] = image.getSubImageByDimensions(2, 2, 8, 8);
 
-            // Text Box Element
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[0] = BOX_ELEMENT_IMAGE_SECTIONS[0];
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[1] = BOX_ELEMENT_IMAGE_SECTIONS[1];
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[2] = BOX_ELEMENT_IMAGE_SECTIONS[2];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[0] = BOX_ELEMENT_IMAGE_SECTIONS[0];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[1] = BOX_ELEMENT_IMAGE_SECTIONS[1];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[2] = BOX_ELEMENT_IMAGE_SECTIONS[2];
 
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[3] = BOX_ELEMENT_IMAGE_SECTIONS[3];
-            // [4] is blank and therefore is not loaded
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[5] = BOX_ELEMENT_IMAGE_SECTIONS[5];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[3] = BOX_ELEMENT_IMAGE_SECTIONS[3];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[4] = BOX_ELEMENT_IMAGE_SECTIONS[4];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[5] = BOX_ELEMENT_IMAGE_SECTIONS[5];
 
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[6] = BOX_ELEMENT_IMAGE_SECTIONS[6];
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[7] = BOX_ELEMENT_IMAGE_SECTIONS[7];
-            TEXT_BOX_ELEMENT_IMAGE_SECTIONS[8] = BOX_ELEMENT_IMAGE_SECTIONS[8];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[6] = BOX_ELEMENT_IMAGE_SECTIONS[6];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[7] = BOX_ELEMENT_IMAGE_SECTIONS[7];
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[8] = BOX_ELEMENT_IMAGE_SECTIONS[8];
+
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[9] = image.getSubImageByDimensions(3, 0, 8, 8);
+            SLIDER_BOX_ELEMENT_IMAGE_SECTIONS[10] = image.getSubImageByDimensions(4, 0, 8, 8);
 
         } catch (IOException e) {
             
