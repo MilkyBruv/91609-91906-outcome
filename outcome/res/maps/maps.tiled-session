@@ -16,8 +16,8 @@
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 241.25,
-                "y": 182.625
+                "x": 960,
+                "y": 639.875
             }
         },
         "new.tmx": {
@@ -32,16 +32,16 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 340.66666666666663,
-                "y": 239
+                "x": 320,
+                "y": 239.66666666666666
             }
         },
         "test1.tmx": {
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 150,
-                "y": 160.375
+                "x": 240,
+                "y": 159.875
             }
         },
         "tileset.tsx": {

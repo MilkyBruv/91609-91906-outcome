@@ -26,6 +26,7 @@ public abstract class AssetManager {
 
         sounds.put("audio1", new SoundResource("audio.wav"));
         images.put("image1", new ImageResource("image.png"));
+        images.put("light", new ImageResource("tileset.png").getSubImage(0, 6 * 8, 24, 32));
 
     }
 

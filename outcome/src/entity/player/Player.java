@@ -23,7 +23,7 @@ public final class Player extends Entity {
     public Rectangle rect;
     public Rectangle groundRect;
     public DebugRect debugRect;
-    public int width = 32;
+    public int width = 16;
     public int height = 32;
     public int speed = 2;
     public float velX = 0;
@@ -56,8 +56,8 @@ public final class Player extends Entity {
         
         super(x, y, game);
         
-        this.rect = new Rectangle(this.x, this.y, this.width, this.height);
-        this.groundRect = new Rectangle(this.x, this.y + this.height, this.width, 1);
+        this.rect = new Rectangle(this.x + 8, this.y, this.width, this.height);
+        this.groundRect = new Rectangle(this.x + 8, this.y + this.height, this.width, 1);
         this.debugRect = new DebugRect(this.rect, this.drawX, this.drawY);
         this.image = Tileset.getImage("17");
 
@@ -76,10 +76,10 @@ public final class Player extends Entity {
 
         this.setDrawPosition();
 
-        this.rect.x = this.x;
-        this.groundRect.x = this.x;
-        this.debugRect.x = this.rect.x;
-        this.debugRect.drawX = this.drawX;
+        this.rect.x = this.x + 8;
+        this.groundRect.x = this.x + 8;
+        this.debugRect.x = this.rect.x + 8;
+        this.debugRect.drawX = this.drawX + 8;
         this.detectTileCollisions("x");
         this.rect.y = this.y;
         this.groundRect.y = this.y + this.height;
@@ -99,8 +99,8 @@ public final class Player extends Entity {
 
         if ((Commons.inRange(tile.y, this.y - this.rect.height * this.collisionDistance, this.y + this.rect.height * this.collisionDistance + 1) || 
             Commons.inRange(tile.y + tile.rect.height, this.y - this.rect.height * this.collisionDistance, this.y + this.rect.height * this.collisionDistance + 1)) && 
-            (Commons.inRange(tile.x, this.x - this.rect.width * this.collisionDistance, this.x + this.rect.width * this.collisionDistance + 1) || 
-            Commons.inRange(tile.x + tile.rect.width, this.x - this.rect.width * this.collisionDistance, this.x + this.rect.width * this.collisionDistance + 1))) {
+            (Commons.inRange(tile.x, this.x + 8 - this.rect.width * this.collisionDistance, this.x + 8 + this.rect.width * this.collisionDistance + 1) || 
+            Commons.inRange(tile.x + tile.rect.width, this.x + 8 - this.rect.width * this.collisionDistance, this.x + 8 + this.rect.width * this.collisionDistance + 1))) {
 
             return true;
 
@@ -131,19 +131,19 @@ public final class Player extends Entity {
 
                             if (this.velX < 0) {
 
-                                this.x = tile.x + GameSettings.TILESIZE;
+                                this.rect.x = tile.x + GameSettings.TILESIZE;
                                 this.collidedLeft = true;
 
                             }
 
                             if (this.velX > 0) {
 
-                                this.x = tile.x - this.width;
+                                this.rect.x = tile.x - this.rect.width;
                                 this.collidedRight = true;
 
                             }
 
-                            this.rect.x = this.x;
+                            this.x = this.rect.x - 8;
                             this.velX = 0;
 
                         } else {

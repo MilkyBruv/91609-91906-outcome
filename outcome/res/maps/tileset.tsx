@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="tileset" tilewidth="8" tileheight="8" tilecount="256" columns="16">
+<tileset version="1.4" tiledversion="1.4.3" name="tileset" tilewidth="8" tileheight="8" tilecount="256" columns="16">
  <image source="../tileset.png" width="128" height="128"/>
  <tile id="0" type="solid"/>
  <tile id="1" type="solid"/>
@@ -14,8 +14,8 @@
  <tile id="10" type="solid"/>
  <tile id="11" type="solid"/>
  <tile id="12" type="solid"/>
- <tile id="13" type="null"/>
- <tile id="14" type="null"/>
+ <tile id="13" type="solid"/>
+ <tile id="14" type="solid"/>
  <tile id="15" type="null"/>
  <tile id="16" type="solid"/>
  <tile id="17" type="solid"/>
@@ -30,8 +30,8 @@
  <tile id="26" type="solid"/>
  <tile id="27" type="solid"/>
  <tile id="28" type="solid"/>
- <tile id="29" type="null"/>
- <tile id="30" type="null"/>
+ <tile id="29" type="solid"/>
+ <tile id="30" type="solid"/>
  <tile id="31" type="null"/>
  <tile id="32" type="solid"/>
  <tile id="33" type="solid"/>
@@ -43,11 +43,11 @@
  <tile id="39" type="solid"/>
  <tile id="40" type="solid"/>
  <tile id="41" type="solid"/>
- <tile id="42" type="null"/>
- <tile id="43" type="null"/>
- <tile id="44" type="null"/>
- <tile id="45" type="null"/>
- <tile id="46" type="null"/>
+ <tile id="42" type="solid"/>
+ <tile id="43" type="solid"/>
+ <tile id="44" type="solid"/>
+ <tile id="45" type="solid"/>
+ <tile id="46" type="solid"/>
  <tile id="47" type="null"/>
  <tile id="48" type="solid"/>
  <tile id="49" type="solid"/>
@@ -59,11 +59,11 @@
  <tile id="55" type="solid"/>
  <tile id="56" type="solid"/>
  <tile id="57" type="solid"/>
- <tile id="58" type="null"/>
- <tile id="59" type="null"/>
- <tile id="60" type="null"/>
- <tile id="61" type="null"/>
- <tile id="62" type="null"/>
+ <tile id="58" type="solid"/>
+ <tile id="59" type="solid"/>
+ <tile id="60" type="solid"/>
+ <tile id="61" type="solid"/>
+ <tile id="62" type="solid"/>
  <tile id="63" type="null"/>
  <tile id="64" type="null"/>
  <tile id="65" type="null"/>
@@ -76,10 +76,10 @@
  <tile id="72" type="null"/>
  <tile id="73" type="null"/>
  <tile id="74" type="null"/>
- <tile id="75" type="null"/>
- <tile id="76" type="null"/>
- <tile id="77" type="null"/>
- <tile id="78" type="null"/>
+ <tile id="75" type="solid"/>
+ <tile id="76" type="solid"/>
+ <tile id="77" type="solid"/>
+ <tile id="78" type="solid"/>
  <tile id="79" type="null"/>
  <tile id="80" type="null"/>
  <tile id="81" type="null"/>
@@ -92,10 +92,10 @@
  <tile id="88" type="null"/>
  <tile id="89" type="null"/>
  <tile id="90" type="null"/>
- <tile id="91" type="null"/>
- <tile id="92" type="null"/>
- <tile id="93" type="null"/>
- <tile id="94" type="null"/>
+ <tile id="91" type="solid"/>
+ <tile id="92" type="solid"/>
+ <tile id="93" type="solid"/>
+ <tile id="94" type="solid"/>
  <tile id="95" type="null"/>
  <tile id="96" type="null"/>
  <tile id="97" type="null"/>

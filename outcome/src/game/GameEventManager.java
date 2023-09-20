@@ -13,6 +13,8 @@ import static game.GameSettings.*;
 
 import com.jogamp.newt.event.KeyEvent;
 
+import asset.AssetManager;
+
 public final class GameEventManager {
 
     public Tilemap tilemap = new Tilemap(this, new int[] {0, 0});
@@ -74,6 +76,12 @@ public final class GameEventManager {
         for (Tile tile : this.tilemap.getTiles()) {
             
             Renderer.drawImage(tile.image, tile.drawX, tile.drawY);
+
+            if (tile.id.equals("16")) {
+    
+                Renderer.drawImage(AssetManager.images.get("light"), tile.drawX - TILESIZE, tile.drawY + 3);
+    
+            }
 
         }
 
