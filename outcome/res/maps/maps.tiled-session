@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "main.tmx",
+    "activeFile": "new.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -13,27 +13,35 @@
             "scaleInEditor": 5.5
         },
         "main.tmx": {
-            "scale": 5.5,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 277.81818181818187,
-                "y": 251.36363636363637
+                "x": 241.25,
+                "y": 182.625
+            }
+        },
+        "new.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 974.6666666666667,
+                "y": 594
             }
         },
         "test.tmx": {
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 341,
-                "y": 239.66666666666663
+                "x": 340.66666666666663,
+                "y": 239
             }
         },
         "test1.tmx": {
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 239.875,
-                "y": 159.875
+                "x": 150,
+                "y": 160.375
             }
         },
         "tileset.tsx": {
@@ -52,7 +60,8 @@
         "test.tmx",
         "test1.tmx",
         "tileset.tsx",
-        "main.tmx"
+        "main.tmx",
+        "new.tmx"
     ],
     "project": "maps.tiled-project",
     "recentFiles": [
@@ -60,7 +69,8 @@
         "test.tmx",
         "test1.tmx",
         "tileset.tsx",
-        "main.tmx"
+        "main.tmx",
+        "new.tmx"
     ],
     "resizeMap.removeObjects": true,
     "tileset.lastUsedFormat": "tsx",
