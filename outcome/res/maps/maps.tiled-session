@@ -16,31 +16,31 @@
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 960,
+                "x": 959.875,
                 "y": 639.875
             }
         },
         "new.tmx": {
-            "scale": 0.75,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 974.6666666666667,
-                "y": 594
+                "x": 522.25,
+                "y": 319.625
             }
         },
         "test.tmx": {
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 320,
-                "y": 239.66666666666666
+                "x": 341,
+                "y": 239.66666666666663
             }
         },
         "test1.tmx": {
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 240,
+                "x": 239.875,
                 "y": 159.875
             }
         },
