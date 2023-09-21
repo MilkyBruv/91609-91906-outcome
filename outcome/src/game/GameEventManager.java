@@ -4,12 +4,16 @@ import camera.Camera;
 import entity.player.Player;
 import entity.tile.Tile;
 import event.KeyInfo;
+import gfx.ImageResource;
 import gfx.Renderer;
 import gfx.ui.elements.BoxElement;
 import gfx.ui.elements.SliderBoxElement;
 import gfx.ui.elements.TextBoxElement;
 import map.Tilemap;
 import static game.GameSettings.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jogamp.newt.event.KeyEvent;
 
@@ -26,6 +30,9 @@ public final class GameEventManager {
         "this is some test text!");
     public SliderBoxElement sliderBoxElement = new SliderBoxElement(0, 
         Renderer.FRAMEBUFFER_BASE_HEIGHT - (TILESIZE * 5), "test", 5, 1);
+
+    private List<ImageResource> lightImages = new ArrayList<ImageResource>() {};
+    private List<Integer[]> lightImagesPosition = new ArrayList<Integer[]>() {};
 
     public GameEventManager() {
         
@@ -79,7 +86,8 @@ public final class GameEventManager {
 
             if (tile.id.equals("16")) {
     
-                Renderer.drawImage(AssetManager.images.get("light"), tile.drawX - TILESIZE, tile.drawY + 3);
+                lightImages.add(AssetManager.images.get("light"));
+                lightImagesPosition.add(new Integer[] {tile.drawX - TILESIZE, tile.drawY + 3});
     
             }
 
@@ -90,6 +98,15 @@ public final class GameEventManager {
         this.sliderBoxElement.draw();
 
         this.player.draw();
+
+        for (int i = 0; i < lightImages.size(); i++) {
+            
+            Renderer.drawImage(lightImages.get(i), lightImagesPosition.get(i)[0], lightImagesPosition.get(i)[1]);
+
+        }
+
+        lightImages.clear();
+        lightImagesPosition.clear();
 
     }
     
