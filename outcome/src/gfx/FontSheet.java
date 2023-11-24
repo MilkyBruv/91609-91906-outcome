@@ -63,14 +63,23 @@ public final class FontSheet {
         int x = 0;
 
         for (Character c : text.toCharArray()) {
+
+            ImageResource currentCharImage = charMap.get(c);
             
-            g2d.drawImage(charMap.get(c).getBufferedImage(), x, 0, null);
+            // Check if the character has a corresponding image, or if it even exists on the HashMap
+            if (currentCharImage != null) {
+
+                g2d.drawImage(currentCharImage.getBufferedImage(), x, 0, null);
+
+            }
+            
             x += TILESIZE;
 
         }
 
         g2d.dispose();
 
+        // Return the image with the text rendered on top
         return textImage;
 
     }

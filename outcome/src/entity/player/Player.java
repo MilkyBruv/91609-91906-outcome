@@ -95,17 +95,26 @@ public final class Player extends Entity {
 
 
 
+    /**
+     * Detects if the supplied tile is within the bounds of the collision range
+     * 
+     * @param tile - Tile to detect
+     * @return A Boolean, true if the tile is in collision range, and false if not.
+     */
     public final boolean tileInCollisionRange(Tile tile) {
 
+        // Detect if the supplied tile is within the collision range
         if ((Commons.inRange(tile.y, this.y - this.rect.height * this.collisionDistance, this.y + this.rect.height * this.collisionDistance + 1) || 
             Commons.inRange(tile.y + tile.rect.height, this.y - this.rect.height * this.collisionDistance, this.y + this.rect.height * this.collisionDistance + 1)) && 
             (Commons.inRange(tile.x, this.x + 8 - this.rect.width * this.collisionDistance, this.x + 8 + this.rect.width * this.collisionDistance + 1) || 
             Commons.inRange(tile.x + tile.rect.width, this.x + 8 - this.rect.width * this.collisionDistance, this.x + 8 + this.rect.width * this.collisionDistance + 1))) {
 
+            // If the tile IS in range
             return true;
 
         }
 
+        // If the tile IS NOT in range
         return false;
 
     }
@@ -125,8 +134,8 @@ public final class Player extends Entity {
 
                     if (tile.type.equals("solid")) {
 
-                        // If the tile is solid and the player is moving, set the position to align with the tile and zero
-                        // the player velocity
+                        // If the tile is solid and the player is moving, set the position to align with the tile and 
+                        // zero the player velocity
                         if (this.rect.intersects(tile.rect)) {
 
                             if (this.velX < 0) {
@@ -197,6 +206,7 @@ public final class Player extends Entity {
 
                         }
                         
+                        // Check if the ground rect collides with any tiles
                         if (this.groundRect.intersects(tile.rect)) {
 
                             this.groundRectCollisions.add(true);
@@ -213,6 +223,7 @@ public final class Player extends Entity {
 
             }
 
+            // If the ground rect collides with any tiles then stop the player from moving
             if (!this.groundRectCollisions.contains(true)) {
 
                 this.collidedDown = false;

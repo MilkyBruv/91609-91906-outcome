@@ -21,11 +21,11 @@
             }
         },
         "new.tmx": {
-            "scale": 4,
+            "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 522.25,
-                "y": 319.625
+                "x": 400.66666666666663,
+                "y": 509
             }
         },
         "test.tmx": {

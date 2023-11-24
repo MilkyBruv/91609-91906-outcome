@@ -3,11 +3,8 @@
     "files": [
 
         "src/asset/*.java",
-
         "src/camera/*.java",
-        
         "src/common/*.java",
-        
         "src/entity/*.java",
         "src/entity/item/*.java",
         "src/entity/item/items/*.java",
@@ -15,23 +12,15 @@
         "src/entity/player/hud/inventory/*.java",
         "src/entity/rect/*.java",
         "src/entity/tile/*.java",
-        
         "src/event/*.java",
-        
         "src/game/*.java",
-        
         "src/gfx/*.java",
         "src/gfx/ui/*.java",
         "src/gfx/ui/elements/*.java",
-        
         "src/main/*.java",
-        
         "src/map/*.java",
-        
         "src/sfx/*.java",
-        
         "src/shader/*.java",
-
         "src/tileset/*.java"
 
     ],
@@ -43,7 +32,8 @@
         "lib/joal-natives-windows-amd64.jar",
         "lib/joal.jar",
         "lib/jogl-all-natives-windows-amd64.jar",
-        "lib/jogl-all.jar"
+        "lib/jogl-all.jar",
+        "json-simple-tag_release_1_1_1.jar"
 
     ],
 

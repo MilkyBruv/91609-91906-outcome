@@ -93,9 +93,9 @@ public final class GameEventManager {
 
         }
 
-        this.boxElement.draw();
-        this.textBoxElement.draw();
-        this.sliderBoxElement.draw();
+        // this.boxElement.draw();
+        // this.textBoxElement.draw();
+        // this.sliderBoxElement.draw();
 
         this.player.draw();
 
