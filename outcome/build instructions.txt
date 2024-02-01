@@ -9,7 +9,7 @@ To compile the code there are 3 ways:
 	Download and install the mingw build tools into "your/folder/msys64/" ("C:/msys64" is recommended for windows)
 	Add "your/folder/msys64/mingw64/bin" to your PATH
 	Test it was installed properly by opening the command line and running "gcc"
-	The command shoudl return something along the lines of "gcc: fatal error: no input files, compilation terminated."
+	The command should return something along the lines of "gcc: fatal error: no input files, compilation terminated."
 
 	Go to the root folder of the local repo in any command line and run "make"
 
@@ -17,7 +17,7 @@ To compile the code there are 3 ways:
 	If you get any errors, make sure mingw64 is installed properly, and that the folders you specify exist (provide full path)
 	Then add "your/folder/jocoa" to your PATH
 	Go to the root folder of the code (./outcome) in the command line
-	Run "jocoa run"
+	Run "jocoa run main"
 
 
 	OR
