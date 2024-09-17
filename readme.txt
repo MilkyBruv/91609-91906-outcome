@@ -1,0 +1,1 @@
+Howdy, if your Discord username matches that of GitHub, BF2015 kicked you by accident and would like to apologize to you. ChesterKiwi (or myself, for that matter) can't either text or add you because of your privacy settings. Hope you're the person we are looking for, sorry for reaching out via GitHub!
